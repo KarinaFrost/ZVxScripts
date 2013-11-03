@@ -33,6 +33,7 @@
 
      TEMPLATE1: "<span style='color:%1;'><timestamp /><b>~Script~:</b></span> %2",
      TEMPLATE2: "<span style='color:%1;'><timestamp /><b>~Script~:</b> %2</span>",
+     TEMPLATE3: "<span style='color:%1;'><timestamp />%2</span>",
 
 
      formatAs: function (text, type)
@@ -55,7 +56,7 @@
              return this.TEMPLATE2.replace(/%1/g, "green").replace(/%2/, text);
 
          case this.LOG:
-             return this.TEMPLATE2.replace(/%1/g, "grey").replace(/%2/, text);
+             return this.TEMPLATE3.replace(/%1/g, "grey").replace(/%2/, text);
 
 
          default:
