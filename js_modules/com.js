@@ -122,7 +122,7 @@
 
 
 
-         if (chans) chans = this.util.arrayify(chans);
+         chans = this.util.arrayify(chans);
 
          this.logs.logMessage(this.logs.BROADCAST, this.stripHtmlBool(msg, html));
 
