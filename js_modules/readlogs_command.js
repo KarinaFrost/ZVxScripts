@@ -61,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 else if (cmd.flags.type || cmd.flags.types) // only warn if the user specified types manually.
                 {
-                    this.com.message(src, "Permission Denied: Can't view logs of type " + ptypes[x] + ".", this.theme.WARN);
+                    this.com.message(src, "Permission Denied: Can't view logs of type " + ptypes[x] + ".", this.theme.WARN, false, chan);
                 }
             }
 
@@ -83,7 +83,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 }
             }
 
-            this.less.less(src, "<b>Logs:</b><hr/>" + msgs.join("<br/>") + "<hr/>", true);
+            this.less.less(src, "<b>Logs:</b><hr/>" + msgs.join("<br/>") + "<hr/>", true, chan);
         }
     }
     ,

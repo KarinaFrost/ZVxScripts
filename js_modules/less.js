@@ -60,7 +60,7 @@
       * @param msg The message to send
       * @param html If msg is html.
       */
-     less: function (src, msg, html)
+     less: function (src, msg, html, chan)
      {
          var lines;
 
@@ -99,7 +99,7 @@
              }
              var maxpages =  Math.ceil(lines.length / cfg.lessLength);
 
-             bind.com.message([src], bind.config.fmtPage.replace(/<pagenumber\s*\/\s*>/g, p).replace(/<pagecount\s*\/\s*>/g, maxpages), -1, true);
+             bind.com.message([src], bind.config.fmtPage.replace(/<pagenumber\s*\/\s*>/g, p).replace(/<pagecount\s*\/\s*>/g, maxpages), -1, true, chan);
 
              bind.chat.registerCapture(src, handle, bind);
 
@@ -110,7 +110,7 @@
              var lmsg = msg.toLowerCase();
              if (lmsg === "exit" || lmsg === "e" || lmsg === "q" || lmsg === "quit")
              {
-                 bind.com.message([src], this.config.fmtEnd, -1, true);
+                 bind.com.message([src], this.config.fmtEnd, -1, true, chan);
                  return;
              }
 
@@ -120,7 +120,7 @@
                  return;
              }
              var maxpages =  Math.ceil(lines.length / cfg.lessLength);
-             bind.com.message([src], bind.config.fmtError.replace(/<pagenumber\s*\/\s*>/g, p).replace(/<pagecount\s*\/\s*>/g, maxpages), -1, true);
+             bind.com.message([src], bind.config.fmtError.replace(/<pagenumber\s*\/\s*>/g, p).replace(/<pagecount\s*\/\s*>/g, maxpages), -1, true, chan);
              bind.chat.registerCapture(src, handle, bind);
          }
 

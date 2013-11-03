@@ -42,73 +42,80 @@
       * @param {rpgClass} ctx.rpg The current rpg we are in.
       */
 
-     entHtml:  function (e)
-     {
-         var that = this;
 
-         function bar (val, max, colorfull, colorempty, neon)
-         {
-             var hpBar = "";
-             var d;
-
-             var hpFract = Math.floor(val/max*8*10);
-             if (hpFract < 0) hpFract = 0;
-             var hpTenths = (hpFract - hpFract%8)/8;
-             var hpEightiths = (hpFract-hpTenths*8) % 8;
-
-             for (var x = 0; x < hpTenths; x++) hpBar += "\u2588";
-             var hpSlivers = ["", "\u258f", "\u258e", "\u258d", "\u258c", "\u258b", "\u258a", "\u2589"];
-
-             //if ("" + hpSlivers[hpEightiths] == "undefined") print( "UNDEFINED " + [val, max, hpSlivers, hpEightiths, hpFract, hpTenths, hpTenths*8, hpFract - hpTenths].join(", "));
-
-             if (hpEightiths >= 4) hpBar += "\u2588";
-             //else hpBar += hpSlivers[hpEightiths];
-             while(hpBar.length < 10) hpBar += "\u259e";
-
-             return "<code>[<span style='color:" + that.color.colorTriadToString(that.color.neonify(that.color.colorMixProp(colorfull, colorempty, val/max), neon))+ "'>" + hpBar + "</span>]</code> ("+String(val/max*100).substring(0, 5)+"%)";
-         }
-
-         return "<table><tr><td></td><td>" + e.name + "</td></tr>" +
-             "<tr><td><b>HP</b></td><td>" + bar(e.hp, e.maxhp, [0, 0xee, 0], [0xff, 00, 00], 1) + "</td></tr>"+
-             "<tr><td><b>SP</b></td><td>" + bar(e.sp, e.maxsp,  [0x20, 0xff, 0x20], [0, 00, 00], 0) +"</td></tr>"+
-             "<tr><td><b>MP</b></td><td>" + bar(e.mp, e.maxmp, [0, 0, 0xff], [0, 00, 00], 0) +"</td></tr>"+
-             "<tr><td><b>MSP</b></td><td>" + bar(e.msp, e.maxmsp,  [0xaa, 0xaa, 0xff], [00, 00, 00], 0) +"</td></tr></table>";
-
-     },
-
-     printOutStatus: function (pids, entities)
-     {
-         var player_htmls = [];
-         var mob_htmls= [];
-         for (x in entities)
-         {
-             (entities[x].type == "player" ? player_htmls : mob_htmls).push(this.entHtml(entities[x]));
-         }
-
-         var outhtml = "<p align='center'><table><tr><td><h1></h1></td><td><h1>&nbsp;&nbsp;&nbsp;&nbsp;V.S.&nbsp;&nbsp;&nbsp;&nbsp;</h1></td><td><h1></h1></td></tr>";
-
-         for (var i = 0; i < player_htmls.length || i < mob_htmls.length; i++)
-         {
-             outhtml += "<tr><td>" + (player_htmls[i]||"&nbsp;") + "</td><td></td><td>" + (mob_htmls[i]||"&nbsp;") + "</td></tr>";
-         }
-
-         outhtml += "</table></p>";
-
-
-
-         this.com.message(pids, outhtml, -1, true);
-
-     },
 
      battleStep: function (ctx)
      {
-         var x, x2, x3, i;
-         var rpg = ctx.rpg;
+         var x, x2, x3, i, rpg = ctx.rpg, that = this;
 
          var battle = ctx.battle;
 
+         if (!battle.tracker) battle.tracker = new Object;
+
          if (!battle.round) battle.round = 0;
 
+
+         battle.round++;
+
+         function isDead(e)
+         {
+             return e.hp <= 0 || e.msp <= 0;
+         }
+
+         function testDead (e)
+         {
+
+
+             if (e.hp <= 0 || e.msp <= 0)
+             {
+                 if (e.hp <= 0) that.com.message(pids, e.name + " was slain!");
+                 else if (e.msp <= 0) that.com.message(pids, e.name + " collapsed!");
+
+
+
+                 if (e.type == "player")
+                 {
+                     battle.players.splice(battle.players.indexOf(e.name), 1);
+                     var pname = e.name.toLowerCase();
+
+
+                     rpg.players[pname].battle = null;
+                     // Remove from battle.
+
+
+
+                 }
+
+
+                 else // type is "mob"
+                 {
+                     if (e.drops)
+                     {
+                         battle.droppedItems = battle.droppedItems || new Array;
+                         var drops = that.util.arrayify(e.drops);
+
+                         for (x in drops)
+                         {
+                             if (drops[x].prob > Math.random())
+                             {
+                                 if (typeof drops[x].item === "string") // bulk item
+                                 {
+                                     that.com.message(pids, "The slain " + e.name + " dropped " + drops[x].count + " " + that.items[drops[x].item].name + "(s)");
+
+                                     battle.droppedItems[drops[x].item] = (battle.droppedItems[drops[x].item] || 0) + drops[x].count;
+                                 }
+                             }
+                         }
+                     }
+
+                     battle.mobs.splice(battle.mobs.indexOf(e));
+                 }
+
+                 return true;
+             }
+
+             else return false;
+         }
 
 
          // team_players is an array of all the players that are playing
@@ -116,8 +123,11 @@
          var team_players = [];
          for (x in battle.players)
          {
-             team_players.push(rpg.players[battle.players[x]]);
+             team_players.push(rpg.players[battle.players[x].toLowerCase()]);
              // Battle players contains NAMES of players, not the player objects!
+
+             // also set the tracker
+             if (!battle.tracker[battle.players[x]]) battle.tracker[battle.players[x]] = { str:0, sta:0, mag:0, msp:0, sp:0 };
          }
 
          var team_mobs = []; // Do not save!
@@ -154,32 +164,84 @@
 
          for (x in entities)
          {
-             if (battle.round == 0) this.entityUpdateStats(entities[x]);
+             this.entityUpdateStats(entities[x]);
              this.entityTick(entities[x]);
 
          }
 
          this.printOutStatus(pids, entities);
 
-         battleLoop: for (x in entities)
+
+         l0: for (x in entities)
          {
              var attacker = ctx.attacker = entities[x];
              var at = entities[x].type;
              var move = ctx.move = this.pickMove(entities[x]);
 
+             if (isDead(attacker)) continue;
 
              if (ctx.move.cost) for (x2 in ctx.move.cost)
              {
-                 ctx.attacker[mp] -= ctx.move.cost[x2];
 
-                 if (ctx.attacker[x2] < 0)
+
+                 if (ctx.attacker[x2] <  ctx.move.cost[x2])
                  {
-                     this.com.message(pids, ctx.attacker.name + " tried to use "  + ctx.move.name + " but didn't have enough " + this.longStatName[x2 === "mp" ? "mana" : x2],
+                     ctx.attacker[x2] -= ctx.move.cost[x2]/3;
+                     this.com.message(pids, ctx.attacker.name + " tried to use "  + ctx.move.name + " but didn't have enough " + x2.toUpperCase(),
                                       this.theme.GAME);
-                     continue battleLoop;
+
+                     if (attacker.type == "player")
+                     {
+                         x3 = {"mp":"mag", "sp":"sta", "msp":"men", "hp":"res", "lp": "spr"};
+                         battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) + 100;
+                     }
+                     continue l0;
+                 }
+                 else
+                 {
+
+                     ctx.attacker[x2] -= ctx.move.cost[x2];
+                     if (attacker.type == "player")
+                     {
+                         x3 = {"mp":"mag", "sp":"sta", "msp":"men", "hp":"res", "lp": "spr"};
+                         battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) + 5;
+                     }
                  }
              }
 
+             this.com.message(pids, ctx.attacker.name + " used "  + ctx.move.name + "!");
+
+             if (false && attacker.type== "player")
+             {
+                 if (!ctx.attacker.exp[move.name]) ctx.attacker.exp[move.name] = 0;
+
+                 ctx.attacker.exp[move.name] += 10;
+
+                 l1: if (false && this.skills[move.name].next)
+                 {
+                     var ar = this.skills[move.name].next;
+                     i = [];
+
+                     for (x2 in ar)
+                     {
+                         if ((attacker.exp[ar[x2]] || 0) < this.skills[ar[x2]].threshold) i.push(ar[x2]);
+                     }
+
+                     if (i.length == 0)
+                     {
+                         break l1;
+                     }
+
+                     this.util.shuffle(i);
+                     i.sort( function (a, b){ return ctx.attacker.exp[b] - ctx.attacker.exp[a]; } );
+
+                     attacker.exp[i[0]] = (attacker.exp[i[0]] || 0) + 10;
+
+                 }
+             }
+
+
+             // todo: : redo this part in order to allow pvp
              for (x2 in ctx.move.components)
              {
                  var cmp = ctx.move.components[x2];
@@ -206,31 +268,42 @@
                      break;
                  }
 
-                 this.util.shuffle(targets);
 
-                 if (count == -1) count = targets.length;;
+
+                 if (count == -1) count = targets.length;
+
+                 else this.util.shuffle(targets);
+
+                 var struck = [];
 
                  if (count > 0)
                  {
                      for (x3 in targets)
                      {
+
                          if (count-- === 0) break;
 
 
-                         // ["\u2588","\u2593", "\u2592","\u2591"];
-                         //print('a');
                          var dmg = this.moves[cmp.move]({attacker: entities[x], target:targets[x3], component:cmp});
 
-                         this.com.message(pids, cmp.desc.replace(/%s/g, ctx.attacker.name).replace(/%t/,targets[x3].name) + " (-"+dmg+")", this.theme.RPG);
-                         //print('b');
+
+                         struck.push(targets[x3].name + " (-"+dmg+")");
+
+                         if (targets[x3].type == "player")
+                         {
+                             battle.tracker[targets[x3].name].res += 10;
+                         }
 
 
+                         if (attacker.type == "player" && ctx.move.exp)
+                         {
+                             battle.tracker[attacker.name][ctx.move.exp] += 10;
+                         }
                      }
+
+                     if (cmp.desc) this.com.message(pids, cmp.desc.replace(/%s/g, ctx.attacker.name).replace(/%t/, struck.join(" ")), this.theme.RPG);
                  }
 
-                 var tn = []; // Target names
-
-                 for (x3 in targets) tn.push(targets[x3].name);
 
 
 
@@ -242,38 +315,76 @@
 
          }
 
+
+
+
          for (i = 0; i < entities.length; i++)
          {
-             if (entities[i].hp <= 0)
-             {
-                 this.com.message(pids, entities[i].name + " was slain!");
-                 if (entities[i].type == "player")
-                 {
-                     battle.players.splice(battle.players.indexOf(entities[i].name), 1);
-                 }
 
-                 else
-                 {
-                     battle.mobs.splice(battle.mobs.indexOf(entities[i]));
-                 }
+
+             if (testDead(entities[i]))
+             {
 
                  entities.splice(i, 1);
 
-
                  i--;
              }
+
+
 
          }
 
          this.com.message(pids, "Battle: End Round.");
 
-
-
          this.printOutStatus(pids, entities);
 
-          if (battle.players.length == 0 || battle.mobs.length == 0)
+
+
+         if (battle.players.length == 0 || battle.mobs.length == 0)
          {
              this.com.message(pids, "Battle ended");
+
+
+             var dps = new Array(battle.players.length);
+             // [i] = index of player id
+
+
+
+             for (x in battle.droppedItems)
+             {
+                 while (battle.droppedItems[x]-- > 0)
+                 {
+
+                     i = Math.floor(Math.random()*dps.length);
+
+                     dps[i] = dps[i] || new Object;
+
+                     dps[i][x] = (dps[i][x] || 0) + 1;
+                 }
+             }
+
+             for (i = 0; i < dps.length; i++)
+             {
+                 var msg = [];
+
+
+
+                 for (x in dps[i])
+                 {
+                     msg.push(dps[i][x] + " " + that.items[x].name + "(s)");
+
+                     rpg.players[battle.players[i]].items[x] = (rpg.players[battle.players[i]].items[x] || 0) + dps[i][x];
+                 }
+
+                 this.com.message(pids, battle.players[i] + " got " + msg.join(", ") + "!");
+             }
+
+
+             for (x in battle.players)
+             {
+                 rpg.players[battle.players[x]].battle = null;
+             }
+
              delete rpg.battles[ctx.battleId];
          }
      }

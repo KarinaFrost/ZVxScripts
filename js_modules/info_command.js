@@ -87,7 +87,7 @@
 
              }
 
-             this.com.message([src], "<br/>"+m.join("<br/>"), this.theme.INFO, true);
+             this.com.message([src], "<br/>"+m.join("<br/>"), this.theme.INFO, true, chan);
          }
      },
 

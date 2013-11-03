@@ -24,22 +24,8 @@
      {
          var m = JSON.parse(JSON.stringify(this.mobs[mb]));
 
-         if (!m.sta) m.sta = 100;
-         if (!m.str) m.str = 100;
-         if (!m.res) m.res = 100;
-         if (!m.men) m.men = 100;
-         if (!m.psy) m.psy = 100;
-         if (!m.spd) m.spd = 100;
-         if (!m.mag) m.mag = 100;
-         if (!m.spr) m.spr = 100;
+         this.initializeEntity(m);
 
-         this.entityUpdateStats(m);
-
-
-         m.hp = m.maxhp;
-         m.mp = m.maxmp;
-         m.msp = m.maxmsp;
-         m.sp = m.maxsp;
 
          m.type = "mob";
 
@@ -50,14 +36,13 @@
      {
          testchicken:
          {
-             name: "TESTCHICKEN __proto__ $('Chicken')",
+             name: "TESTCHICKEN",
              desc: "",
-             offense: 100,
-             maxhp: 200,
-             defense: 6000,
+             str: 30,
+             res: 30,
              drops: [{
                          prob: 1,
-                         item: "shroomcap",
+                         item: "testfeather",
                          count: 1
                      }]
          },

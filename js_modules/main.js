@@ -28,6 +28,18 @@
  * @class
  * @name Module
  */
+/** List of names of modules to "require" by gluing them unto the "this" property.
+ * @name require
+ * @memberOf Module.prototype
+ */
+/** Name of the module, glued unto the module by the modloader
+ * @name modname
+ * @memberOf Module.prototype
+ */
+/** List of names of submodules to "include" by gluing them unto the "this" property. These are not added as separate module objects, but rather the properties are glued directly unto the module.
+ * @name include
+ * @memberOf Module.prototype
+ */
 /** Called when a module is loaded. Should initialize the internal state of the module.
  * @name loadModule
  * @event
@@ -48,518 +60,528 @@
  *  @name script
  *  @namespace
  */
-(function () {
-     /** @scope script */
-     return {
-         /** Holds some very basic configuration */
-         config: null
-         ,
-         /** The modules object stores all the modules
-          * @namespace
-          * @memberOf script
-          */
-         modules: null
-         ,
-         modInfo: null
-         ,
-         debug: function (m)
-         {
-             print(m);
-         }
-         ,
-         /** Logs a message to the console or the logging module*/
-         log: function log (msg)
-         {
-             print ("SCRIPT: " + msg);
-         }
-         ,
-         error: function _err_ (e)
-         {
-             print("SCRIPTERROR: " + e);
-         }
-         ,
-         /** Does nothing
-          * @deprecated Doesn't do anything
-          */
-         broadcast : function _DEPRECATED_ (msg)
-         {
+/** @scope script */
+({
 
-         }
-         ,
-         /** Registers a script event handler
-          * @param {string} handlername The event name of the script handler.
-          * @param {Module} object The module to register this handler from
-          * @param {string} [propname=handlername] The name of the handler on the module, if it is different from the event name.
-          * */
-         registerHandler: function registerHandler (handlername, object, propname)
-         {
-             if (!propname) propname = handlername;
-             var bind = this;
+     /** Holds some very basic configuration */
+     config: null,
 
-             if (! (handlername in script))
+
+     /** The modules object stores all the modules
+      * @namespace
+      * @memberOf script
+      */
+     modules: null,
+
+//     modInfo: null,
+
+     debug: function (m)
+     {
+         print(m);
+     },
+
+
+     /** Logs a message to the console or the logging module*/
+     log: function (msg)
+     {
+         print ("SCRIPT: " + msg);
+     },
+
+
+     error: function (e)
+     {
+         print("SCRIPTERROR: " + e);
+     },
+
+
+     /** Does nothing
+      * @deprecated Doesn't do anything
+      */
+     broadcast : function (msg)
+     {
+
+     },
+
+
+     /** Registers a script event handler
+      * @param {string} handlername The event name of the script handler.
+      * @param {Module} object The module to register this handler from
+      * @param {string} [propname=handlername] The name of the handler on the module, if it is different from the event name.
+      * */
+     registerHandler: function (handlername, object, propname)
+     {
+         var bind, f, callbk;
+
+         if (!propname) propname = handlername;
+
+         bind = this;
+
+         if ( !(handlername in script) )
+         {
+             f = function ()
              {
-                 var f = function _meta_event_handler_func_ ()
+                 var x;
+
+                 try
                  {
-                     try
+                     for (x in f.callbacks)
                      {
-                         for (var x in f.callbacks)
-                         {
-                             f.callbacks[x].func.apply(f.callbacks[x].bind, arguments);
-                         }
+                         f.callbacks[x].func.apply(f.callbacks[x].bind, arguments);
                      }
-
-                     catch (err)
-                     {
-                         bind.error(err);
-                     }
-                 };
-
-                 script[handlername] = f;
-                 script[handlername].callbacks = [];
-             }
-
-             if ( !(script[handlername].callbacks)) throw new Error("Not registerable");
-
-             var callbk = {func:object[propname], bind:object};
-
-             script[handlername].callbacks.push(callbk);
-
-             var _bind = this;
-             if ("onUnloadModule" in object)
-             {
-                 object.onUnloadModule(
-                     function _meta_callback_unload_ ()
-                     {
-                         script[handlername].callbacks.splice(script[handlername].callbacks.indexOf(callbk),1);
-                     }
-                 );
-             }
-
-             return;
-
-         }
-         ,
-         hotswapModule: function (modname)
-         {
-             var oldmod = this.modules[modname];
-
-             if (!oldmod) return false;
-
-             if (!oldmod.hotswap) return false;
-
-             var newMod = sys.exec("js_modules/" + modname + ".js");
-
-             if (!newMod.hotswap) return false;
-
-             this.log("Hotswapping module: " + modname);
-
-             Object.defineProperty(newMod, "script", {value: this, configurable: true});
-
-             for (var x in newMod.require)
-             {
-                 this.loadModule(newMod.require[x]);
-                 Object.defineProperty(newMod, newMod.require[x], {value: this.modules[newMod.require[x]], configurable: true});
-                 if (this.modules[newMod.require[x]].submodules.indexOf(modname) == -1) this.modules[newMod.require[x]].submodules.push(modname);
-             }
-
-             function nil(){};
-
-             switch (typeof newMod.hotswap)
-             {
-             case "function":
-                 if (newMod.hotswap(oldmod))
-                 {
-                     if (oldmod.submodules) for (var x in oldmod.submodules)
-                     {
-                         delete this.modules[oldmod.submodules[x]][modname];
-                         Object.defineProperty(this.modules[oldmod.submodules[x]], modname, {value: newMod, configurable: true});
-                     }
-
-                     newMod.submodules = this.modules[modname].submodules;
-
-                     this.modules[modname] = newMod;
-
-
-                     return true;
                  }
-                 else return false;
-             case "boolean":
-                 (oldmod.unloadModule || nil) ();
+                 catch (err)
+                 {
+                     bind.error(err);
+                 }
+             };
 
+             script[handlername] = f;
+             script[handlername].callbacks = [];
+         }
+
+         if ( !(script[handlername].callbacks)) throw new Error("Not registerable");
+
+         callbk = {func:object[propname], bind:object};
+
+         script[handlername].callbacks.push(callbk);
+
+
+         if ("onUnloadModule" in object)
+         {
+             object.onUnloadModule(
+                 function ()
+                 {
+                     script[handlername].callbacks.splice(script[handlername].callbacks.indexOf(callbk),1);
+                 }
+             );
+         }
+
+         return;
+
+     },
+
+
+     hotswapModule: function (modname)
+     {
+         var oldmod = this.modules[modname];
+
+         if (!oldmod) return false;
+
+         if (!oldmod.hotswap) return false;
+
+         var newMod = sys.exec("js_modules/" + modname + ".js");
+
+         if (!newMod.hotswap) return false;
+
+         this.log("Hotswapping module: " + modname);
+
+         Object.defineProperty(newMod, "script", {value: this, configurable: true});
+
+         for (var x in newMod.require)
+         {
+             this.loadModule(newMod.require[x]);
+             Object.defineProperty(newMod, newMod.require[x], {value: this.modules[newMod.require[x]], configurable: true});
+             if (this.modules[newMod.require[x]].submodules.indexOf(modname) == -1) this.modules[newMod.require[x]].submodules.push(modname);
+         }
+
+         function nil(){};
+
+         switch (typeof newMod.hotswap)
+         {
+         case "function":
+             if (newMod.hotswap(oldmod))
+             {
                  if (oldmod.submodules) for (var x in oldmod.submodules)
                  {
                      delete this.modules[oldmod.submodules[x]][modname];
                      Object.defineProperty(this.modules[oldmod.submodules[x]], modname, {value: newMod, configurable: true});
                  }
 
-                 newMod.submodules = oldmod.submodules;
+                 newMod.submodules = this.modules[modname].submodules;
+
                  this.modules[modname] = newMod;
-                 (newMod.loadModule || nil)();
+
+
                  return true;
-             default:
-                 return false;
              }
-         }
-         ,
-         /** Reloads a module
-          * @param {string} modname
-          * @throws Error When the module can't be loaded.
-          * */
-         reloadModule: function reloadModule (modname)
-         {
-             // if(this.hotswapModule(modname)) return; // try hotswap if possible
+             else return false;
+         case "boolean":
+             (oldmod.unloadModule || nil) ();
 
-             var unloads = this.unloadModule(modname);
-
-             for (var x in unloads)
+             if (oldmod.submodules) for (var x in oldmod.submodules)
              {
-                 this.loadModule(unloads[x]);
+                 delete this.modules[oldmod.submodules[x]][modname];
+                 Object.defineProperty(this.modules[oldmod.submodules[x]], modname, {value: newMod, configurable: true});
              }
 
-             this.loadModule(modname); // load even if unload failed
+             newMod.submodules = oldmod.submodules;
+             this.modules[modname] = newMod;
+             (newMod.loadModule || nil)();
+             return true;
+         default:
+             return false;
          }
-         ,
-         /** Loads a module
-          * @param {string} modname Name of the module to be loaded.
-          */
-         loadModule: function loadModule (modname)
+     }
+     ,
+     /** Reloads a module
+      * @param {string} modname
+      * @throws Error When the module can't be loaded.
+      * */
+     reloadModule: function (modname)
+     {
+         // if(this.hotswapModule(modname)) return; // try hotswap if possible
+
+         var unloads = this.unloadModule(modname);
+
+         for (var x in unloads)
          {
-             if (this.modules[modname] && !(this.modules[modname] instanceof Error)) return;
+             this.loadModule(unloads[x]);
+         }
+
+         this.loadModule(modname); // load even if unload failed
+     }
+     ,
+     /** Loads a module
+      * @param {string} modname Name of the module to be loaded.
+      */
+     loadModule: function (modname)
+     {
+         if (this.modules[modname] && !(this.modules[modname] instanceof Error)) return;
 
 
-             try {
-                 var mod = sys.exec("js_modules/" + modname +".js");
+         try {
+             var mod = sys.exec("js_modules/" + modname +".js");
 
-                 mod.modname = modname;
+             mod.modname = modname;
 
-                 this.modules[modname] = mod;
+             this.modules[modname] = mod;
 
-                 if (mod.include) for (var x in mod.include)
+             if (mod.include) for (var x in mod.include)
+             {
+                 var temp = sys.exec("js_modules/" + mod.include[x] + ".js");
+
+                 for (var x2 in temp)
                  {
-                     var temp = sys.exec("js_modules/" + mod.include[x] + ".js");
-
-                     for (var x2 in temp)
+                     if (x2 in mod && mod[x2] != null)
                      {
-                         if (x2 in mod && mod[x2] != null)
+                         if (typeof mod[x2] != typeof temp[x2] || (typeof mod[x2] != "object" && typeof mod[x2] != "function"))
                          {
-                             if (typeof mod[x2] != typeof temp[x2] || (typeof mod[x2] != "object" && typeof mod[x2] != "function"))
-                             {
-                                 throw new Error("Unable to merge");
-                             }
-                             if (typeof mod[x2] === "function")
-                             {
-                                 // use a closure to merge the two functions as one
-                                 mod[x2] = (function (m, t) {
-                                                return function ()
-                                                {
-                                                    m.apply(mod, arguments);
-                                                    t.apply(mod, arguments);
-                                                };
-                                            })(mod[x2], temp[x2]);
-                             }
-                             else if (mod[x2] instanceof Array)
-                             {
-                                 mod[x2] = mod[x2].concat( temp[x2] );
-                             }
-                             else
-                             {
-                                 for (var x3 in temp[x2])
-                                 {
-                                     if (x3 in mod[x2]) throw new Error("Unable to merge");
-
-                                     mod[x2][x3] = temp[x2][x3];
-                                 }
-                             }
+                             throw new Error("Unable to merge");
+                         }
+                         if (typeof mod[x2] === "function")
+                         {
+                             // use a closure to merge the two functions as one
+                             mod[x2] = (function (m, t) {
+                                            return function ()
+                                            {
+                                                m.apply(mod, arguments);
+                                                t.apply(mod, arguments);
+                                            };
+                                        })(mod[x2], temp[x2]);
+                         }
+                         else if (mod[x2] instanceof Array)
+                         {
+                             mod[x2] = mod[x2].concat( temp[x2] );
                          }
                          else
                          {
-                             mod[x2] = temp[x2];
+                             for (var x3 in temp[x2])
+                             {
+                                 if (x3 in mod[x2]) throw new Error("Unable to merge");
+
+                                 mod[x2][x3] = temp[x2][x3];
+                             }
                          }
                      }
-                 }
-
-                 if (!mod.require) mod.require = [];
-                 mod.submodules = [];
-
-                 for (var x in this.hooks)
-                 {
-                     mod[x] = this.hooks[x];
-                 }
-
-                 for (var x in mod.require)
-                 {
-                     var reqmodname = mod.require[x];
-
-                     this.loadModule(reqmodname);
-
-                     if ( !(reqmodname in this.modules) || this.modules[reqmodname] instanceof Error)
+                     else
                      {
-                         this.modules[modname] = new Error("Unmet dependencies");
-                         return;
-                     }
-
-                     this.modules[reqmodname].submodules.push(modname);
-
-                     if (this.modules[reqmodname].submodules.indexOf(modname) === -1) throw new Error(":(");
-
-                     Object.defineProperty(this.modules[modname], reqmodname, {configurable: true, value: this.modules[reqmodname]});
-                 }
-
-                 Object.defineProperty(this.modules[modname], "script", {configurable : true, value: this});
-
-                 if ("loadModule" in mod)
-                 {
-                     mod.loadModule();
-                 }
-
-                 for (var x in mod.require)
-                 {
-                     if (this.modules[mod.require[x]].loadSubmodule)
-                     {
-                         this.modules[mod.require[x]].loadSubmodule(mod, modname);
+                         mod[x2] = temp[x2];
                      }
                  }
-                 this.log("Loaded module: " + modname);
+             }
+
+             if (!mod.require) mod.require = [];
+             mod.submodules = [];
+
+             for (var x in this.hooks)
+             {
+                 mod[x] = this.hooks[x];
+             }
+
+             for (var x in mod.require)
+             {
+                 var reqmodname = mod.require[x];
+
+                 this.loadModule(reqmodname);
+
+                 if ( !(reqmodname in this.modules) || this.modules[reqmodname] instanceof Error)
+                 {
+                     this.modules[modname] = new Error("Unmet dependencies");
+                     return;
+                 }
+
+                 this.modules[reqmodname].submodules.push(modname);
+
+                 if (this.modules[reqmodname].submodules.indexOf(modname) === -1) throw new Error(":(");
+
+                 Object.defineProperty(this.modules[modname], reqmodname, {configurable: true, value: this.modules[reqmodname]});
+             }
+
+             Object.defineProperty(this.modules[modname], "script", {configurable : true, value: this});
+
+             if ("loadModule" in mod)
+             {
+                 mod.loadModule();
+             }
+
+             for (var x in mod.require)
+             {
+                 if (this.modules[mod.require[x]].loadSubmodule)
+                 {
+                     this.modules[mod.require[x]].loadSubmodule(mod, modname);
+                 }
+             }
+             this.log("Loaded module: " + modname);
+         }
+         catch (e)
+         {
+
+             delete this.modules[modname];
+             throw e;
+         }
+
+     }
+     ,
+     /** Unloads a module
+      * @param {string} modname Name of module to remove.
+      * @return {string[]} List of all modules that were removed, includes others due to dependencies.
+      */
+     unloadModule: function (modname, hot)
+     {
+         if ( !(modname in this.modules)) return [];
+         if (this.modules[modname] instanceof Error) return [modname];
+         this.log("Unloading module: " + modname);
+
+         try
+         {
+
+
+
+             var unloads = [modname];
+
+             var thisModule = this.modules[modname];
+
+             var q = [];
+
+             thisModule.submodules.forEach(function (i){ q.push(i); });
+
+             for (var x in q)
+             {
+                 unloads.push(q[x]);
+                 var u = this.unloadModule(q[x]);
+                 unloads = unloads.concat(u);
+
+             }
+
+             if (thisModule.require) for (x in thisModule.require)
+             {
+                 if (this.modules[thisModule.require[x]].unloadSubmodule)
+                 {
+                     this.modules[thisModule.require[x]].unloadSubmodule(thisModule, modname);
+                 }
+
+                 this.modules[thisModule.require[x]].submodules.splice(this.modules[thisModule.require[x]].submodules.indexOf(modname), 1);
+             }
+
+             if ("unloadModuleHooks" in thisModule)
+             {
+                 var unloadModuleHooks = thisModule.unloadModuleHooks;
+                 for (x in unloadModuleHooks)
+                 {
+                     unloadModuleHooks[x].apply(thisModule, [thisModule]);
+                 }
+
+             }
+
+             if ("unloadModule" in thisModule) try
+             {
+                 thisModule.unloadModule();
              }
              catch (e)
              {
-
-                 delete this.modules[modname];
-                 throw e;
+                 this.log("[[ERROR:]]" + e.toString() + "\n" + e.backtracetext);
              }
+         } catch (e2)
+         {
 
          }
-         ,
-         /** Unloads a module
-          * @param {string} modname Name of module to remove.
-          * @return {string[]} List of all modules that were removed, includes others due to dependencies.
-          */
-         unloadModule: function unloadModule (modname, hot)
+         finally
          {
-             if ( !(modname in this.modules)) return [];
-             if (this.modules[modname] instanceof Error) return [modname];
-             this.log("Unloading module: " + modname);
-
-             try
-             {
-
-
-
-                 var unloads = [modname];
-
-                 var thisModule = this.modules[modname];
-
-                 var q = [];
-
-                 thisModule.submodules.forEach(function (i){ q.push(i); });
-
-                 for (var x in q)
-                 {
-                     unloads.push(q[x]);
-                     var u = this.unloadModule(q[x]);
-                     unloads = unloads.concat(u);
-
-                 }
-
-                 if (thisModule.require) for (x in thisModule.require)
-                 {
-                     if (this.modules[thisModule.require[x]].unloadSubmodule)
-                     {
-                         this.modules[thisModule.require[x]].unloadSubmodule(thisModule, modname);
-                     }
-
-                     this.modules[thisModule.require[x]].submodules.splice(this.modules[thisModule.require[x]].submodules.indexOf(modname), 1);
-                 }
-
-                 if ("unloadModuleHooks" in thisModule)
-                 {
-                     var unloadModuleHooks = thisModule.unloadModuleHooks;
-                     for (x in unloadModuleHooks)
-                     {
-                         unloadModuleHooks[x].apply(thisModule, [thisModule]);
-                     }
-
-                 }
-
-                 if ("unloadModule" in thisModule) try
-                 {
-                     thisModule.unloadModule();
-                 }
-                 catch (e)
-                 {
-                     this.log("[[ERROR:]]" + e.toString() + "\n" + e.backtracetext);
-                 }
-             } catch (e2)
-             {
-
-             }
-             finally
-             {
-                 delete this.modules[modname];
-                 return unloads;
-             }
-
-
-
-
-         }
-         ,
-         /** Handles loading the script
-          * @event
-          */
-         loadScript: function loadScript ()
-         {
-
-             var test1 = ["print","gc","version","global","sys","SESSION","Qt","script"];
-
-             var test2 = Object.keys(global);
-
-             var poisoned = false;
-
-             sys.enableStrict();
-
-             this.modules = new Object;
-
-             if (sys.fileExists("ZSCRIPTS_COPYING")) print(sys.read("ZSCRIPTS_COPYING"));
-             else if (sys.fileExists("ZVXSCRIPTS_COPYING")) print(sys.read("ZVXSCRIPTS_COPYING"));
-             else print("!!! Missing license, see http://github.com/archzombie/zvxscripts !!!");
-
-             for (var x in test2) if (test1.indexOf(test2[x]) === -1)
-             {
-                 print("WARNING: Global object poisoned. Removing property: " + test2[x]);
-                 delete global[test2[x]];
-                 poisoned = true;
-             }
-
-             if (poisoned) gc();
-
-             this.registerHandler("beforeLogIn", this, "AGPL");
-
-             sys.unsetAllTimers();
-
-             try {
-                 var f;
-                 if (sys.fileExists("main.json")) f = sys.read("main.json");
-
-                 else f = "{}";
-
-                 var o = JSON.parse(f);
-
-                 if (typeof o == typeof new Object);
-
-                     else throw new Error("Corrupt File");
-
-                 this.config = o;
-
-                 if (!this.config.modules) this.config.modules = ["default"];
-
-                 for ( x in this.config.modules)
-                 {
-                     this.loadModule(this.config.modules[x]);
-                 }
-
-                 sys.writeToFile("main.json", JSON.stringify(this.config));
-             }
-             catch(e)
-             {
-                 var stack = (e.backtracetext);
-
-                 print("Failed to start, error in " + e.fileName + " at line #" + e.lineNumber + ": " + e.toString() +"\n" + stack);
-                 sys.stopEvent();
-             }
-         }
-         ,
-         /** Handles unloading the script
-          * @event
-          */
-         unloadScript: function unloadScript ()
-         {
-             var mods = Object.keys (this.modules);
-
-             this.unloadedModules = mods;
-
-             //this.config.modules = Object.keys(this.modules);
-
-             //sys.write("main.json", JSON.stringify(this.config));
-
-             for (var x in mods)
-             {
-                 this.unloadModule(mods[x]);
-             }
-         }/*
-         ,
-         switchError: function ()
-         {
-             print("Recover");
-             for (var x in this.unloadedModules)
-             {
-                 this.loadModule(this.unloadedModules[x]);
-             }
-         }*/
-         ,
-         /** Sends a license message to src
-          * @param {number} src User ID to send message to.
-          */
-         AGPL: function AGPL (src)
-         {
-             sys.sendHtmlMessage(
-                 src,
-                 "<timestamp /><b>ZVxScripts Copyright © 2013 Ryan P. Nicholl \"ArchZombie0x\" &lt;archzombielord@gmail.com&gt;</b><br/>" +
-                     "You may download these scripts for your own server at <a href=\'https://github.com/ArchZombie/zvxscripts\'>https://github.com/ArchZombie/zvxscripts</a> <a href='https://github.com/ArchZombie/ZVxScripts/releases'>[link to releases]</a>. Scripts are available under the <em>GNU Affero General Public License</em> as published by the Free Software Foundation, version 3, or, at your option, any later version.<br/>For help with using the scripts, <a href='https://github.com/ArchZombie/ZVxScripts/raw/master/manual.pdf'>click here</a>."
-             );
-         }
-         ,
-         /** Hooks to be added to all modules
-          *
-          */
-         hooks:
-         /**
-          * @scope script.hooks
-          */
-         {
-             /** Runs the function when the module is unloaded
-              * @param {function} f Function to be run when the module is unloaded.
-              */
-             onUnloadModule: function _meta_hook_onUnloadModule_ (f)
-             {
-                 if (!this.unloadModuleHooks) this.unloadModuleHooks = [];
-
-                 this.unloadModuleHooks.push(f);
-             }
-
-         }
-         ,
-         debugInspector: function ()
-         {
-             function assert (cond)
-             {
-                 if (!cond)
-                 {
-                     print("ASSERT FALURE");
-                     print(sys.backtrace());
-                     throw new Error("Assert failure.");
-                 }
-             }
-
-             for (var x in this.modules)
-             {
-                 for (var x2 in this.modules[x].require)
-                 {
-                     (function(x, x2) {
-
-                          var name = this.modules[x].require[x2];
-                          assert(this.modules[name].submodules.indexOf(x) !== -1);
-
-                      }).call(this, x, x2);
-                 }
-             }
-
-         },
-
-         get script()
-         {
-             print("WARNING: getting script.script -____-");
-             return this;
+             delete this.modules[modname];
+             return unloads;
          }
 
-     };})();
+
+
+
+     }
+     ,
+     /** Handles loading the script
+      * @event
+      */
+     loadScript: function ()
+     {
+
+         var test1 = ["print","gc","version","global","sys","SESSION","Qt","script"];
+
+         var test2 = Object.keys(global);
+
+         var poisoned = false;
+
+         sys.enableStrict();
+
+         this.modules = new Object;
+
+         if (sys.fileExists("ZSCRIPTS_COPYING")) print(sys.read("ZSCRIPTS_COPYING"));
+         else if (sys.fileExists("ZVXSCRIPTS_COPYING")) print(sys.read("ZVXSCRIPTS_COPYING"));
+         else print("!!! Missing license, see http://github.com/archzombie/zvxscripts !!!");
+
+         for (var x in test2) if (test1.indexOf(test2[x]) === -1)
+         {
+             print("WARNING: Global object poisoned. Removing property: " + test2[x]);
+             delete global[test2[x]];
+             poisoned = true;
+         }
+
+         if (poisoned) gc();
+
+         this.registerHandler("beforeLogIn", this, "AGPL");
+
+         sys.unsetAllTimers();
+
+         try {
+             var f;
+             if (sys.fileExists("main.json")) f = sys.read("main.json");
+
+             else f = "{}";
+
+             var o = JSON.parse(f);
+
+             if (typeof o == typeof new Object);
+
+                 else throw new Error("Corrupt File");
+
+             this.config = o;
+
+             if (!this.config.modules) this.config.modules = ["default"];
+
+             for ( x in this.config.modules)
+             {
+                 this.loadModule(this.config.modules[x]);
+             }
+
+             sys.writeToFile("main.json", JSON.stringify(this.config));
+         }
+         catch(e)
+         {
+             var stack = (e.backtracetext);
+
+             print("Failed to start, error in " + e.fileName + " at line #" + e.lineNumber + ": " + e.toString() +"\n" + stack);
+             sys.stopEvent();
+         }
+     }
+     ,
+     /** Handles unloading the script
+      * @event
+      */
+     unloadScript: function  ()
+     {
+         var mods = Object.keys (this.modules);
+
+         this.unloadedModules = mods;
+
+         //this.config.modules = Object.keys(this.modules);
+
+         //sys.write("main.json", JSON.stringify(this.config));
+
+         for (var x in mods)
+         {
+             this.unloadModule(mods[x]);
+         }
+     }/*
+       ,
+       switchError: function ()
+       {
+       print("Recover");
+       for (var x in this.unloadedModules)
+       {
+       this.loadModule(this.unloadedModules[x]);
+       }
+       }*/
+     ,
+     /** Sends a license message to src
+      * @param {number} src User ID to send message to.
+      */
+     AGPL: function (src)
+     {
+         sys.sendHtmlMessage(
+             src,
+             "<timestamp /><b>ZVxScripts Copyright © 2013 Ryan P. Nicholl \"ArchZombie0x\" &lt;archzombielord@gmail.com&gt;</b><br/>" +
+                 "You may download these scripts for your own server at <a href=\'https://github.com/ArchZombie/zvxscripts\'>https://github.com/ArchZombie/zvxscripts</a> <a href='https://github.com/ArchZombie/ZVxScripts/releases'>[link to releases]</a>. Scripts are available under the <em>GNU Affero General Public License</em> as published by the Free Software Foundation, version 3, or, at your option, any later version.<br/>For help with using the scripts, <a href='https://github.com/ArchZombie/ZVxScripts/raw/master/manual.pdf'>click here</a>."
+         );
+     }
+     ,
+     /** Hooks to be added to all modules
+      *
+      */
+     hooks:
+     /**
+      * @scope script.hooks
+      */
+     {
+         /** Runs the function when the module is unloaded
+          * @param {function} f Function to be run when the module is unloaded.
+          */
+         onUnloadModule: function (f)
+         {
+             if (!this.unloadModuleHooks) this.unloadModuleHooks = [];
+
+             this.unloadModuleHooks.push(f);
+         }
+
+     },
+
+     debugInspector: function ()
+     {
+         function assert (cond)
+         {
+             if (!cond)
+             {
+                 print("ASSERT FALURE");
+                 print(sys.backtrace());
+                 throw new Error("Assert failure.");
+             }
+         }
+
+         for (var x in this.modules)
+         {
+             for (var x2 in this.modules[x].require)
+             {
+                 (function(x, x2) {
+
+                      var name = this.modules[x].require[x2];
+                      assert(this.modules[name].submodules.indexOf(x) !== -1);
+
+                  }).call(this, x, x2);
+             }
+         }
+
+     },
+
+     get script()
+     {
+         print("WARNING: getting script.script\n" + sys.backtrace());
+         return this;
+     }
+
+ });

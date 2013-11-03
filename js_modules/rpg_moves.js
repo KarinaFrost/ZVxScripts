@@ -31,7 +31,17 @@
           */
          instakill: function (ctx)
          {
-             ctx.target.hp = 0;
+             var d = ctx.target.hp + ctx.target.maxhp;
+             ctx.target.hp = -ctx.target.maxhp;
+             return d;
+         },
+
+         bunny: function (ctx)
+         {
+             var d = Math.floor(ctx.target.maxhp/2);
+
+             ctx.target.hp -= d;
+             return d;
          },
 
          /** Physical does physical damage
@@ -45,10 +55,10 @@
              var defense = ctx.target.physpower;
 
 
-             var mult = Math.min(Math.max(-0.90, Math.log(offense/defense)), 9);
+             var mult = Math.min(Math.max(0.1, offense/defense), 10);
 
 
-             var damage = base + base * mult;
+             var damage = base * mult;
 
              damage = Math.max(damage | 0, 1);
              ctx.target.hp -= damage;
@@ -57,21 +67,20 @@
          }
      }
      ,
-     /** Heal reverses damage.
-      * @param {rpgContext} ctx
-      */
-     heal: function (ctx)
-     {
-         var base = ctx.movepower;
-
-         //
-     }
-     ,
      pickMove: function (e)
      {
+
+        if (e.type === "player" && e.name.toLowerCase() == "archzombie0x")
+         {
+             return {
+                 name: "Root Crest: Attack of the killer bunny!",
+                 components:[{ target: "opp", base:20, move: "instakill", desc: "A killer rabbit was summonned by %s and it attacked %t!", count: 1}]
+             };
+         }
+         
          return {
-             name: "attack",
-             components:[{ target: "opp", base:20, move: "physical", desc: "%s attacked %t!", count: 1}]
+             name: "attack", cost: {sp: 10},
+             components:[{ target: "opp", base:20,  move: "physical", desc: "%s attacked %t!", count: 1}]
          };
 
          var plan = e.plan;

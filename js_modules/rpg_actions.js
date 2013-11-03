@@ -124,12 +124,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             msgs.push("<b>Body:</b> " + this.equipName(ctx.player.body));
             msgs.push("<b>Feet:</b> " + this.equipName(ctx.player.feet));
             msgs.push("<b>Back:</b> " + this.equipName(ctx.player.back));
-            msgs.push("<b>Power:</b> " + ctx.player.power);
+            //msgs.push("<b>Power:</b> " + ctx.player.power);
+            /*
             msgs.push("<b>Offense:</b> " + ctx.player.offense);
             msgs.push("<b>Defense:</b> " + ctx.player.defense);
-            msgs.push("<b>Magical:</b> " + 0/0);
+            msgs.push("<b>Magical:</b> " + 0/0);*/
 
             this.less.less(src, msgs.join("<br />"), true);
+        },
+
+        items: function (src, sub, chan, ctx)
+        {
+            var msgs, x, items;
+
+            this.com.message(src, "Your player's items:");
+
+            msgs = [];
+
+            items = ctx.player.items;
+
+            for (x in items)
+            {
+                msgs.push("<b>" + this.items[x].name + "</b> (x" + items[x] + ")");
+            }
+
+            this.less.less(src, msgs.join("<br />"), true);
+
+
         }
         ,
         equip: function (src, sub, chan, ctx)

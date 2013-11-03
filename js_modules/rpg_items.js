@@ -80,5 +80,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         {
             name: "Mushroom Cap"
         },
+
+        testfeather:
+        {
+            name: "TESTFEATHER"
+        }
     }
 });

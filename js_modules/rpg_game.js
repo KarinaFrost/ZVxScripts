@@ -24,21 +24,16 @@
  * @memberOf script.modules
  * @requires io, com, theme, commands, util, logs, less
  * @namespace
+ * @augments Module
  * */
 /** @scope script.modules.rpg_game */
 ({
-     /** List of modules to be required.
-      * @type {string[]}
-      */
+
      require: ["io", "com", "theme", "commands", "util", "logs", "less", "color"],
 
-
-     /** List of files to be included in this module.
-      * @type {string[]}
-      */
      include: ["rpg_areas", "rpg_player", "rpg_entity", "rpg_actions",
                "rpg_mobs", "rpg_equips", "rpg_materials", "rpg_moves",
-               "rpg_battle"],
+               "rpg_battle", "rpg_items", "rpg_skills"],
 
 
      database: null,
@@ -81,6 +76,8 @@
          if (rpg.paused) return;
          rpg.tick++;
 
+         if (rpg.tick % 10 != 0) return;
+
          for (var x in rpg.areas)
          {
              this.areaStep(rpg.areas[x], { rpg: rpg });
@@ -91,7 +88,7 @@
              this.playerStep(rpg.players[x], {rpg: rpg});
          }
 
-         if (rpg.tick % 10 == 0) for (x in rpg.battles)
+          for (x in rpg.battles)
          {
              this.battleStep( {rpg:rpg, battle: rpg.battles[x], battleId: x });
          }

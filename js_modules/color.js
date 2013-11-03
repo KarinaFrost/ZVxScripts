@@ -22,7 +22,7 @@
      neonify: function (c, level)
      {
         // return c;
-         if (!level) level = 1;
+         if (level === undefined) level = 1;
 
 
          level = level*0xff;
