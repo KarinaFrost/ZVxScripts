@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {
         sys.stopEvent();
 
-        if (msg.match(/^\/~reset /))
+        if (msg.match(/^\/~reset ?/))
         {
             sys.changeScript(sys.read('scripts.js'));
         }
