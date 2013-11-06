@@ -168,11 +168,11 @@
 
          var lname = name.toLowerCase();
 
-	 var config;
+	 var config, defConfig = new Object;
 
 	 if (!( config = this.database.userconf[lname]) )
 	 {
-             config = this.database.userconf[lname] = new Object;
+             config = new Object;
 
 
 	 }
@@ -180,7 +180,17 @@
          for (var x in this.configHooks)
 	 {
 	     this.configHooks[x](config, name );
+             this.configHooks[x](defconfig);
 	 }
+
+         if (this.zsrx.zsrx(config) != this.zsrx.zsrx(defconfig))
+         {
+             this.database.userconf[lname] = config;
+         }
+         else
+         {
+             delete this.database.userconf[lname];
+         }
 
 
          return config;
