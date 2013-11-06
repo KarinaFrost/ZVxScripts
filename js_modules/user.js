@@ -194,8 +194,6 @@
              this.configHooks[x](defConfig, name);
 	 }
 
-         var p = defs;
-
          if (this.zsrx.zsrx(config) != this.zsrx.zsrx(defConfig))
          {
              this.database.userconf[lname] = config;
