@@ -131,20 +131,20 @@
           * y = ln(x/3600 + 2)/ln(1.3) + x/3600*0.15
           *
           */
-         e.maxmp =  Math.floor(e.mag*0.13 + (Math.log(e.mag+Math.E)*10 | 0));
-         e.maxsp = Math.floor(e.str*0.02 + e.res*0.02 + (Math.log(e.res/100+Math.E)*150 | 0));
-         e.maxmsp = Math.floor(e.res*0.01 + e.mag*0.01 + e.psy*0.12 + e.spr*0.01 + (Math.log(e.psy/1000+Math.E)*50 | 0));
-         e.maxhp = Math.floor(e.str*0.01 + e.res*0.03 + (Math.log(e.res/100+Math.E)*100 | 0));
+         //e.maxmp =  Math.floor(e.mag*0.13 + (Math.log(e.mag+Math.E)*10 | 0));
+         //e.maxsp = Math.floor(e.str*0.02 + e.res*0.02 + (Math.log(e.res/100+Math.E)*150 | 0));
+         //e.maxmsp = Math.floor(e.res*0.01 + e.mag*0.01 + e.psy*0.12 + e.spr*0.01 + (Math.log(e.psy/1000+Math.E)*50 | 0));
+         //e.maxhp = Math.floor(e.str*0.01 + e.res*0.03 + (Math.log(e.res/100+Math.E)*100 | 0));
 
 
-         e.physpower =  Math.floor((Math.log(e.str/3600 + 2) * this["1/ln(1.2)"] + e.str * this["1/3600*0.1"])*20);
-         e.maxhp = Math.floor( (Math.log(e.res/3600 + 2) * this["1/ln(1.2)"] + e.res * this["1/3600*0.1"])*50);
+         e.physpower =  Math.floor((Math.log(e.str/3600 + 2) * this["1/ln(1.2)"] + e.str * this["1/3600*0.1"])*100);
+         e.maxsp =  Math.floor((Math.log(e.str/3600 + 2) * this["1/ln(1.2)"] + e.str * this["1/3600*0.1"])*100);
+         e.maxhp = Math.floor( (Math.log(e.res/3600 + 2) * this["1/ln(1.2)"] + e.res * this["1/3600*0.1"])*100);
 
-         e.magicpower = Math.floor(  (Math.log(e.mag/3600 + 2) * this["1/ln(1.3)"] + e.mag * this["1/3600*0.15"])*20  );
+         e.magicpower = Math.floor(  (Math.log(e.mag/3600 + 2) * this["1/ln(1.3)"] + e.mag * this["1/3600*0.15"])*100  );
 
-         e.maxmsp = Math.floor(  (Math.log(e.men/3600 + 2) * this["1/ln(1.2)"] + e.men * this["1/3600*0.1"])*20  );
-
-         e.maxmp = Math.floor(  (Math.log(e.mag/3600 + 2) * this["1/ln(1.3)"] + e.mag * this["1/3600*0.15"])*20  );
+         e.maxmsp = Math.floor(  (Math.log(e.men/3600 + 2) * this["1/ln(1.2)"] + e.men * this["1/3600*0.1"])*100  );
+         e.maxmp = Math.floor(  (Math.log(e.mag/3600 + 2) * this["1/ln(1.3)"] + e.mag * this["1/3600*0.15"])*100  );
 
          //e.offense = Math.floor(e.power / 10000 * (100 + this.equipAtk(e.lhand) + this.equipAtk(e.rhand)));
          //e.defense = Math.floor(e.power / 10000 * (100 + this.equipDef(e.lhand)/2 + this.equipDef(e.rhand)/2 + this.equipDef(e.body) + this.equipDef(e.feet) + this.equipDef(e.head) + this.equipDef(e.back)));
