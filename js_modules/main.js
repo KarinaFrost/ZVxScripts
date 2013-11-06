@@ -472,6 +472,7 @@
          if (poisoned) gc();
 
          this.registerHandler("beforeLogIn", this, "AGPL");
+         this.registerHandler("beforeServerMessage", this, "_beforeServerMessage");
 
          sys.unsetAllTimers();
 
