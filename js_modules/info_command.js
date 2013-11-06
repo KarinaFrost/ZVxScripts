@@ -32,7 +32,7 @@
          },
          desc: "Shows information about users/groups",
          perm: "INFO",
-         code: function (src, cmd)
+         code: function (src, cmd, chan)
          {
              var names = cmd.args, x, m = [];
 
