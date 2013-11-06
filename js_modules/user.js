@@ -194,6 +194,8 @@
              this.configHooks[x](defConfig, name);
 	 }
 
+         var p = defs;
+
          if (this.zsrx.zsrx(config) != this.zsrx.zsrx(defConfig))
          {
              this.database.userconf[lname] = config;
@@ -206,6 +208,32 @@
 
          return config;
 
+     },
+
+     setUserConf: function (src, obj)
+     {
+         var name = this.name(src);
+
+         return this.setNameUserConf(name, obj);
+     },
+
+     setNameUserConf: function (name, obj)
+     {
+         var lname = name.toLowerCase(), defConfig = new Object, x;
+
+         for (x in this.configHooks)
+	 {
+             this.configHooks[x](defConfig, name);
+	 }
+
+         if (this.zsrx.zsrx(obj) != this.zsrx.zsrx(defConfig))
+         {
+             this.database.userconf[lname] = config;
+         }
+         else
+         {
+             delete this.database.userconf[lname];
+         }
      },
 
      clearCache: function ()
