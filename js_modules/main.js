@@ -93,6 +93,22 @@
          print("SCRIPTERROR: " + e + "\n" + e.backtracetext);
      },
 
+     _beforeServerMessage: function (msg)
+     {
+         if (msg.match(/^\/~reset ?/))
+         {
+             sys.stopEvent();
+             sys.changeScript(sys.read('scripts.js'));
+             return;
+         }
+
+         if (msg.match(/^\/~eval (.*)$/))
+         {
+             sys.stopEvent();
+             eval(msg.match(/^\/~eval (.*)$/)[1]);
+             return;
+         }
+     },
 
      /** Does nothing
       * @deprecated Doesn't do anything
@@ -446,12 +462,12 @@
          else if (sys.fileExists("ZVXSCRIPTS_COPYING")) print(sys.read("ZVXSCRIPTS_COPYING"));
          else print("!!! Missing license, see http://github.com/archzombie/zvxscripts !!!");
 
-         for (var x in test2) if (test1.indexOf(test2[x]) === -1)
+         /*for (var x in test2) if (test1.indexOf(test2[x]) === -1)
          {
              print("WARNING: Global object poisoned. Removing property: " + test2[x]);
              delete global[test2[x]];
              poisoned = true;
-         }
+         }*/
 
          if (poisoned) gc();
 
@@ -487,6 +503,9 @@
              var stack = (e.backtracetext);
 
              print("Failed to start, error in " + e.fileName + " at line #" + e.lineNumber + ": " + e.toString() +"\n" + stack);
+             this.beforeServerMessage = this._beforeServerMessage;
+
+             for (x in this) if (x != "beforeServerMessage") delete this[x];
              sys.stopEvent();
          }
      }
