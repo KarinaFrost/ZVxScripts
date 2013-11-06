@@ -29,7 +29,7 @@
 /** @scope script.modules.rpg_game */
 ({
 
-     require: ["io", "com", "theme", "commands", "util", "logs", "less", "color"],
+     require: ["io", "com", "theme", "commands", "util", "logs", "less", "color", "user"],
 
      include: ["rpg_areas", "rpg_player", "rpg_entity", "rpg_actions",
                "rpg_mobs", "rpg_equips", "rpg_materials", "rpg_moves",
@@ -38,8 +38,12 @@
 
      database: null,
      /** channel */
-     channels: null
-     ,
+     channels: null,
+
+     game: null,
+
+     players: null,
+
      hooks: null
      ,
      loadModule: function ()
@@ -48,6 +52,7 @@
          if (!this.database.games) this.database.games = new Object;
          this.channels = new Object;
          this.hooks = new Object;
+         this.activeState = new Object;
 
          this.commands.registerCommand("loadrpg", this);
          this.commands.registerCommand("rpg", this);
@@ -61,17 +66,19 @@
      unloadModule: function ()
      {
          this.io.closeDB("rpg_game");
+
+         
      },
 
      step: function ()
      {
          for (var x in this.channels)
          {
-             this.RPGStep(this.channels[x]);
+             this.RPGStep(this.channels[x], x);
          }
      },
 
-     RPGStep: function (rpg)
+     RPGStep: function (rpg, chan)
      {
          if (rpg.paused) return;
          rpg.tick++;
@@ -80,23 +87,27 @@
 
          for (var x in rpg.areas)
          {
-             this.areaStep(rpg.areas[x], { rpg: rpg });
+             this.areaStep(rpg.areas[x], { rpg: rpg, chan: chan });
          }
 
-         for (x in rpg.players)
+         for (x in this.activeState[rpg.name].players)
          {
-             this.playerStep(rpg.players[x], {rpg: rpg});
+             this.playerStep(this.activeState[rpg.name].players[x], {rpg: rpg, chan: chan});
          }
 
-          for (x in rpg.battles)
+         for (x in rpg.battles)
          {
-             this.battleStep( {rpg:rpg, battle: rpg.battles[x], battleId: x });
+             this.battleStep( {rpg:rpg, battle: rpg.battles[x], battleId: x, chan:chan, message: this.hooks[rpg.name] });
          }
      },
 
-     RPG: function (rpgname)
+     getRPG: function (rpgname)
      {
-         if (this.database.games[rpgname]) { return this.database.games[rpgname]; }
+         if (this.database.games[rpgname])
+         {
+             this.activeState[rpgname] = { players: {} };
+             return this.database.games[rpgname];
+         }
 
          else
          {
@@ -105,12 +116,19 @@
                      name: rpgname,
                      areas: JSON.parse(JSON.stringify(this.areas)),
                      materials: {},
-                     players: {},
+//                     players: {},
+                     pdb: {},
+                     pdbCounter: 0,
                      battles: {},
                      battleCoutner: 0,
                      running: false,
                      tick: 0
                  };
+
+
+
+             this.activeState[rpgname] = { players: {} };
+
 
 	     return newr;
          }
@@ -120,7 +138,7 @@
 
      startRPGinChan: function (rpgname, chan)
      {
-         var rpg = this.database.games[rpgname];
+         var rpg = this.getRPG(rpgname);
 
          this.channels[chan] = rpg;
 
@@ -153,6 +171,7 @@
 
 
          rpg.running = true;
+         rpg.chan = chan;
 
      },
 
@@ -175,18 +194,14 @@
 
              var rpg = this.channels[chan];
 
-             var player = rpg.players[sys.name(src).toLowerCase()];
+             var player = this.getPlayer(rpg.name, this.user.name(src));
 
-             if (! player)
-             {
-                 this.com.message([src], "Creating you a new RPG character!", this.theme.GAME);
-                 this.logs.logMessage(this.logs.INFO, sys.name(src) + " created an RPG character in RPG " + rpg.name);
 
-                 player = this.newPlayer();
-                 player.name = sys.name(src).toLowerCase();
+             //    this.com.message([src], "Creating you a new RPG character!", this.theme.GAME);
+             //    this.logs.logMessage(this.logs.INFO, sys.name(src) + " created an RPG character in RPG " + rpg.
+             player.name = this.user.name(src);
 
-                 rpg.players[sys.name(src).toLowerCase()] = player;
-             }
+             //    rpg.players[sys.name(src).toLowerCase()] = player;
 
              var actions = String(cmd.input).split(/\;/g);
 
@@ -210,11 +225,7 @@
      {
          desc: "Loads an RPG into a channel.",
          category: "administrative/rpg",
-         perm: function (src)
-         {
-             return sys.auth(src) >= 2;
-         }
-         ,
+         perm: "RPG[ADMIN]",
          code: function (src, cmd, chan)
          {
 
@@ -226,7 +237,8 @@
                  return;
              }
 
-             var rpg = this.RPG(rpgname);
+             var rpg = this.getRPG(rpgname);
+
              if (this.hooks[rpgname])
              {
                  this.com.message([src], "RPG is already running!", this.theme.WARN);

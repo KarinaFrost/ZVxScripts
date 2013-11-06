@@ -59,27 +59,29 @@
 
          function isDead(e)
          {
-             return e.hp <= 0 || e.msp <= 0;
+             return e.hp <= 0 || e.msp <= 0 || e.sp <= 0;
          }
 
          function testDead (e)
          {
 
 
-             if (e.hp <= 0 || e.msp <= 0)
+             if (e.hp <= 0 || e.msp <= 0 || e.sp <= 0 || e.forceDead)
              {
                  if (e.hp <= 0) that.com.message(pids, e.name + " was slain!");
-                 else if (e.msp <= 0) that.com.message(pids, e.name + " collapsed!");
-
+                 else if (e.sp <= 0) that.com.message(pids, e.name + " collapsed!");
+                 else if (e.msp <= 0) that.com.message(pids, e.name + " lost consciousness!");
+                 else that.com.message(pids, e.name + " died a mysterious death!");
 
 
                  if (e.type == "player")
                  {
-                     battle.players.splice(battle.players.indexOf(e.name), 1);
                      var pname = e.name.toLowerCase();
 
+                     battle.players.splice(battle.players.indexOf(pname), 1);
 
-                     rpg.players[pname].battle = null;
+
+                     that.getPlayer(rpg.name, pname).battle = null;
                      // Remove from battle.
 
 
@@ -100,7 +102,7 @@
                              {
                                  if (typeof drops[x].item === "string") // bulk item
                                  {
-                                     that.com.message(pids, "The slain " + e.name + " dropped " + drops[x].count + " " + that.items[drops[x].item].name + "(s)");
+                                     that.com.message(pids, "The defeated " + e.name + " dropped " + drops[x].count + " " + that.items[drops[x].item].name + "(s)");
 
                                      battle.droppedItems[drops[x].item] = (battle.droppedItems[drops[x].item] || 0) + drops[x].count;
                                  }
@@ -123,11 +125,11 @@
          var team_players = [];
          for (x in battle.players)
          {
-             team_players.push(rpg.players[battle.players[x].toLowerCase()]);
+             team_players.push(this.getPlayer(rpg.name, battle.players[x]));
              // Battle players contains NAMES of players, not the player objects!
 
              // also set the tracker
-             if (!battle.tracker[battle.players[x]]) battle.tracker[battle.players[x]] = { str:0, sta:0, mag:0, msp:0, sp:0 };
+             if (!battle.tracker[battle.players[x].toLowerCase()]) battle.tracker[battle.players[x].toLowerCase()] = { str:0, sta:0, mag:0, msp:0, sp:0 };
          }
 
          var team_mobs = []; // Do not save!
@@ -246,7 +248,7 @@
              {
                  var cmp = ctx.move.components[x2];
                  var targets = ctx.targets = [];
-                 var count = cmp.count || 1;
+                 var count = cmp.count;
                  var t = this.util.arrayify(cmp.target);
 
                  for (x3 in t) switch(t[x3])
@@ -287,22 +289,26 @@
                          var dmg = this.moves[cmp.move]({attacker: entities[x], target:targets[x3], component:cmp});
 
 
-                         struck.push(targets[x3].name + " (-"+dmg+")");
+                         struck.push(targets[x3].name + " "+dmg);
 
-                         if (targets[x3].type == "player")
-                         {
-                             battle.tracker[targets[x3].name].res += 10;
-                         }
+                         try {
+                             if (targets[x3].type == "player")
+                             {
+                                 battle.tracker[targets[x3].name].res = 10;
+                             }
 
 
-                         if (attacker.type == "player" && ctx.move.exp)
-                         {
-                             battle.tracker[attacker.name][ctx.move.exp] += 10;
-                         }
+                             if (attacker.type == "player" && ctx.move.exp)
+                             {
+                                 battle.tracker[attacker.name][ctx.move.exp] += 10;
+                             }
+                         } catch (e) {this.script.error(e);}
                      }
 
-                     if (cmp.desc) this.com.message(pids, cmp.desc.replace(/%s/g, ctx.attacker.name).replace(/%t/, struck.join(" ")), this.theme.RPG);
+
                  }
+
+                  if (cmp.desc) this.com.message(pids, cmp.desc.replace(/%s/g, ctx.attacker.name).replace(/%t/, struck.join(" ")), this.theme.RPG);
 
 
 
@@ -373,16 +379,16 @@
                  {
                      msg.push(dps[i][x] + " " + that.items[x].name + "(s)");
 
-                     rpg.players[battle.players[i]].items[x] = (rpg.players[battle.players[i]].items[x] || 0) + dps[i][x];
+                     this.getPlayer(rpg.name, battle.players[i]).items[x] = (this.getPlayer(rpg.name, battle.players[i]).items[x] || 0) + dps[i][x];
                  }
 
                  this.com.message(pids, battle.players[i] + " got " + msg.join(", ") + "!");
              }
 
 
-             for (x in battle.players)
+             for (i in battle.players)
              {
-                 rpg.players[battle.players[x]].battle = null;
+                 this.getPlayer(rpg.name, battle.players[i]).battle = null;
              }
 
              delete rpg.battles[ctx.battleId];

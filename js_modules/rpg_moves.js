@@ -21,11 +21,13 @@
  /////////////////////// END LEGAL NOTICE /////////////////////////////// */
 /** @scope script.modules.rpg_game */
 ({
-     /**
+     /** Component classes.
       * @namespace
       */
      moves:
      {
+         nil: function () {},
+
          /** Instakill kills all enemies instantly, no damage calculation
           * @param {rpgContext} ctx
           */
@@ -63,33 +65,86 @@
              damage = Math.max(damage | 0, 1);
              ctx.target.hp -= damage;
 
-             return damage;
-         }
-     }
-     ,
-     pickMove: function (e)
-     {
+             return "(-" +damage + ")";
+         },
 
-        if (e.type === "player" && e.name.toLowerCase() == "archzombie0x")
+
+         // todo: Update this function
+         psychic: function (ctx)
          {
-             return {
-                 name: "Root Crest: Attack of the killer bunny!",
-                 components:[{ target: "opp", base:20, move: "instakill", desc: "A killer rabbit was summonned by %s and it attacked %t!", count: 1}]
-             };
+             var offense = ctx.attacker.physpower;
+             var base = ctx.component.base;
+
+             var defense = ctx.target.physpower;
+
+
+             var mult = Math.min(Math.max(0.1, offense/defense), 10);
+
+
+             var damage = base * mult;
+
+             damage = Math.max(damage | 0, 1);
+             ctx.target.msp -= damage;
+
+             return "(-" +damage + " MSP)";
+         },
+
+         heal: function (ctx)
+         {
+            /* var offense = ctx.attacker.physpower;
+             var base = ctx.component.base;
+
+             var defense = ctx.target.physpower;
+
+
+             var mult = Math.min(Math.max(0.1, offense/defense), 10);
+
+
+             var damage = base * mult;*/
+             ctx.target.hp += ctx.component.base;
+
+             return "(+" + ctx.component.base + ")";
          }
-         
-         return {
-             name: "attack", cost: {sp: 10},
-             components:[{ target: "opp", base:20,  move: "physical", desc: "%s attacked %t!", count: 1}]
-         };
+     },
 
-         var plan = e.plan;
+     /** Selects a skill from the entities use or plan attributes.
+      * @param entity The entity to select a move from
+      * @returns {rpgSkillDescriptor} The skill to use
+      */
+     pickMove: function (entity)
+     {
+         var temp, total, index, iterative_weight_total, random_weighted_index;
 
-         var list = plan.list;
-         var total = plan.total;
-         var idx = Math.floor(Math.random()*(plan.total));
-         for (var i = 0; list[i].pri <= idx; i++, idx -= list[i].pri) {}
+         if (entity.use)
+         {
+             temp = entity.use;
+             delete entity.use;
+             return temp;
+         }
 
-         return list[i];
+         else if (entity.plan)
+         {
+             total = 0;
+
+             for (index = 0; index < entity.plan.length; index++)
+             {
+                 total += entity.plan[index].prob;
+             }
+
+             random_weighted_index = Math.random()*total;
+
+             for (index = 0, iterative_weight_total = 0; index < entity.plan.length; index++)
+             {
+                 iterative_weight_total += entity.plan[index].prob;
+
+                 if (iterative_weight_total > random_weighted_index)
+                 {
+                     return this.skills[entity.plan[index].skill];
+                 }
+
+             }
+         }
+
+         return this.skills.attack;
      }
  });

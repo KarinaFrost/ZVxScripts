@@ -98,7 +98,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             if (! ctx.rpg.battleCounter) ctx.rpg.battleCounter = 0;
 
 
+            ctx.player.battle = ctx.rpg.battleCounter;
             ctx.rpg.battles[ctx.rpg.battleCounter++] = {players: [ctx.player.name], mobs: [this.mkMob("testchicken")]};
+
 
             for (var x in this.areas[ctx.player.area].mobs)
             {
@@ -111,6 +113,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             var msgs = [];
 
             this.com.message(src, "Your player:");
+
+            this.com.message(src, this.entHtml(ctx.player), this.theme.GAME, true);
             if (ctx.player.rhand && this.equips[ctx.player.rhand.type].hands === 2)
             {
                  msgs.push("<b>Both Hands:</b> " + this.equipName(ctx.player.rhand));

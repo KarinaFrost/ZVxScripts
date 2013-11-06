@@ -22,10 +22,10 @@
 ({
      entityTick: function (e)
      {
+         print("tick " + e.name);
 
-
-         e.sp += e.maxsp/100;
-         e.msp += e.maxmsp/100;
+         e.sp += e.maxsp/30;
+         e.msp += e.maxmsp/15;
 
          // Stamina
          if (e.sp < 0)
@@ -40,7 +40,7 @@
          if (e.sp > e.maxsp / 3)
              // Has a fairly large amount of stamina
          {
-             e.hp += e.maxhp/40;
+             e.hp += e.maxhp/60;
              // Recover some HP
          }
          if (e.sp > e.maxsp)
@@ -49,7 +49,7 @@
              e.sp = e.maxsp;
              // Remove overflow
 
-             e.hp += e.maxhp/30;
+             e.hp += e.maxhp/90;
              // recover extra hp!
          }
 
@@ -142,7 +142,8 @@
 
          e.magicpower = Math.floor(  (Math.log(e.mag/3600 + 2) * this["1/ln(1.3)"] + e.mag * this["1/3600*0.15"])*20  );
 
-         e.maxmsp = Math.floor(  (Math.log(e.men/3600 + 2) * this["1/ln(1.3)"] + e.men * this["1/3600*0.15"])*20  );
+         e.maxmsp = Math.floor(  (Math.log(e.men/3600 + 2) * this["1/ln(1.2)"] + e.men * this["1/3600*0.1"])*20  );
+
          e.maxmp = Math.floor(  (Math.log(e.mag/3600 + 2) * this["1/ln(1.3)"] + e.mag * this["1/3600*0.15"])*20  );
 
          //e.offense = Math.floor(e.power / 10000 * (100 + this.equipAtk(e.lhand) + this.equipAtk(e.rhand)));

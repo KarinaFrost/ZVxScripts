@@ -40,11 +40,20 @@
              desc: "",
              str: 30,
              res: 30,
+             men: 350,
              drops: [{
                          prob: 1,
                          item: "testfeather",
                          count: 1
-                     }]
+                     }],
+             plan:
+             [
+                 {
+                     prob: 0.5,
+                     skill: "peck"
+                 },
+                 { prob: 0.5, skill: "peckground" }
+             ]
          },
 
          eshroom:
