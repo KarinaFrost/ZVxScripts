@@ -144,7 +144,7 @@
 
                      }
                      else {
-                         this.user.setUserConf(origin);
+                         this.user.setUserConf(src, origin);
                          this.com.message(src, "Configured.");
                      }
                      return true;
@@ -186,7 +186,7 @@
 
                      }
                      else {
-                         this.user.setUserConf(origin);
+                         this.user.setUserConf(src, origin);
                          this.com.message(src, "Configured.");
                      }
                      return;
