@@ -90,7 +90,7 @@
 
      error: function (e)
      {
-         print("SCRIPTERROR: " + e);
+         print("SCRIPTERROR: " + e + "\n" + e.backtracetext);
      },
 
 
