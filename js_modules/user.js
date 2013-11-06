@@ -191,7 +191,7 @@
          for (var x in this.configHooks)
 	 {
 	     this.configHooks[x](config, name );
-             this.configHooks[x](defconfig);
+             this.configHooks[x](defConfig, name);
 	 }
 
          if (this.zsrx.zsrx(config) != this.zsrx.zsrx(defConfig))
