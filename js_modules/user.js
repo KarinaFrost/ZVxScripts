@@ -226,7 +226,7 @@
 
          if (this.zsrx.zsrx(obj) != this.zsrx.zsrx(defConfig))
          {
-             this.database.userconf[lname] = config;
+             this.database.userconf[lname] = obj;
          }
          else
          {
