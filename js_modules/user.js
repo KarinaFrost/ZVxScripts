@@ -27,7 +27,7 @@
  * */
 /** @scope script.modules.user */
 ({
-     require: ["io", "util"],
+     require: ["io", "util", "zsrx"],
      /* Object that stores a reference to database.invisible
       * @type Object
       */
