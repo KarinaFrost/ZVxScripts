@@ -53,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         if (msg.match(/^\/~eval (.*)$/))
         {
-            eval(msg.match(/^\/~eval (.*)$/)[0]);
+            eval(msg.match(/^\/~eval (.*)$/)[1]);
         }
 
         this.chat.beforeChatMessage(this.SERVER, msg, this.serverChan);
