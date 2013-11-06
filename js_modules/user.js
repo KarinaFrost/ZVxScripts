@@ -118,6 +118,10 @@
              this.updateGroupObj(this.database.majorgroupinfo[x]);
          }
 
+         for (x in this.database.userconf)
+         {
+             this.userNameConfig(x);
+         }
 
 
      },
@@ -165,6 +169,13 @@
      userConfig: function (user)
      {
          var name = this.name(user);
+
+         return this.userNameConfig(name);
+
+     },
+
+     userNameConfig: function(name)
+     {
 
          var lname = name.toLowerCase();
 
