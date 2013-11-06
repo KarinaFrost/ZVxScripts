@@ -194,7 +194,7 @@
              this.configHooks[x](defconfig);
 	 }
 
-         if (this.zsrx.zsrx(config) != this.zsrx.zsrx(defconfig))
+         if (this.zsrx.zsrx(config) != this.zsrx.zsrx(defConfig))
          {
              this.database.userconf[lname] = config;
          }
