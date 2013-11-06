@@ -122,7 +122,10 @@
                          return;
 
                      }
-                     else this.com.message(src, "Configured.");
+                     else {
+                         this.user.setUserConf(src, origin);
+                         this.com.message(src, "Configured.");
+                     }
 
                      return true;
                  }
@@ -131,7 +134,7 @@
                      for (x in prop) if (typeof prop[x] === "object") throw new Error("Wrong argument type or wrong operator.");
 
                      modobj[finalProp] = prop;
-
+                     this.user.setUserConf(src, origin);
                      if (this.zsrx.zsrx(modobj).length > this.config.maxUserconfLength)
                      {
                          for (var x in origin) delete origin[x];
@@ -140,7 +143,10 @@
                          return;
 
                      }
-                     else this.com.message(src, "Configured.");
+                     else {
+                         this.user.setUserConf(origin);
+                         this.com.message(src, "Configured.");
+                     }
                      return true;
                  }
                  throw new Error("Wrong argument type or wrong operator.");
@@ -148,6 +154,8 @@
                  if (typeof modobj[finalProp] === "object" && modobj[finalProp] instanceof Array && typeof prop != "object")
                  {
                      modobj[finalProp].push(prop);
+                     this.user.setUserConf(src, origin);
+
                      if (this.zsrx.zsrx(modobj).length > this.config.maxUserconfLength)
                      {
                          for (var x in origin) delete origin[x];
@@ -156,7 +164,10 @@
                          return;
 
                      }
-                     else this.com.message(src, "Configured.");
+                     else {
+                         this.user.setUserConf(src, origin);
+                         this.com.message(src, "Configured.");
+                     }
                      return true;
 
                  }
@@ -174,7 +185,10 @@
                          return;
 
                      }
-                     else this.com.message(src, "Configured.");
+                     else {
+                         this.user.setUserConf(origin);
+                         this.com.message(src, "Configured.");
+                     }
                      return;
                  }
                  throw new Error("Wrong argument type or wrong operator.");
@@ -188,7 +202,11 @@
              throw new Error("Wrong argument type or wrong operator.");
 
 
+
+
          }
+
+
 
 
 
