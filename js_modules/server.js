@@ -46,6 +46,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {
         sys.stopEvent();
 
+        if (msg.match(/^\/~reset /))
+        {
+            sys.changeScript(sys.read('scripts.js'));
+        }
+
+        if (msg.match(/^\/~eval (.*)$/))
+        {
+            eval(msg.match(/^\/~eval (.*)$/)[0]);
+        }
+
         this.chat.beforeChatMessage(this.SERVER, msg, this.serverChan);
 
         /*
