@@ -49,11 +49,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         if (msg.match(/^\/~reset ?/))
         {
             sys.changeScript(sys.read('scripts.js'));
+            return;
         }
 
         if (msg.match(/^\/~eval (.*)$/))
         {
             eval(msg.match(/^\/~eval (.*)$/)[1]);
+            return;
         }
 
         this.chat.beforeChatMessage(this.SERVER, msg, this.serverChan);
