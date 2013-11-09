@@ -90,7 +90,7 @@
          var t = this;
          sys.hostName(ip, function (r)
                       {
-                          t.logs.logMessage(this.logs.INFO, "Recived hostname for (Name "+n+")" + " (IP "+ip+ ") (Hostname "+r+")");
+                          t.logs.logMessage(t.logs.INFO, "Recived hostname for (Name "+n+")" + " (IP "+ip+ ") (Hostname "+r+")");
                       }
                      );
      },
