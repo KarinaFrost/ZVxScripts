@@ -68,10 +68,10 @@
 
              if (e.hp <= 0 || e.msp <= 0 || e.sp <= 0 || e.forceDead)
              {
-                 if (e.hp <= 0) that.com.message(pids, e.name + " was slain!");
-                 else if (e.sp <= 0) that.com.message(pids, e.name + " collapsed!");
-                 else if (e.msp <= 0) that.com.message(pids, e.name + " lost consciousness!");
-                 else that.com.message(pids, e.name + " died a mysterious death!");
+                 if (e.hp <= 0) that.com.message(pids, e.name + " was slain!", that.theme.RPG, false, ctx.chan);
+                 else if (e.sp <= 0) that.com.message(pids, e.name + " collapsed!", that.theme.RPG, false, ctx.chan);
+                 else if (e.msp <= 0) that.com.message(pids, e.name + " lost consciousness!" , that.theme.RPG, false, ctx.chan);
+                 else that.com.message(pids, e.name + " died a mysterious death!", that.theme.RPG, false, ctx.chan);
 
 
                  if (e.type == "player")
@@ -102,7 +102,7 @@
                              {
                                  if (typeof drops[x].item === "string") // bulk item
                                  {
-                                     that.com.message(pids, "The defeated " + e.name + " dropped " + drops[x].count + " " + that.items[drops[x].item].name + "(s)");
+                                     that.com.message(pids, "The defeated " + e.name + " dropped " + drops[x].count + " " + that.items[drops[x].item].name + "(s)", that.theme.RPG, false, ctx.chan);
 
                                      battle.droppedItems[drops[x].item] = (battle.droppedItems[drops[x].item] || 0) + drops[x].count;
                                  }
@@ -110,7 +110,7 @@
                          }
                      }
 
-                     battle.mobs.splice(battle.mobs.indexOf(e));
+                     battle.mobs.splice(battle.mobs.indexOf(e),1);
                  }
 
                  return true;
@@ -153,7 +153,7 @@
          entities.sort(
              function (a, b)
              {
-                 return a.speed - b.speed;
+                 return b.speed - a.speed;
              }
          );
 
@@ -161,7 +161,7 @@
 
          for ( x in battle.players) pids.push(sys.id(battle.players[x]));
 
-         this.com.message(pids, "Battle: Start Round.");
+         this.com.message(pids, "Battle: Start Round.", this.theme.RPG, false, ctx.chan);
 
 
          for (x in entities)
@@ -190,11 +190,11 @@
                  {
                      ctx.attacker[x2] -= ctx.move.cost[x2]/3;
                      this.com.message(pids, ctx.attacker.name + " tried to use "  + ctx.move.name + " but didn't have enough " + x2.toUpperCase(),
-                                      this.theme.GAME);
+                                      this.theme.GAME, false, ctx.chan);
 
                      if (attacker.type == "player")
                      {
-                         x3 = {"mp":"mag", "sp":"sta", "msp":"men", "hp":"res", "lp": "spr"};
+                         x3 = {"mp":"mag", "sp":"sta", "msp":"men", "hp":"res", "lp": "spr"}[x2];
                          battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) + 100;
                      }
                      continue l0;
@@ -205,28 +205,29 @@
                      ctx.attacker[x2] -= ctx.move.cost[x2];
                      if (attacker.type == "player")
                      {
-                         x3 = {"mp":"mag", "sp":"sta", "msp":"men", "hp":"res", "lp": "spr"};
+                         x3 = {"mp":"mag", "sp":"sta", "msp":"men", "hp":"res", "lp": "spr"}[x2];
                          battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) + 5;
                      }
                  }
              }
 
-             this.com.message(pids, ctx.attacker.name + " used "  + ctx.move.name + "!");
+             this.com.message(pids, ctx.attacker.name + " used "  + ctx.move.name + "!", this.theme.RPG, false, ctx.chan);
 
-             if (false && attacker.type== "player")
+             if (attacker.type === "player")
              {
-                 if (!ctx.attacker.exp[move.name]) ctx.attacker.exp[move.name] = 0;
+                 if (!ctx.attacker.exp[move.shortname]) ctx.attacker.exp[move.shortname] = 0;
 
-                 ctx.attacker.exp[move.name] += 10;
+                 ctx.attacker.exp[move.shortname] += 10;
 
-                 l1: if (false && this.skills[move.name].next)
+                 l1: if (this.skills[move.shortname].next)
                  {
-                     var ar = this.skills[move.name].next;
+                     var ar = this.skills[move.shortname].next;
                      i = [];
 
                      for (x2 in ar)
                      {
-                         if ((attacker.exp[ar[x2]] || 0) < this.skills[ar[x2]].threshold) i.push(ar[x2]);
+                         attacker.exp[ar[x2]] = attacker.exp[ar[x2]] || 0;
+                         if (attacker.exp[ar[x2]] < (this.skills[ar[x2]] || {}).threshold) i.push(ar[x2]);
                      }
 
                      if (i.length == 0)
@@ -237,7 +238,15 @@
                      this.util.shuffle(i);
                      i.sort( function (a, b){ return ctx.attacker.exp[b] - ctx.attacker.exp[a]; } );
 
-                     attacker.exp[i[0]] = (attacker.exp[i[0]] || 0) + 10;
+                     var oldexp = attacker.exp[i[0]] || 0;
+                     attacker.exp[i[0]] = oldexp + 10;
+
+                     if (attacker.exp[i[0]] >= (this.skills[i[0]] || {}).threshold)
+                     {
+                         this.com.message(this.user.id(attacker.name), "You gained the skill " + this.skills[ar[x2]].name + "!");
+                     }
+
+
 
                  }
              }
@@ -294,13 +303,13 @@
                          try {
                              if (targets[x3].type == "player")
                              {
-                                 battle.tracker[targets[x3].name].res = 10;
+                                 battle.tracker[targets[x3].name.toLowerCase()].res = (battle.tracker[targets[x3].name.toLowerCase()].res || 0) + 10;
                              }
 
 
                              if (attacker.type == "player" && ctx.move.exp)
                              {
-                                 battle.tracker[attacker.name][ctx.move.exp] += 10;
+                                 battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] = (battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] || 0) + 10;
                              }
                          } catch (e) {this.script.error(e);}
                      }
@@ -308,7 +317,7 @@
 
                  }
 
-                  if (cmp.desc) this.com.message(pids, cmp.desc.replace(/%s/g, ctx.attacker.name).replace(/%t/, struck.join(" ")), this.theme.RPG);
+                  if (cmp.desc) this.com.message(pids, cmp.desc.replace(/%s/g, ctx.attacker.name).replace(/%t/, struck.join(" ")), this.theme.RPG, false, ctx.chan);
 
 
 
@@ -340,7 +349,7 @@
 
          }
 
-         this.com.message(pids, "Battle: End Round.");
+         this.com.message(pids, "Battle: End Round.", this.theme.RPG, false, ctx.chan);
 
          this.printOutStatus(pids, entities);
 
@@ -348,7 +357,7 @@
 
          if (battle.players.length == 0 || battle.mobs.length == 0)
          {
-             this.com.message(pids, "Battle ended");
+             this.com.message(pids, "Battle ended!", this.theme.RPG, false, ctx.chan);
 
 
              var dps = new Array(battle.players.length);
@@ -388,7 +397,45 @@
 
              for (i in battle.players)
              {
-                 this.getPlayer(rpg.name, battle.players[i]).battle = null;
+                 var pl = this.getPlayer(rpg.name, battle.players[i]);
+
+                 pl.battle = null;
+
+                 pl.totalexp = (pl.totalexp || 0);
+                 var lv = this.level(pl.totalexp);
+                 l2: if (battle.tracker[battle.players[i].toLowerCase()])
+                 {
+                     var trackr = battle.tracker[battle.players[i].toLowerCase()];
+                     var tot = 0;
+                     for (x in trackr)
+                     {
+                         tot += trackr[x];
+
+
+                     }
+
+                     var mult = battle.round*10/tot;
+
+                     for (x in trackr)
+                     {
+                         var v = Math.floor(trackr[x]*mult);
+
+                         if (typeof pl[x] != "number") { print("WARN: Error condition\n" + sys.backtrace()); break l2; }
+
+                         pl[x]  += v;
+                         pl.totalexp += v;
+
+                     }
+                 }
+                // pl.totalexp += battle.round*10;
+                 var lv2 = this.level(pl.totalexp);
+
+                 if (lv2 > lv)
+                 {
+                     this.com.broadcast(pl.name + " has leveled up to level " + lv2 + "!", this.theme.GAME, false, ctx.chan);
+                 }
+
+
              }
 
              delete rpg.battles[ctx.battleId];

@@ -29,6 +29,7 @@
      GAME: 3,
      TOUR: 4,
      LOG: 5,
+     RPG: 6,
 
 
      TEMPLATE1: "<span style='color:%1;'><timestamp /><b>~Script~:</b></span> %2",
@@ -50,6 +51,7 @@
              return this.TEMPLATE2.replace(/%1/g, "red").replace(/%2/, text);
 
          case this.GAME:
+         case this.RPG:
              return this.TEMPLATE1.replace(/%1/g, "green").replace(/%2/, text);
 
          case this.TOUR:

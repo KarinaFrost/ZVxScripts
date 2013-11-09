@@ -21,6 +21,13 @@
  /////////////////////// END LEGAL NOTICE /////////////////////////////// */
 ({
 
+     /** Returns a made up "level" value, has no effect on gameplay, but needed because ZOMG rpg haz no levelz?!!?!?!
+      *
+      */
+     level: function (exp)
+     {
+         return Math.floor(Math.log(exp/2 + Math.E) + Math.pow(exp/60,0.6)/2);
+     },
 
      getPlayer: function (rpgname, name)
      {

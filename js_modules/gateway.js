@@ -40,18 +40,12 @@
 
              var ban = this.security.database.bans[banID];
 
-             this.com.message(
-                 [src],
-                 "<hr/>You are banned.<br>" + this.theme.issuehtml(ban) + "<hr/>",
-                 this.theme.CRITICAL,
-                 true
-             );
+
 
              if (!this.user.hasPerm(src, "PROTECTED"))
              {
 
-                 this.logs.logMessage(this.logs.WARN, "Banned user: " + sys.name(src) + " (IP: " + sys.ip(src) + ") (#: " + banID + ") tried to log in.");
-                 sys.stopEvent();
+
                  return false;
              }
              else
@@ -67,7 +61,19 @@
      {
 
 
-         if (! this.checkUser(src)) return;
+         if (! this.checkUser(src))
+         {
+             var banID = this.security.banID(src);
+             this.com.message(
+                 [src],
+                 "<hr/>You are banned.<br>" + this.theme.issuehtml(ban) + "<hr/>",
+                 this.theme.CRITICAL,
+                 true
+             );
+             sys.stopEvent();
+             this.logs.logMessage(this.logs.WARN, "Banned user: " + sys.name(src) + " (IP: " + sys.ip(src) + ") (#: " + banID + ") tried to log in.");
+             return;
+         }
 
 
 

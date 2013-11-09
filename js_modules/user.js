@@ -486,6 +486,8 @@
          return perms;
      },
 
+     id: sys.id,
+
      hasPerm: function (id, perm)
      {
          if (id == 0) return true;

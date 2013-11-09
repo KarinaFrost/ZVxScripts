@@ -93,10 +93,51 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         },
 
+        battle: function (src, sub, chan, ctx)
+        {
+            if (ctx.player.battle) return;
+
+            if (! ctx.rpg.battleCounter) ctx.rpg.battleCounter = 0;
+
+            var mobs = [];
+
+            var totalProb = 0;
+
+            for (var x in this.areas[ctx.player.area].mobs)
+            {
+                totalProb += this.areas[ctx.player.area].mobs[x].prob;
+            }
+
+            var rnd = Math.random()*totalProb;
+
+            var s = 0;
+            for (var x in this.areas[ctx.player.area].mobs)
+            {
+                s += this.areas[ctx.player.area].mobs[x].prob;
+                if (rnd <= s)
+                {
+                    mobs = mobs.concat(this.areas[ctx.player.area].mobs[x].mobs);
+                    break;
+                }
+
+            }
+
+            var mba = [];
+
+            for (var x in mobs) mba.push(this.mkMob(mobs[x]));
+
+            ctx.player.battle = ctx.rpg.battleCounter;
+            ctx.rpg.battles[ctx.rpg.battleCounter++] = {players: [ctx.player.name], mobs: mba};
+
+
+            this.com.message(sys.id(ctx.player.name), "You started battle with " + mobs.join(", ") + "!", this.theme.RPG, false,chan);
+
+
+        },
+
         test: function (src, sub, chan, ctx)
         {
             if (! ctx.rpg.battleCounter) ctx.rpg.battleCounter = 0;
-
 
             ctx.player.battle = ctx.rpg.battleCounter;
             ctx.rpg.battles[ctx.rpg.battleCounter++] = {players: [ctx.player.name], mobs: [this.mkMob("testchicken")]};
@@ -113,6 +154,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             var msgs = [];
 
             this.com.message(src, "Your player:");
+            msgs.push("<b>Level:</b> " + this.level(ctx.player.totalexp || 0));
 
             this.com.message(src, this.entHtml(ctx.player), this.theme.GAME, true);
             if (ctx.player.rhand && this.equips[ctx.player.rhand.type].hands === 2)
@@ -128,7 +170,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             msgs.push("<b>Body:</b> " + this.equipName(ctx.player.body));
             msgs.push("<b>Feet:</b> " + this.equipName(ctx.player.feet));
             msgs.push("<b>Back:</b> " + this.equipName(ctx.player.back));
-            //msgs.push("<b>Power:</b> " + ctx.player.power);
+
             /*
             msgs.push("<b>Offense:</b> " + ctx.player.offense);
             msgs.push("<b>Defense:</b> " + ctx.player.defense);
@@ -154,6 +196,60 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             this.less.less(src, msgs.join("<br />"), true);
 
+
+        },
+
+        plan: function (src, sub, chan, ctx)
+        {
+            var plan = [];
+            for (var x in sub)
+            {
+                if (x != 0)
+                {
+                    var pli = sub[x];
+
+                    if (pli.match(/\w+:[\d\.]+/))
+                    {
+                        var m = pli.match(/(\w+):([\d\.]+)/);
+
+                        var skname = m[1];
+                        var prob = Number(m[2]);
+
+                        if (this.playerCanUseSkill(ctx.player, skname))
+                        {
+                            plan.push({skill:skname, prob: prob});
+                        }
+                        else if (this.skills[skname]) this.com.message(src, "Skill Error: Not able to use skill \""+skname+"\"!", this.theme.ERROR, false, chan);
+                        else this.com.message(src, "Skill Error: No such skill \""+skname+"\", (example: /rpg plan attack:5 strike:9 heal:1), make sure to use the shortnames, (e.g. elshock and not Electric Shock.)", this.theme.ERROR, false, chan);
+                    }
+                    else
+                    {
+                        this.com.message(src, "Format Error, (example: /rpg plan attack:5 strike:9 heal:1), make sure to use the shortnames, (e.g. elshock and not Electric Shock.)", this.theme.ERROR, false, chan);
+
+                    }
+
+                }
+
+            }
+
+            ctx.player.plan = plan;
+
+            this.com.message(src, "Your plan has been set to: " + JSON.stringify(plan), this.theme.RPG, false, chan);
+
+        },
+        skills: function (src, sub, chan, ctx)
+        {
+            var msg = [];
+            for (var x in ctx.player.exp)
+            {
+                if (this.playerCanUseSkill(ctx.player, x))
+                {
+                    msg.push("<b>" + this.skills[x].name + "</b> ("+x+") " + this.skills[x].desc);
+                }
+
+            }
+
+            this.com.message(src, "Skills:<br/>" + msg.join("<br/>"), this.theme.RPG, true, chan);
 
         }
         ,

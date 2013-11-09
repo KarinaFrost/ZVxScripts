@@ -61,13 +61,18 @@
 
 
          this.io.registerConfig(this, {materias: this.materials});
+
+         for (var x in this.skills)
+         {
+             this.skills[x].shortname = x;
+         }
      },
 
      unloadModule: function ()
      {
          this.io.closeDB("rpg_game");
 
-         
+
      },
 
      step: function ()
@@ -201,13 +206,19 @@
              //    this.logs.logMessage(this.logs.INFO, sys.name(src) + " created an RPG character in RPG " + rpg.
              player.name = this.user.name(src);
 
+             if (!cmd.input || cmd.input.match(/^\s*$/))
+             {
+                 this.com.message(src, "Subcommands, (/rpg <subcommand>):\nwalk <area> (ommit area to show current area)\nview (view player stats)\ntest (start a test battle)\nitems (show items)\nplan <move>:<prob> <move>:<prob> ... (e.g. /rpg plan attack:5 heal:2)\nskills (shows your skills available to use via /rpg plan)", this.theme.RPG, false, chan);
+                 return;
+             }
+
              //    rpg.players[sys.name(src).toLowerCase()] = player;
 
              var actions = String(cmd.input).split(/\;/g);
 
              for (var x in actions)
              {
-                 var subactions = actions[x].split(/[,:|]/g);
+                 var subactions = actions[x].split(/[,\/| ]/g);
 
                  if (subactions.length == 0) continue;
 

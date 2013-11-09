@@ -61,14 +61,34 @@
 
 /** @scope script.modules.rpg_game */
 ({
+     playerCanUseSkill: function (player, skillname)
+     {
+         var skill = this.skills[skillname], exp;
+
+         if (!skill) return false;
+
+         if (skill.threshold === null || skill.threshold === undefined) return false;
+
+         if (skill.threshold === 0) return true;
+
+         exp = player.exp[skillname] || 0;
+
+         return skill.threshold <= exp;
+     },
+
      skills:
      {
          // Mob skills
 
+         firebreath:
+         {
+             name: "Fire Breath", elemet: "fire",
+             components: [{ target: "opp", base: 3500, move: "physical", desc: "%s blasted fire at %t!", count: 3 }]
+         },
          peck:
          {
              name: "Chicken Peck", element: "phsyical",
-             components: [{ target: "opp", base: 20, move: "physical", desc: "%s pecked %t!", count: 1 }]
+             components: [{ target: "opp", base: 15, move: "physical", desc: "%s pecked %t!", count: 1 }]
          },
 
          peckground:
@@ -87,34 +107,34 @@
 
          attack:
          {
-             name: "Attack", element: "physical", cost:{sp:20}, next: ["psyburst", "heal", "thundershock", "shadows", "toxin", "blades"], threshold: 0,
-             components: [{ target: "opp", base:50, move: "physical", desc: "%s attacked %t!", count:1 }]
+             name: "Attack", element: "physical", cost:{sp:5}, exp: "str", next: ["psyburst", "heal" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
+             components: [{ target: "opp", base:20, move: "physical", desc: "%s attacked %t!", count:1 }]
          },
 
          heal:
          {
-             name: "Healing Spell", cost: {mp:20, msp: 10}, next: ["healbubble", "healpulse", "lightburst"], threshold: 300,
-             components: [{ target: "ally", base: 50, move: "heal", desc: "%s healed %t!", count: 1}]
+             name: "Healing Spell", cost: {mp:20, msp: 10}, exp: "mag", next: ["healbubble", "healpulse", "lightburst"], threshold: 60*5,
+             components: [{ target: "ally", base: 35, move: "heal", desc: "%s healed %t!", count: 1}]
          },
 
          healbubble:
          {
 
-             name: "Healing Bubble", cost: {mp:35, msp: 20}, next: ["healwave"], threshold: 3600,
+             name: "Healing Bubble", cost: {mp:55, msp: 20}, exp: "mag", next: ["healwave"], threshold: 60*30,
              components: [{ target: "ally", base: 85, move: "heal", desc: "%t was in %s's healing bubble.", count: 3}]
 
          },
 
          healwave:
          {
-             name: "Healing Wave", cost: {mp:45, msp: 25}, next: ["healrain"],
+             name: "Healing Wave", cost: {mp:120, msp: 25}, next: ["healrain"], threshold: 3600,
              components: [{ target: "ally", base: 180, move: "heal", desc: "%t was caught in %s's healing wave.", count: 3}]
          },
 
          healrain:
          {
 
-             name: "Healing Rain", cost: {mp:75, msp: 30}, next: ["elixarai",  "altruist"],
+             name: "Healing Rain", cost: {mp:175, msp: 30}, exp: "mag", next: ["elixarai",  "altruist"], threshold: 3600*3,
              components: [{ target: "ally", base: 370, move: "heal", desc: "%t bathed in the healing rain", count: 9}]
 
          },
@@ -122,7 +142,7 @@
          elixarai:
          {
 
-             name: "Elixarai", cost: {mp:175, msp: 130}, next: [],
+             name: "Elixarai", cost: {mp:750, msp: 130}, exp: "mag", next: [], threshold: 3600*10,
              components: [{ target: "ally", base: 750, move: "heal", desc: "%t was healing by the blinding light!", count: 10}]
 
          },
@@ -131,7 +151,7 @@
          healpulse:
          {
 
-             name: "Healing Pulse", cost: {mp:35, msp: 20}, next: ["healingenergy"],
+             name: "Healing Pulse", cost: {mp:35, msp: 20},  exp: "mag", next: ["healingenergy"], threshold: 60*10,
              components: [{ target: "ally", base: 110, move: "heal", desc: "%s used healing pulse on %t!", count: 1}]
 
          },
@@ -139,7 +159,7 @@
          healingenergy:
          {
 
-             name: "Healing Energy", cost: {mp:45, msp: 25}, next: ["healinghope"],
+             name: "Healing Energy", cost: {mp:45, msp: 25}, exp: "mag", next: ["healinghope"], threshold: 60*30,
              components: [{ target: "ally", base: 240, move: "heal", desc: "%s used healing energy on %t!", count: 1}]
 
          },
@@ -147,7 +167,7 @@
          healinghope:
          {
 
-             name: "Healing Hope", cost: {mp:64, msp: 30}, next: ["angelwing", "invigoration"],
+             name: "Healing Hope", cost: {mp:64, msp: 30}, exp: "mag", next: ["angelwing", "invigoration"], threshold: 3600,
              components: [{ target: "ally", base: 430, move: "heal", desc: "%s used healing hope on %t!", count: 1}]
 
          },
@@ -155,7 +175,7 @@
          angelwing:
          {
 
-             name: "Angel's Wing", cost: {mp:300, msp: 30}, next: ["angelpromise"],
+             name: "Angel's Wing", cost: {mp:300, msp: 30}, exp: "mag", next: ["angelpromise"], threshold: 3600*3,
              components: [{ target: "ally", base: 890, move: "heal", desc: "A holy energy healed %t!", count: 1}]
 
          },
@@ -163,44 +183,44 @@
          angelpromise:
          {
 
-             name: "Angel's Promise", cost: {mp:1000, msp: 130}, next: [],
+             name: "Angel's Promise", cost: {mp:1000, msp: 130}, exp: "mag", next: [], threshold: 3600*13,
              components: [{ target: "ally", base: 1258, move: "heal", desc: "A holy energy healed %t!", count: 1}]
 
          },
 
          altruist:
          {
-             name: "Altruist's Sacrafice", cost: { mp: 100, msp: 30 },
+             name: "Altruist's Sacrafice", exp: "res", cost: { mp: 100, msp: 30 }, threshold: 3600*16,
              components: [{target: "ally", base: 850, move: "transfer"}]
          },
 
          invigoration:
          {
-             name: "Invigoration", cost: {mp: 500, msp: 130},
+             name: "Invigoration", exp: "mag", cost: {mp: 500, msp: 130}, threshold: 3600*6,
              components: [{target: "self", base: 500, move: "heal"}]
          },
 
          psyburst:
          {
-             name: "Psycho Burst", desc: "The user concentrates psychic energy and uses it to attack.", cost: { msp: 10 }, threshold: 60*5,
-             components: [{ target: "opp", base: 30, move: "psychic", desc: "%s unleashed a burst of psychic energy against %t!", count: 1}]
+             name: "Psycho Burst", exp: "psy", desc: "The user concentrates psychic energy and uses it to attack.", cost: { msp: 10 }, threshold: 60*5,next: ["psyshock"],
+             components: [{ target: "opp", base: 12, move: "psychic", desc: "%s unleashed a burst of psychic energy against %t!", count: 1}]
          },
 
          psyshock:
          {
-             name: "Psycho Shock", desc: "The user concentrates psychic energy and unleashes it in a shockwave.", cost: { msp: 40 }, threshold: 3600,
-             components: [{ target: "opp", base: 56, move: "psychic", desc: "%s unleashed a shockwave of psychic energy towards %t!", count: 1}]
+             name: "Psycho Shock", exp: "psy", desc: "The user concentrates psychic energy and unleashes it in a shockwave.", cost: { msp: 40 }, threshold: 60*30, next: ["psyslice"],
+             components: [{ target: "opp", base: 25, move: "psychic", desc: "%s unleashed a shockwave of psychic energy towards %t!", count: 1}]
          },
 
          psyslice:
          {
-             name: "Psycho Slice", desc: "The user concentrates psychic energy into a wedge and unleashes it.", cost: { msp: 40 }, threshold: 3600*2,
-             components: [{ target: "opp", base: 140, move: "psychic", desc: "%s unleashed a shockwave of psychic energy towards %t!", count: 1}]
+             name: "Psycho Slice", exp: "psy", desc: "The user concentrates psychic energy into a wedge and unleashes it.", cost: { msp: 40 }, threshold: 3600, next: ["psyblast"],
+             components: [{ target: "opp", base: 70, move: "psychic", desc: "%s unleashed a shockwave of psychic energy towards %t!", count: 1}]
          },
 
          psyblast:
          {
-             name: "Psycho Blast", desc: "The user unleashes a blast of psychic energy", cost: { msp: 80 }, threshold: 3600*2,
+             name: "Psycho Blast", exp: "psy", desc: "The user unleashes a blast of psychic energy", cost: { msp: 80 }, threshold: 3600*5,
              components: [{ target: "opp", base: 340, move: "psychic", desc: "%s blasted %t with psychic energy!", count: 1}]
          },
 

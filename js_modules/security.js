@@ -46,7 +46,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
          if (this.script.modules.gateway) for (var x in q)
          {
-             this.script.modules.gateway.checkUser(q[x]);
+             if (! this.script.modules.gateway.checkUser(q[x]))
+             {
+                 sys.kick(q[x]);
+             }
          }
      },
 

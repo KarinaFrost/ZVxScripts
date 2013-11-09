@@ -38,9 +38,10 @@
          {
              name: "TESTCHICKEN",
              desc: "",
-             str: 30,
-             res: 30,
-             men: 350,
+             str: 50,
+             sta: 50,
+             res: 75,
+             men: 90,
              drops: [{
                          prob: 1,
                          item: "testfeather",
@@ -60,9 +61,8 @@
          {
              name: "Evil Mushroom",
              desc: "One day, a mushroom turned into a monster... but... it didn't get any larger when that happened.",
-             offense: 100,
-             maxhp: 20,
-             defense: 100,
+             str: 50,
+             res: 50,
              drops: [{
                          prob: 1,
                          item: "shroomcap",
@@ -74,18 +74,35 @@
          {
              name: "Dark Frog",
              desc: "You can ask this frog is he's read any well-known gririmore, and his responce, more than likely, will be 'read-it read-it'.",
-             maxhp: 30,
-             offense: 450,
-             defense: 200
+             str: 300,
+             res: 300,
+             sta: 300
          }
          ,
-         dsquirl:
+         dsquirrel:
          {
-             name: "Deadly Squirl",
-             desc: "Nuts with evil, this squirl is as dangerous as squirls get!",
-             maxhp: 40,
-             offense: 1300,
-             defense: 1600
+             name: "Deadly Squirrel",
+             desc: "Nuts with evil, this squirrel is as dangerous as squirls get!",
+             str: 3600,
+             sta: 3600,
+             men: 2000,
+             spd: 4600,
+             res: 3600
+         },
+
+         reddragon:
+         {
+             name: "Red Dragon",
+             desc: "...",
+             str: 3600*1400,
+             sta: 3600*400,
+             men: 3600*100,
+             spd: 3600*1900,
+             res: 3600*1200,
+             plan: [{
+                     prob: 1,
+                     skill: "firebreath"
+                 }]
          }
      }
  });

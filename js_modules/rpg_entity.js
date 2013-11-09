@@ -22,7 +22,7 @@
 ({
      entityTick: function (e)
      {
-         print("tick " + e.name);
+
 
          e.sp += e.maxsp/30;
          e.msp += e.maxmsp/15;
@@ -137,13 +137,13 @@
          //e.maxhp = Math.floor(e.str*0.01 + e.res*0.03 + (Math.log(e.res/100+Math.E)*100 | 0));
 
 
-         e.physpower =  Math.floor((Math.log(e.str/3600 + 2) * this["1/ln(1.2)"] + e.str * this["1/3600*0.1"])*100);
-         e.maxsp =  Math.floor((Math.log(e.str/3600 + 2) * this["1/ln(1.2)"] + e.str * this["1/3600*0.1"])*100);
-         e.maxhp = Math.floor( (Math.log(e.res/3600 + 2) * this["1/ln(1.2)"] + e.res * this["1/3600*0.1"])*100);
+         e.physpower =  Math.floor((Math.log(e.str/3600 + 1) * this["1/ln(1.2)"] + e.str * this["1/3600*0.1"])*100);
+         e.maxsp =  Math.floor((Math.log(e.sta/3600 + 1) * this["1/ln(1.2)"] + e.sta * this["1/3600*0.1"])*100);
+         e.maxhp = Math.floor( (Math.log(e.res/3600 + 1) * this["1/ln(1.2)"] + e.res * this["1/3600*0.1"])*100);
 
-         e.magicpower = Math.floor(  (Math.log(e.mag/3600 + 2) * this["1/ln(1.3)"] + e.mag * this["1/3600*0.15"])*100  );
-         e.maxmsp =     Math.floor(  (Math.log(e.men/3600 + 2) * this["1/ln(1.3)"] + e.men * this["1/3600*0.15"])*100   );
-         e.maxmp =      Math.floor(  (Math.log(e.mag/3600 + 2) * this["1/ln(1.3)"] + e.mag * this["1/3600*0.15"])*100  );
+         e.magicpower = Math.floor(  (Math.log(e.mag/3600 + 1) * this["1/ln(1.3)"] + e.mag * this["1/3600*0.15"])*100  );
+         e.maxmsp =     Math.floor(  (Math.log(e.men/3600 + 1) * this["1/ln(1.3)"] + e.men * this["1/3600*0.15"])*100   );
+         e.maxmp =      Math.floor(  (Math.log(e.mag/3600 + 1) * this["1/ln(1.3)"] + e.mag * this["1/3600*0.15"])*100  );
 
          //e.offense = Math.floor(e.power / 10000 * (100 + this.equipAtk(e.lhand) + this.equipAtk(e.rhand)));
          //e.defense = Math.floor(e.power / 10000 * (100 + this.equipDef(e.lhand)/2 + this.equipDef(e.rhand)/2 + this.equipDef(e.body) + this.equipDef(e.feet) + this.equipDef(e.head) + this.equipDef(e.back)));
@@ -191,7 +191,7 @@
              //else hpBar += hpSlivers[hpEightiths];
              while(hpBar.length < 10) hpBar += "\u259e";
 
-             return "<code>[<span style='color:" + that.color.colorTriadToString(that.color.neonify(that.color.colorMixProp(colorfull, colorempty, val/max), neon))+ "'>" + hpBar + "</span>]</code> ("+String(val/max*100).substring(0, 5)+"%)";
+             return "<code>[<span style='color:" + that.color.colorTriadToString(that.color.neonify(that.color.colorMixProp(colorfull, colorempty, val/max), neon))+ "'>" + hpBar + "</span>]</code> ("+String(val/max*100).substring(0, 5)+"%) " + Math.floor(val) + "/" + Math.floor(max);
          }
 
          return "<table><tr><td></td><td>" + e.name + "</td></tr>" +

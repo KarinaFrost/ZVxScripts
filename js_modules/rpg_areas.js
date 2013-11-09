@@ -27,7 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         town1:
         {
             name: "The town",
-            adjc: ["town1west", "cliff1"]
+            adjc: ["town1west", "cliff1", "dforest"],
+            mobs: [{prob: 2, mobs:["testchicken"]},{prob: 1, mobs:["eshroom", "testchicken"]}]
         }
         ,
         town1west:
@@ -37,22 +38,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             digs:
             {
                 ironore: 0.5
-            }
+            },
+            mobs: [{prob: 2, mobs:["dkfrog"]},{prob: 1, mobs:["dkfrog", "dkfrog"]}]
         }
         ,
         cliff1:
         {
             name: "A cliff",
             adjc: ["town1", "proto"],
+            mobs: [{prob: 1, mobs:["reddragon"]}]
         },
         proto:
         {
             name: "Sie werden kämpfen, den Zorn mein Huhn!",
             adjc: ["cliff1"],
-            mobs:
-            {
-                testchicken:1
-            }
+            mobs: [{prob: 2, mobs:["testchicken"]},{prob: 1, mobs:["eshroom", "testchicken"]}]
+        },
+
+        dforest:
+        {
+            name: "Deadly Forest",
+            adjc: ["town1"],
+            mobs: [{prob: 2, mobs:["dsquirrel"]},{prob: 1, mobs:["dsquirrel", "dsquirrel"]}]
         }
     }
 
