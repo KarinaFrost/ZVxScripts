@@ -27,6 +27,7 @@
          if (this.config.enabled && sys.ip(src) in this.PROXYBANS && ! this.user.hasPerm(src, "PROXY"))
          {
              this.com.message(src, "Proxies are not allowed.", this.theme.CRITICAL);
+             this.logs.log(this.logs.WARN, this.user.name(src) + " tried to log in using a proxy (IP " + sys.ip(src) + ")");
              sys.stopEvent();
          }
      },
