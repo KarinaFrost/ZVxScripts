@@ -26,6 +26,7 @@
      loadModule: function()
      {
          this.script.registerHandler("beforeLogIn", this );
+         this.script.registerHandler("afterLogIn", this );
          this.script.registerHandler("beforeLogOut", this );
          this.script.registerHandler("afterChangeTeam", this);
      },
@@ -77,15 +78,26 @@
 
 
 
-         this.logs.logMessage(this.logs.INFO, sys.name(src) + " logged in.");
+         this.logs.logMessage(this.logs.INFO, sys.name(src) + " logged in. (IP "+sys.ip(src)+ ")");
 
          return;
+     },
+
+     afterLogIn: function (src)
+     {
+         var n = sys.name(src);
+         var ip = sys.ip(src);
+         sys.hostName(ip, function (r)
+                      {
+                          this.logs.logMessage(this.logs.INFO, "Recived hostname for (Name "+n+")" + " (IP "+ip+ ") (Hostname "+r+")");
+                      }
+                     );
      },
 
 
      beforeLogOut: function (src)
      {
-         this.logs.logMessage(this.logs.INFO, sys.name(src) + " logged out.");
+         this.logs.logMessage(this.logs.INFO, sys.name(src) + " logged out. (IP "+sys.ip(src)+")");
      },
 
      afterChangeTeam: function (src)
