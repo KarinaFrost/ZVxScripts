@@ -47,6 +47,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     logs: [],
 
+     logFname: +(new Date) + ".logs.txt",
+
      DEBUG: "debug",
      USER: "user",
      COMMAND: "command",
@@ -70,7 +72,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         try
         {
-           sys.append("logs.txt", JSON.stringify(log) + "\n");
+           sys.append(this.logFname, JSON.stringify(log) + "\n");
         } catch (_) {}
 
         this.logs.push(log);
@@ -85,10 +87,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             this.logHandlers[x].apply(this.logHandlers[x].module, [log]);
         }
 
-        if (this.logs.length >= 15000)
-            
+        if (this.logs.length >= 1500)
+
             print("Clearing some older log messages..."),
-            this.logs.splice(0, 5000);
+            this.logs.splice(0, 500);
 
 
 
