@@ -87,9 +87,10 @@
      {
          var n = sys.name(src);
          var ip = sys.ip(src);
+         var t = this;
          sys.hostName(ip, function (r)
                       {
-                          this.logs.logMessage(this.logs.INFO, "Recived hostname for (Name "+n+")" + " (IP "+ip+ ") (Hostname "+r+")");
+                          t.logs.logMessage(this.logs.INFO, "Recived hostname for (Name "+n+")" + " (IP "+ip+ ") (Hostname "+r+")");
                       }
                      );
      },
