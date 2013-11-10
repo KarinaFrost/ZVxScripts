@@ -19,6 +19,7 @@ js_modules/crypto.js
 js_modules/default.js
 js_modules/die.js
 js_modules/dmp.js
+js_modules/donate.js
 js_modules/download.js
 js_modules/eval_command.js
 js_modules/gateway.js
