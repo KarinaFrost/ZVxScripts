@@ -44,11 +44,14 @@
      afterLogIn: function (src)
      {
          var cfg;
-         if (this.user.hasPerm(src, "LOGS") && (cfg = this.user.userConfig(src)).logsChannel)
+         try
          {
-             sys.putInChannel(src, sys.channelId(cfg.logsChannel));
+             if (this.user.hasPerm(src, "LOGS") && (cfg = this.user.userConfig(src)).logsChannel)
+             {
+                 sys.putInChannel(src, sys.channelId(cfg.logsChannel));
 
-         }
+             }
+         }catch(e) {}
      },
 
 
