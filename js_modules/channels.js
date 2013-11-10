@@ -30,7 +30,7 @@
 
      meta:
      {
-         commands: ["channelregister", "channeltopic", "channelban", "channelunban", "channelunmute", "channelauth", "channelmute", "channelctrl", "channelinfo"]
+         commands: ["channelregister", "channeltopic", "channelban", "channelunban", "channelunmute", "channelauth", "channelmute", "channelctrl", "channelinfo", "channeljoin"]
      },
 
      /** The chans property stores channel databases. Key is channel permanent ID. */
