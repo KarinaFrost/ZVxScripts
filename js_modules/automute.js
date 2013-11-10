@@ -51,8 +51,6 @@
 
          var l = msg.length;
 
-         print(l);
-
          for (var i = 0; i*100 <= l; i++)
          {
 
