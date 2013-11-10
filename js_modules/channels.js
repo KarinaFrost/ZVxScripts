@@ -448,6 +448,21 @@
          }
      },
 
+     channeljoin:
+     {
+         desc: "Join a channel(s)",
+         category: "channel",
+         aliases: ["cjoin"],
+         perm: function () {return true;},
+         code: function (src, cmd, chan)
+         {
+             for (var x in cmd.args)
+             {
+                 sys.putInChannel(src, sys.channelId(cmd.args[x]));
+             }
+         }
+     },
+
      channelunmute:
      {
          desc: "Unmutes a user in a channel",
