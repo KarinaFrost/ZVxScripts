@@ -454,11 +454,20 @@
          category: "channel",
          aliases: ["cjoin"],
          perm: function () {return true;},
-         code: function (src, cmd, chan)
+         code:
+         function (src, cmd, chan)
          {
              for (var x in cmd.args)
              {
-                 sys.putInChannel(src, sys.channelId(cmd.args[x]));
+                 var id = sys.channelId(cmd.args[x]);
+                 if (typeof id === "undefined")
+                 {
+                     sys.createChannel(cmd.args[x]);
+                     id = sys.channelId(cmd.args[x]);
+                 }
+
+                 sys.putInChannel(src, id);
+
              }
          }
      },
