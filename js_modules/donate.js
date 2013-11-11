@@ -23,9 +23,14 @@
              this.udb[sys.name(src).toLowerCase()] = +new Date;
          }
 
+	 if (sys.os(src) == "android")
+         {
+             sys.sendHtmlMessage(src, "<timestamp />Contribute to ZVxScripts & RPG Development! <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=8BQHLUEXVWVQ2&lc=US&item_name=ZVX%20Scripts%20%26%20RPG%20Open%20Source%20Development&item_number=zvx0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>[donate with paypal]</a> or use bitcoin: 17Act28nb7vLqkWMDridtz8KjBXpaWXBpA", chan);
+         } else
 
-         sys.sendHtmlMessage(src, "<timestamp />Contribute to ZVxScripts & RPG Development! " + this.BUTTON + " or use bitcoin: 17Act28nb7vLqkWMDridtz8KjBXpaWXBpA");
-
+         {
+             sys.sendHtmlMessage(src, "<timestamp />Contribute to ZVxScripts & RPG Development! " + this.BUTTON + " or use bitcoin: 17Act28nb7vLqkWMDridtz8KjBXpaWXBpA");
+         }
      },
 
 
@@ -37,7 +42,7 @@
          code:
          function (src, cmd, chan)
          {
-             sys.sendHtmlMessage(src, "<timestamp />Contribute to ZVxScripts & RPG Development! <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=8BQHLUEXVWVQ2&lc=US&item_name=ZVX%20Scripts%20%26%20RPG%20Open%20Source%20Development&item_number=zvx0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>[donate]</a> or use bitcoin: 17Act28nb7vLqkWMDridtz8KjBXpaWXBpA", chan);
+             sys.sendHtmlMessage(src, "<timestamp />Contribute to ZVxScripts & RPG Development! <a href='https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=8BQHLUEXVWVQ2&lc=US&item_name=ZVX%20Scripts%20%26%20RPG%20Open%20Source%20Development&item_number=zvx0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'>[donate with paypal]</a> or use bitcoin: 17Act28nb7vLqkWMDridtz8KjBXpaWXBpA", chan);
          }
      }
 
