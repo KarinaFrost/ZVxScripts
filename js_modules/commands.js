@@ -164,10 +164,7 @@
 
 
 
-     serverCanUseCmd: function (name)
-     {
-         return this.commands_db[name].server;
-     },
+
 
 
 
@@ -179,8 +176,6 @@
      commandPerm: function (src, cmd, chan)
      {
          var cmdobj = this.commands_db[cmd.name];
-
-         if (src == 0) return cmdobj.server;
 
          if (this.user.hasPerm(src, "COMMAND[" + cmdobj.name.toUpperCase() + "]")) return true;
 
@@ -275,7 +270,7 @@
       */
      issueCommand: function(src, text, chan)
      {
-         var cmd = this.parsecommand.commandParsers[this.user.userConfig(src).commandParser](text);
+         var cmd = this.parsecommand.parsers[this.user.userConfig(src).commandParser].parse(text);
 
          this.logs.logMessage(this.logs.COMMAND, (chan == -1 ? "[N/A] " : "[#"+sys.channel(chan)+"] ") + this.user.name(src) + ": " + text);
 
