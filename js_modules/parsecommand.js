@@ -42,163 +42,152 @@
 ({
      require: [],
 
-
      hotswap: true,
 
-
-     commandUnParsers:
+     parsers:
      {
-         optargs: function (cmd)
+         optargs:
          {
-             var output = [];
-             for (var x in cmd.args)
+             parse:
+             function (text)
              {
-                 output.push(JSON.stringify(cmd.args[x]));
-             }
+                 var cmd = new Object;
 
-             for (var x in cmd.flags)
-             {
-                 output.push("--" + x + (cmd.flags[x] === true?"":"="+ JSON.stringify(cmd.flags[x])));
-             }
+                 var match = text.match(/^(?:!|\/)([^\s]*)(?:\s+(.*))?/i);
 
-             return output.join(" ");
-         },
+                 cmd.args = [];
+                 cmd.flags = {};
 
-         simple: function (cmd)
-         {
-             var output = [];
+                 if (!match) return cmd;
 
-             var string = "";
-             for (var x in cmd.args)
-             {
-                 output.push(cmd.args[x].replace(/[\:\*\\]/g, "\\$1"));
-             }
+                 cmd.name = match[1];
+                 cmd.input = match[2];
 
-             string = output.join("*");
+                 var input = cmd.input;
 
-             for (x in cmd.flags)
-             {
-                 string += (":" + x + (cmd.flags[x] === true?"":"="+ (cmd.flags[x]).replace(/[\:\*\\]/g, "\\$1")));
-             }
+                 if (!input) return cmd;
 
-             return string;
-         }
-     },
+                 while (input != (input =
+			          input.replace(/^\s*(?:\-{1,2}((?:[^\s=]|\\ )+)(?:\=(?:\"((?:\\.|[^\"])+)\"|((?:[^\s"]|\\ )+)))?)|(?:(?:\"((?:\\.|[^\"])+)\")|((?:[^\s"]|\\ )+))/, cl_next))
+		        //                                     ^flagname                  ^flagvalstr        ^flagvalueraw                  ^argvalstr          ^argvalraw
+                       ) {};
 
-     commandParsers:
-     {
-	 optargs: null,
-	 simple: function (text)
-	 {
-	      var cmd = new Object;
-
-             var match = text.match(/^(?:!|\/)([^\s]*)(?:\s+(.*))?/i);
-
-             cmd.args = [];
-             cmd.flags = {};
-
-             if (!match) return cmd;
-
-             cmd.name = match[1];
-             cmd.input = match[2];
-
-             var input = cmd.input;
-
-             if (!input) return cmd;
-
-             while (input != (input =
-			      input.replace(/^[\s\*]*(?:\:((?:[^\s:\*=]|\\.)+)(?:\=(?:\"((?:\\.|[^\"])+)\"|((?:[^:\*"]|\\.)+)))?)|(?:(?:\"((?:\\.|[^\"])+)\")|((?:[^:\*]|\\.)+))/, cl_next))
-		    //                           ^flagname                          ^flagvalstr        ^flagvalueraw                  ^argvalstr          ^argvalraw
-                   ) {};
-
-             print(input);
-
-             function cl_next (text, flagname, flagvaluestr, flagvalueraw, argvaluestr, argvalueraw)
-             {
-                 if (flagname)
+                 function cl_next (text, flagname, flagvaluestr, flagvalueraw, argvaluestr, argvalueraw)
                  {
-                     var f = ((flagvaluestr ? flagvaluestr: void 0) || flagvalueraw);
-
-                     if (f)
+                     if (flagname)
                      {
-                         cmd.flags[flagname] = f.replace(/\\(.)/g, "$1");
+                         var f = ((flagvaluestr ? flagvaluestr: void 0) || flagvalueraw);
+
+                         if (f) cmd.flags[flagname] = f.replace(/\\(.)/g, "$1");
+                         else cmd.flags[flagname] = true;
                      }
                      else
                      {
-                         cmd.flags[flagname] = true;
+                         cmd.args.push(((argvaluestr !== undefined ? argvaluestr: void 0) || argvalueraw).replace(/\\(.)/g, "$1"));
                      }
+                     return "";
                  }
-                 else
+
+                 return cmd;
+
+             }, // end function parsers.optargs.parse
+
+             unparse:
+             function (cmd)
+             {
+                 var output = [];
+                 for (var x in cmd.args)
                  {
-                     cmd.args.push(((argvaluestr !== undefined ? argvaluestr: void 0) || argvalueraw).replace(/\\(.)/g, "$1"));
+                     output.push(JSON.stringify(cmd.args[x]));
                  }
-                 return "";
+
+                 for (var x in cmd.flags)
+                 {
+                     output.push("--" + x + (cmd.flags[x] === true?"":"="+ JSON.stringify(cmd.flags[x])));
+                 }
+
+                 return output.join(" ");
+             } // end function parsers.optargs.unparse
+         }, // end optargs
+
+         simple:
+         {
+             parse:
+             function (text)
+	     {
+	         var cmd = new Object;
+
+                 var match = text.match(/^(?:!|\/)([^\s]*)(?:\s+(.*))?/i);
+
+                 cmd.args = [];
+                 cmd.flags = {};
+
+                 if (!match) return cmd;
+
+                 cmd.name = match[1];
+                 cmd.input = match[2];
+
+                 var input = cmd.input;
+
+                 if (!input) return cmd;
+
+                 while (input != (input =
+			          input.replace(/^[\s\*]*(?:\:((?:[^\s:\*=]|\\.)+)(?:\=(?:\"((?:\\.|[^\"])+)\"|((?:[^:\*"]|\\.)+)))?)|(?:(?:\"((?:\\.|[^\"])+)\")|((?:[^:\*]|\\.)+))/, cl_next))
+		        //                           ^flagname                          ^flagvalstr        ^flagvalueraw                  ^argvalstr          ^argvalraw
+                       ) {};
+
+                 print(input);
+
+                 function cl_next (text, flagname, flagvaluestr, flagvalueraw, argvaluestr, argvalueraw)
+                 {
+                     if (flagname)
+                     {
+                         var f = ((flagvaluestr ? flagvaluestr: void 0) || flagvalueraw);
+
+                         if (f)
+                         {
+                             cmd.flags[flagname] = f.replace(/\\(.)/g, "$1");
+                         }
+                         else
+                         {
+                             cmd.flags[flagname] = true;
+                         }
+                     }
+                     else
+                     {
+                         cmd.args.push(((argvaluestr !== undefined ? argvaluestr: void 0) || argvalueraw).replace(/\\(.)/g, "$1"));
+                     }
+                     return "";
+                 }
+
+                 return cmd;
+
+	     },
+             unparse:
+             function (cmd)
+             {
+                 var output = [];
+
+                 var string = "";
+                 for (var x in cmd.args)
+                 {
+                     output.push(cmd.args[x].replace(/[\:\*\\]/g, "\\$1"));
+                 }
+
+                 string = output.join("*");
+
+                 for (x in cmd.flags)
+                 {
+                     string += (":" + x + (cmd.flags[x] === true?"":"="+ (cmd.flags[x]).replace(/[\:\*\\]/g, "\\$1")));
+                 }
+
+                 return string;
              }
-
-             return cmd;
-
-	 }
+         }
      },
 
      loadModule: function ()
      {
-	 this.commandParsers.optargs = this.parseCommand;
-     },
-
-     /** Parses a command.
-      * @param {String} text The text to parse.
-      * @return {parsedCommand} The parsed command.
-      * */
-
-
-
-     parseCommand: function (text)
-     {
-         var cmd = new Object;
-
-         var match = text.match(/^(?:!|\/)([^\s]*)(?:\s+(.*))?/i);
-
-         cmd.args = [];
-         cmd.flags = {};
-
-         if (!match) return cmd;
-
-         cmd.name = match[1];
-         cmd.input = match[2];
-
-         var input = cmd.input;
-
-         if (!input) return cmd;
-
-         while (input != (input =
-			  input.replace(/^\s*(?:\-{1,2}((?:[^\s=]|\\ )+)(?:\=(?:\"((?:\\.|[^\"])+)\"|((?:[^\s"]|\\ )+)))?)|(?:(?:\"((?:\\.|[^\"])+)\")|((?:[^\s"]|\\ )+))/, cl_next))
-		//                           ^flagname                  ^flagvalstr        ^flagvalueraw                  ^argvalstr          ^argvalraw
-               );
-
-             function cl_next (text, flagname, flagvaluestr, flagvalueraw, argvaluestr, argvalueraw)
-         {
-             if (flagname)
-             {
-                 var f = ((flagvaluestr ? flagvaluestr: void 0) || flagvalueraw);
-
-                 if (f)
-                 {
-                     cmd.flags[flagname] = f.replace(/\\(.)/g, "$1");
-                 }
-                 else
-                 {
-                     cmd.flags[flagname] = true;
-                 }
-             }
-             else
-             {
-                 cmd.args.push(((argvaluestr !== undefined ? argvaluestr: void 0) || argvalueraw).replace(/\\(.)/g, "$1"));
-             }
-             return "";
-         }
-
-         return cmd;
-
+         //
      }
-
  });
