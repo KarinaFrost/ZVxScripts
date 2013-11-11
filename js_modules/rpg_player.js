@@ -157,6 +157,18 @@
          if (player.battle) return;
          // Regular player events don't occur while the player is in a battle!
 
+         if (player.hp <= 0)
+         {
+             player.hp = 1;
+             player.sp = 1;
+             player.mp = 1;
+             player.msp = 1;
+             player.area = "graveyard";
+             player.activeActions = [];
+             
+             this.com.message(player.src, 'You were revived at the graveyard...');
+         }
+
          this.playerUpdateStats(player);
 
          this.entityTick(player);
@@ -167,7 +179,8 @@
              if ("timer" in player.activeActions[x] && player.activeActions[x].timer-- <= 0)
              {
                  if (player.activeActions[x].done) this.actions[player.activeActions[x].done].call(this, player.activeActions[x], { rpg: ctx.rpg, player:player, index: x, chan:ctx.chan });
-                 delete player.activeActions[x];
+                 player.activeActions.shift();
+                 break;
              }
              else if (player.activeActions[x].tick)
              {

@@ -85,10 +85,11 @@
 
      RPGStep: function (rpg, chan)
      {
+
          if (rpg.paused) return;
          rpg.tick++;
 
-         if (rpg.tick % 10 != 0) return;
+         if (rpg.tick % 5 != 0) return;
 
          for (var x in rpg.areas)
          {
@@ -225,7 +226,7 @@
                  subactions[0] = subactions[0].toLowerCase();
                  if (subactions[0] in this.rpgActions)
                  {
-                     this.rpgActions[subactions[0]].apply(this, [src, subactions, chan, {player:player, rpg: rpg }] );
+                     this.rpgActions[subactions[0]].apply(this, [src, subactions, chan, {player: player, rpg: rpg }] );
                  }
              }
          }

@@ -24,6 +24,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     ,
     areas:
     {
+        graveyard:
+        {
+            name: "The graveyard",
+            adjc: ["town1"]
+
+        },
         town1:
         {
             name: "The town",
