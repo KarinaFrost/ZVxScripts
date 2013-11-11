@@ -153,7 +153,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             this.com.broadcast(
                  this.text.escapeHTML(
-                     "Posted mute #" +this.security.database.banCtr
+                     "Posted mute #" +this.security.database.muteCtr
                  ) +
                      "<br/>" + this.theme.issuehtml(o) +
                      ""
