@@ -72,7 +72,7 @@
          // todo: Update this function
          psychic: function (ctx)
          {
-             var offense = ctx.attacker.physpower;
+             var offense = ctx.attacker.psypower;
              var base = ctx.component.base;
 
              var defense = ctx.target.physpower;

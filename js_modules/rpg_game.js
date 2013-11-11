@@ -89,7 +89,7 @@
          if (rpg.paused) return;
          rpg.tick++;
 
-         if (rpg.tick % 5 != 0) return;
+         if (rpg.tick % 6 != 0) return;
 
          for (var x in rpg.areas)
          {

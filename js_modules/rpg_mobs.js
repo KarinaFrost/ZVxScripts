@@ -36,11 +36,11 @@
      {
          testchicken:
          {
-             name: "TESTCHICKEN",
+             name: "Chicken",
              desc: "",
-             str: 50,
+             str: 75,
              sta: 50,
-             res: 75,
+             res: 200,
              men: 90,
              drops: [{
                          prob: 1,
@@ -50,10 +50,10 @@
              plan:
              [
                  {
-                     prob: 0.5,
+                     prob: 0.7,
                      skill: "peck"
                  },
-                 { prob: 0.5, skill: "peckground" }
+                 { prob: 0.3, skill: "peckground" }
              ]
          },
 
@@ -76,7 +76,7 @@
              desc: "You can ask this frog is he's read any well-known gririmore, and his responce, more than likely, will be 'read-it read-it'.",
              str: 300,
              res: 300,
-             sta: 300
+             sta: 300, men: 300
          }
          ,
          dsquirrel:

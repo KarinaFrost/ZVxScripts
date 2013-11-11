@@ -145,6 +145,8 @@
          e.maxmsp =     Math.floor(  (Math.log(e.men/3600 + 1) * this["1/ln(1.3)"] + e.men * this["1/3600*0.15"])*100   );
          e.maxmp =      Math.floor(  (Math.log(e.mag/3600 + 1) * this["1/ln(1.3)"] + e.mag * this["1/3600*0.15"])*100  );
 
+         e.psypower = Math.floor(  (Math.log(e.psy/3600 + 1) * this["1/ln(1.3)"] + e.psy * this["1/3600*0.15"])*100  );
+
          //e.offense = Math.floor(e.power / 10000 * (100 + this.equipAtk(e.lhand) + this.equipAtk(e.rhand)));
          //e.defense = Math.floor(e.power / 10000 * (100 + this.equipDef(e.lhand)/2 + this.equipDef(e.rhand)/2 + this.equipDef(e.body) + this.equipDef(e.feet) + this.equipDef(e.head) + this.equipDef(e.back)));
      },

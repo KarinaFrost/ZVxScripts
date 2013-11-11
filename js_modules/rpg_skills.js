@@ -88,13 +88,13 @@
          peck:
          {
              name: "Chicken Peck", element: "phsyical",
-             components: [{ target: "opp", base: 15, move: "physical", desc: "%s pecked %t!", count: 1 }]
+             components: [{ target: "opp", base: 5, move: "physical", desc: "%s pecked %t!", count: 1 }]
          },
 
          peckground:
          {
              name: "Chicken Peck", element: "phsyical",
-             components: [{ target: "none", base: 20, move: "nil", desc: "%s pecked the ground!", count: 0 }]
+             components: [{ target: "none", base : 0, move: "nil", desc: "%s pecked the ground!", count: 0 }]
          },
 
          rabbit:
@@ -108,7 +108,7 @@
          attack:
          {
              name: "Attack", element: "physical", cost:{sp:5}, exp: "str", next: ["psyburst", "heal" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
-             components: [{ target: "opp", base:20, move: "physical", desc: "%s attacked %t!", count:1 }]
+             components: [{ target: "opp", base:5, move: "physical", desc: "%s attacked %t!", count:1 }]
          },
 
          heal:
@@ -202,25 +202,25 @@
 
          psyburst:
          {
-             name: "Psycho Burst", exp: "psy", desc: "The user concentrates psychic energy and uses it to attack.", cost: { msp: 10 }, threshold: 60*5,next: ["psyshock"],
-             components: [{ target: "opp", base: 12, move: "psychic", desc: "%s unleashed a burst of psychic energy against %t!", count: 1}]
+             name: "Psycho Burst", exp: "psy", desc: "The user concentrates psychic energy and uses it to attack.", cost: { msp: 8 }, threshold: 60*5,next: ["psyshock"],
+             components: [{ target: "opp", base: 10, move: "psychic", desc: "%s unleashed a burst of psychic energy against %t!", count: 1}]
          },
 
          psyshock:
          {
-             name: "Psycho Shock", exp: "psy", desc: "The user concentrates psychic energy and unleashes it in a shockwave.", cost: { msp: 40 }, threshold: 60*30, next: ["psyslice"],
+             name: "Psycho Shock", exp: "psy", desc: "The user concentrates psychic energy and unleashes it in a shockwave.", cost: { msp: 20 }, threshold: 60*15, next: ["psyslice"],
              components: [{ target: "opp", base: 25, move: "psychic", desc: "%s unleashed a shockwave of psychic energy towards %t!", count: 1}]
          },
 
          psyslice:
          {
-             name: "Psycho Slice", exp: "psy", desc: "The user concentrates psychic energy into a wedge and unleashes it.", cost: { msp: 40 }, threshold: 3600, next: ["psyblast"],
-             components: [{ target: "opp", base: 70, move: "psychic", desc: "%s unleashed a shockwave of psychic energy towards %t!", count: 1}]
+             name: "Psycho Slice", exp: "psy", desc: "The user concentrates psychic energy into a wedge and unleashes it.", cost: { msp: 40 }, threshold: 60*35, next: ["psyblast"],
+             components: [{ target: "opp", base: 70, move: "psychic", desc: "%s unleashed a blade of psychic energy towards %t!", count: 1}]
          },
 
          psyblast:
          {
-             name: "Psycho Blast", exp: "psy", desc: "The user unleashes a blast of psychic energy", cost: { msp: 80 }, threshold: 3600*5,
+             name: "Psycho Blast", exp: "psy", desc: "The user unleashes a blast of psychic energy", cost: { msp: 80 }, threshold: 3600,
              components: [{ target: "opp", base: 340, move: "psychic", desc: "%s blasted %t with psychic energy!", count: 1}]
          },
 

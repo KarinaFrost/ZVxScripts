@@ -25,7 +25,7 @@
 
          walk: function (src, sub, chan, ctx)
          {
-             var x, i, steps, adj, dest;
+             var x, i, steps = 0, adj, dest;
 
              const areas = this.areas[ctx.player.area];
              adj = areas.adjc;
@@ -55,13 +55,13 @@
                          {
                              if (adj[x] == to)
                              {
-                                 steps = 10;
+                                 steps += 10;
                                  break l1;
                              }
                          }
                          else if (adj[x].area == to)
                          {
-                             steps = adj[x].distance;
+                             steps += adj[x].distance;
                              break l1;
                          }
                      } // end for loop
@@ -88,7 +88,7 @@
              if (dest)
              {
                  this.com.message(ctx.player.src, "You started walking to " +this.areas[dest].name+ "!", this.theme.GAME, false, ctx.chan);
-                 ctx.player.activeActions.push({ timer:1, done: "location"});
+//                 ctx.player.activeActions.push({ timer:1, done: "location"});
              }
 
 
@@ -366,11 +366,7 @@
          location:
          function (actionObj, ctx)
          {
-             this.com.message(ctx.player.src, "You are at: " + this.areas[ctx.player.area].name + ". From here you can go to:", this.theme.GAME, false, ctx.chan);
-             for (var i = 0; i < this.areas[ctx.player.area].adjc.length; i++)
-             {
-                 this.com.message(ctx.player.src, this.areas[this.areas[ctx.player.area].adjc[i]].name + " (" + this.areas[ctx.player.area].adjc[i] + ")", -1, false, ctx.chan);
-             }
+
 
          },
 
@@ -381,7 +377,20 @@
              ctx.player.sp -= act.sp || 0;
              this.com.message(ctx.player.src, "Walked from " + this.areas[ctx.player.area].name + " to " +this.areas[act.to].name + ".", this.theme.RPG, false, ctx.chan);
              ctx.player.sta += act.sp;
+             var lv = this.level(ctx.player.totalexp);
+             ctx.player.totalexp += act.sp;
+             var newlv = this.level(ctx.player.totalexp);
+             if (lv < newlv)
+             {
+                 this.com.broadcast(ctx.player.name + " has leveled up to level " + newlv + "!", this.theme.GAME, false, ctx.chan);
+             }
              ctx.player.area = act.to;
+             if (ctx.player.activeActions.length != 1) return;
+             this.com.message(ctx.player.src, "You are at: " + this.areas[ctx.player.area].name + ". From here you can go to:", this.theme.GAME, false, ctx.chan);
+             for (var i = 0; i < this.areas[ctx.player.area].adjc.length; i++)
+             {
+                 this.com.message(ctx.player.src, this.areas[this.areas[ctx.player.area].adjc[i]].name + " (" + this.areas[ctx.player.area].adjc[i] + ")", -1, false, ctx.chan);
+             }
          },
 
          dig:  function (actionObj, ctx)

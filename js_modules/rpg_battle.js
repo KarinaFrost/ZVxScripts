@@ -359,7 +359,7 @@
          {
              this.com.message(pids, "Battle ended!", this.theme.RPG, false, ctx.chan);
 
-
+             if (battle.players.length == 0) return;
              var dps = new Array(battle.players.length);
              // [i] = index of player id
 
@@ -391,7 +391,7 @@
                      this.getPlayer(rpg.name, battle.players[i]).items[x] = (this.getPlayer(rpg.name, battle.players[i]).items[x] || 0) + dps[i][x];
                  }
 
-                 this.com.message(pids, battle.players[i] + " got " + msg.join(", ") + "!");
+                 if (msg.length) this.com.message(pids, battle.players[i] + " got " + msg.join(", ") + "!");
              }
 
 
