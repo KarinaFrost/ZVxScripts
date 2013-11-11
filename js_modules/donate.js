@@ -1,5 +1,5 @@
 ({
-     require: ["com", "user", "commands", "theme"],
+     require: ["com", "user", "commands", "theme", 'io'],
      counter: 0,
      udb: null,
 
@@ -9,15 +9,20 @@
      {
          this.script.registerHandler("afterLogIn", this);
          this.commands.registerCommand("donate", this);
+         this.io.registerConfig(this, {alwaysShowDonate: false});
          this.udb = new Object;
      },
 
 
      afterLogIn: function (src)
      {
-         if (sys.name(src).toLowerCase() in this.udb && this.udb[sys.name(src).toLowerCase()] < +new Date + 3600*24*3) return;
+         if (!this.config.alwaysShowDonate)
+         {
+             if (sys.name(src).toLowerCase() in this.udb && this.udb[sys.name(src).toLowerCase()] < +new Date + 3600*24*3) return;
 
-         this.udb[sys.name(src).toLowerCase()] = +new Date;
+             this.udb[sys.name(src).toLowerCase()] = +new Date;
+         }
+
 
          sys.sendHtmlMessage(src, "<timestamp />Contribute to ZVxScripts & RPG Development! " + this.BUTTON + " or use bitcoin: 17Act28nb7vLqkWMDridtz8KjBXpaWXBpA");
 
