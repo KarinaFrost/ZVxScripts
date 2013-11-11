@@ -39,11 +39,8 @@
          },
 
 
-         perm: function (src)
-         {
-             return "KICKOP" in this.user.groups(src);
-         }
-         ,
+         perm: "KICK",
+         
          code: function (src, cmd)
          {
              var kicklist = [];
