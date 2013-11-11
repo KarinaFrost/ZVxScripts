@@ -681,12 +681,14 @@
      afterLogIn: function (src)
      {
          var cfg = this.user.userConfig(src);
-
-         for (x in cfg.autoJoinChannels)
+         try
          {
-             this.com.message(src, "Autojoin #" + cfg.autoJoinChannels[x]);
-             sys.putInChannel(src, sys.channelId(cfg.autoJoinChannels));
-         }
+             for (x in cfg.autoJoinChannels)
+             {
+                 this.com.message(src, "Autojoin #" + cfg.autoJoinChannels[x]);
+                 sys.putInChannel(src, sys.channelId(cfg.autoJoinChannels));
+             }
+         } catch(e) {}
      },
 
      afterChannelJoin: function (src, chan)
