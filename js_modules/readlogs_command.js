@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             trace: "Show backtraces if available.",
             types: "Comma separated types of log messages to show",
             match: "Pattern matching"
+//            deep: "Deep log reading"
         },
 
         perm: function (src)

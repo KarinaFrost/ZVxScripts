@@ -129,7 +129,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         {
                             if (typeof ex == "string") return ex;
 
-                            return this.parsecommand.commandUnParsers[this.user.userConfig(src).commandParser](ex);
+                            return this.parsecommand.parsers[this.user.userConfig(src).commandParser].unparse(ex);
 
                         }
 

@@ -47,7 +47,8 @@
 
          beforeChatMessage: function beforeChatMessage (src, msg, chan)
          {
-             if (msg.length == 0) return;
+             if (!msg) msg = "";
+             //if (msg.length == 0) return;
 
              if (this.capture[src] && this.capture[src].length >= 1)
              {
@@ -70,12 +71,13 @@
              else if (! this.user.hasPerm(src, "CHAT"))
              {
                  sys.stopEvent();
-                 this.com.message(src, "Permission denied.", this.theme.WARN);
+                 this.com.message(src, "CHAT: Permission denied.", this.theme.WARN, false, chan);
                  return;
              }
 
-             if (chan == -1 && src != 0)
+             if (chan == -1 && !this.user.hasPerm(src, "BROADCAST"))
              {
+                 this.com.message(src, "BROADCAST: Permission denied.", this.theme.WARN, false, chan);
                  sys.stopEvent();
                  return;
                  // can't write outside of all channels here >_<
@@ -113,8 +115,9 @@
              if (m)
              {
                  sys.broadcast(m, chan, src, false, -1);
-                 this.logs.logMessage(this.logs.CHAT, (chan == -1? "" : "[#"+sys.channel(chan)+"] ") + sys.name(src) + ": " + msg);
+                 this.logs.logMessage(this.logs.CHAT, (chan == -1? "" : "[#"+sys.channel(chan)+"] ") + this.user.name(src) + ": " + msg);
              }
+             
              sys.stopEvent();
 
          }

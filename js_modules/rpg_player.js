@@ -149,6 +149,11 @@
 
      playerStep: function (player, ctx)
      {
+         // Only run player steps while the player is online
+         var src = this.user.id(player.name);
+         if (!src) return;
+         else player.src = src;
+
          if (player.battle) return;
          // Regular player events don't occur while the player is in a battle!
 
@@ -161,12 +166,12 @@
          {
              if ("timer" in player.activeActions[x] && player.activeActions[x].timer-- <= 0)
              {
-                 if (player.activeActions[x].done) this.actions[player.activeActions[x].done].call(this, player.activeActions[x], { rpg: ctx.rpg, player:player, index: x });
+                 if (player.activeActions[x].done) this.actions[player.activeActions[x].done].call(this, player.activeActions[x], { rpg: ctx.rpg, player:player, index: x, chan:ctx.chan });
                  delete player.activeActions[x];
              }
              else if (player.activeActions[x].tick)
              {
-                 this.actions[player.activeActions[x].tick].call(this, player.activeActions[x], { rpg: ctx.rpg, player:player, index: x });
+                 this.actions[player.activeActions[x].tick].call(this, player.activeActions[x], { rpg: ctx.rpg, player:player, index: x, chan: ctx.chan  });
              }
              break;
          }
