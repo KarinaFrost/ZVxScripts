@@ -139,7 +139,7 @@
              }
 
 
-             var exp = 3600*24 + (+new Date);
+             var exp = 1000*3600*24 + (+new Date);
              var t = null;
 
              if (cmd.flags.time && String(cmd.flags.time).match(/forever|infinite|indefinite/i))
