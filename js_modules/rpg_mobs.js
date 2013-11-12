@@ -40,7 +40,7 @@
              desc: "",
              str: 75,
              sta: 50,
-             res: 200,
+             res: 100,
              men: 90,
              drops: [{
                          prob: 1,

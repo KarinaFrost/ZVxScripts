@@ -177,7 +177,7 @@
 
 
          },
-
+	 /*
          test: function (src, sub, chan, ctx)
          {
              if (! ctx.rpg.battleCounter) ctx.rpg.battleCounter = 0;
@@ -190,8 +190,8 @@
              {
                  this.com.message(sys.id(ctx.player.name), "You started battle with " + JSON.stringify(this.areas[ctx.player.area].mobs[x]), this.theme.GAME);
              }
-         }
-         ,
+         }*/
+         //,
          view: function (src, sub, chan, ctx)
          {
              var msgs = [];

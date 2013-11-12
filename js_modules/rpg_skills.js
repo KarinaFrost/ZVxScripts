@@ -107,7 +107,7 @@
 
          attack:
          {
-             name: "Attack", element: "physical", cost:{sp:5}, exp: "str", next: ["psyburst", "heal" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
+             name: "Attack", element: "physical", cost:{sp:2}, exp: "str", next: ["psyburst", "heal" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
              components: [{ target: "opp", base:5, move: "physical", desc: "%s attacked %t!", count:1 }]
          },
 
