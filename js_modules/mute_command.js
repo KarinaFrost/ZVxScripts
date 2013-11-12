@@ -127,7 +127,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 ips = this.util.concatSets(ips, [sys.dbIp(names[x])]);
             }
 
-            var exp = 60*15 + (+new Date);
+            var exp = 1000*60*15 + (+new Date);
             var t = null;
 
             if (cmd.flags.time && String(cmd.flags.time).match(/forever|infinite|indefinite/i))
