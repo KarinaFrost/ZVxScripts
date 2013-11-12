@@ -65,6 +65,7 @@
          if (! this.checkUser(src))
          {
              var banID = this.security.banID(src);
+             var ban = this.database.bans[banID];
              this.com.message(
                  [src],
                  "<hr/>You are banned.<br>" + this.theme.issuehtml(ban) + "<hr/>",
