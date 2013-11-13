@@ -111,7 +111,7 @@
          if (issued.author) outtext.push("<b>Issued by:</b> " + issued.author);
          if (issued.reason) outtext.push("<b>Reason:</b> " + issued.reason);
 
-         outtext.push("<b>Expires:</b> " + ( issued.expires?  this.time.diffToStr(issued.expires - +new Date) + " (" +  new Date(issued.expires).toString() +")" : "indefinite"));
+         outtext.push("<b>Expires:</b> " + ( issued.expires?  this.time.diffToStr(Math.round(issued.expires/1000)*1000 - +new Date) + " (" +  new Date(issued.expires).toString() +")" : "indefinite"));
 
          out.call(this, "names", "Name(s)");
          out.call(this, "ips", "IP(s)");
