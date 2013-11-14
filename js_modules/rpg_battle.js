@@ -243,7 +243,9 @@
 
                      if (attacker.exp[i[0]] >= (this.skills[i[0]] || {}).threshold)
                      {
-                         this.com.message(this.user.id(attacker.name), "<hr>/>You gained the skill " + this.skills[ar[x2]].name + "!<hr/>", this.theme.RPG, true, ctx.chan);
+                         this.com.message(this.user.id(attacker.name), "<hr/>", -1, true, ctx.chan);
+                         this.com.message(this.user.id(attacker.name), "You gained the skill " + this.skills[i[0]].name + "!", this.theme.RPG, true, ctx.chan);
+                         this.com.message(this.user.id(attacker.name), "<hr/>", -1, true, ctx.chan);
                      }
 
 
