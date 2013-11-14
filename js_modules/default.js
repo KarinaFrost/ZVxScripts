@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
      metatype: "runtime",
 
-     DEFAULTS: ["logs",  "iologger", "interceptor", "dump", "gateway", "chat", "reset", "modprobe", "server","cmdlist", "kick", "mute", "info", "groupmod", "configure", "ban", "setauth", "sourcedist", "eval", "help", "modprobe", "io", "userconf"],
+     DEFAULTS: ["logs",  "iologger", "interceptor", "dump", "gateway", "chat", "reset", "modprobe", "server","cmdlist", "kick", "mute", "info", "groupmod", "configure", "ban", "setauth", "sourcedist", "eval", "help", "modprobe", "io", "userconf", "ioctrl"],
 
      loadModule: function ()
      {

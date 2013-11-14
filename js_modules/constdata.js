@@ -14,7 +14,8 @@
          me_command: "me",
          mute_command: "mute",
          ban_command: "ban",
-         info_command: "info"
+         info_command: "info",
+         io_commands: "ioctrl"
      }
-     
+
  });

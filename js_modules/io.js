@@ -87,6 +87,8 @@
          if (!this.configs.io.autosavemethod) this.configs.io.autosavemethod = "commit";
 
          this.registerIOWatcher = this.util.generateRegistor(this, this.util.UNARY_REGISTOR, "IOWatchers");
+
+
      },
 
      /** Registers the module's module.config property.
@@ -102,7 +104,26 @@
              return;
          }
 
-         if (!this.configs[module.modname]) this.configs[module.modname] = this.openDB(module.modname + ".config");
+
+
+         if (!this.configs[module.modname])
+         {
+             this.configs[module.modname] = this.openDB(module.modname + ".config");
+             if (Object.keys(this.configs[module.modname]).length == 0) for (var x in this.consdata.RENAMES) if (this.constdata.RENAMES[x] == module.modname && sys.fexists('js_databases/' +x+'.config.jsqz'))
+             {
+                 print("WARN: Migrating database.");
+                 var tempdb = this.openDB(x + ".config");
+                 if (!tempdb) break;
+                 for (var x2 in tempdb)
+                 {
+                     // deep copy
+                     this.configs[module.modname][x2] = JSON.parse(this.zsrx.zsrx(tempdb[x2]));
+                 }
+
+                 this.io.closeDB(x + ".config");
+                 this.io.purgeDB(x + ".config");
+             }
+         }
 
          for (var x in defs)
          {
