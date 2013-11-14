@@ -27,7 +27,7 @@
  * */
 /** @scope script.modules.io */
 ({
-     require: ["dmp", "logs", "util", "zsrx", "zjdata"],
+     require: ["dmp", "logs", "util", "zsrx", "zjdata", 'constdata'],
 
      /** When database is opened */
      OPEN: 1,
