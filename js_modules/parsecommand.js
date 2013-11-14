@@ -68,13 +68,17 @@
                  if (!input) return cmd;
 
                  while (input != (input =
-			          input.replace(/^\s*(?:\-{1,2}((?:[^\s=]|\\ )+)(?:\=(?:\"((?:\\.|[^\"])+)\"|((?:[^\s"]|\\ )+)))?)|(?:(?:\"((?:\\.|[^\"])+)\")|((?:[^\s"]|\\ )+))/, cl_next))
-		        //                                     ^flagname                  ^flagvalstr        ^flagvalueraw                  ^argvalstr          ^argvalraw
+			          input.replace(/^\s*(?:\-{1,2}((?:[^\s=]|\\ )+)(?:\=(?:\"((?:\\.|[^\"])+)\"|((?:[^\s"]|\\ )+)))?)|(?:(?:\"((?:\\.|[^\"])+)\")|((?:[^\s"\$]|\\ )+))|(?:\$(.*))/, cl_next))
+		        //                                     ^flagname                  ^flagvalstr        ^flagvalueraw                  ^argvalstr          ^argvalraw             ^postinput
                        ) {};
 
-                 function cl_next (text, flagname, flagvaluestr, flagvalueraw, argvaluestr, argvalueraw)
+                 function cl_next (text, flagname, flagvaluestr, flagvalueraw, argvaluestr, argvalueraw, postinput)
                  {
-                     if (flagname)
+                     if (postinput)
+                     {
+                         cmd.postinput = postinput;
+                     }
+                     else if (flagname)
                      {
                          var f = ((flagvaluestr ? flagvaluestr: void 0) || flagvalueraw);
 
@@ -104,6 +108,10 @@
                  for (var x in cmd.flags)
                  {
                      output.push("--" + x + (cmd.flags[x] === true?"":"="+ JSON.stringify(cmd.flags[x])));
+                 }
+                 if(cmd.postinput)
+                 {
+                     output.push("$" + cmd.postinput);
                  }
 
                  return output.join(" ");
@@ -160,6 +168,8 @@
                      return "";
                  }
 
+                 if (cmd.flags.postinput) cmd.postinput = String(cmd.flags.postinput);
+
                  return cmd;
 
 	     },
@@ -180,6 +190,7 @@
                  {
                      string += (":" + x + (cmd.flags[x] === true?"":"="+ (cmd.flags[x]).replace(/[\:\*\\]/g, "\\$1")));
                  }
+                 if (cmd.postinput) string += ":postinput="+ cmd.postinput.replace(/[\:\*\\]/g, "\\$1");
 
                  return string;
              }
