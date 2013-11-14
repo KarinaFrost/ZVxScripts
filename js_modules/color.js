@@ -44,11 +44,11 @@
          var c = "#";
 
 
-         var red = triad[0].toString(16);
+         var red = Math.max(Math.min(Math.round(triad[0]), 255), 0).toString(16);
          if (red.length == 1) red = "0" + red;
-         var green = triad[1].toString(16);
+         var green =  Math.max(Math.min(Math.round(triad[1]), 255), 0).toString(16);
          if (green.length == 1) green = "0" + green;
-         var blue = triad[2].toString(16);
+         var blue =  Math.max(Math.min(Math.round(triad[2]), 255), 0).toString(16);
          if (blue.length == 1) blue = "0" + blue;
 
 
