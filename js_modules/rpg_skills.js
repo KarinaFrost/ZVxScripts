@@ -113,21 +113,21 @@
 
          heal:
          {
-             name: "Healing Spell", cost: {mp:20, msp: 10}, exp: "mag", next: ["healbubble", "healpulse", "lightburst"], threshold: 60*5,
+             name: "Healing Spell", cost: {mp:10, msp: 5}, exp: "mag", next: ["healbubble", "healpulse", "lightburst"], threshold: 60*5,
              components: [{ target: "ally", base: 35, move: "heal", desc: "%s healed %t!", count: 1}]
          },
 
          healbubble:
          {
 
-             name: "Healing Bubble", cost: {mp:55, msp: 20}, exp: "mag", next: ["healwave"], threshold: 60*10,
+             name: "Healing Bubble", cost: {mp:30, msp: 20}, exp: "mag", next: ["healwave"], threshold: 60*10,
              components: [{ target: "ally", base: 85, move: "heal", desc: "%t was in %s's healing bubble.", count: 3}]
 
          },
 
          healwave:
          {
-             name: "Healing Wave", cost: {mp:120, msp: 25}, next: ["healrain"], threshold: 60*15,
+             name: "Healing Wave", cost: {mp:50, msp: 35}, next: ["healrain"], threshold: 60*15,
              components: [{ target: "ally", base: 180, move: "heal", desc: "%t was caught in %s's healing wave.", count: 3}]
          },
 
@@ -183,7 +183,7 @@
          angelpromise:
          {
 
-             name: "Angel's Promise", cost: {mp:1000, msp: 130}, exp: "mag", next: [], threshold: 3600*13,
+             name: "Angel's Promise", cost: {mp:500, msp: 130}, exp: "mag", next: [], threshold: 3600*13,
              components: [{ target: "ally", base: 1258, move: "heal", desc: "A holy energy healed %t!", count: 1}]
 
          },

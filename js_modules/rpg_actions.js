@@ -228,7 +228,7 @@
              msgs.push("<b>PSY:</b> " + Math.floor(ctx.player.psy));
             // msgs.push("<b>SPR:</b> " + 0/0);
 
-             this.less.less(src, msgs.join("<br />"), true);
+             this.less.less(src, msgs.join("<br />"), true, chan);
          },
 
          items: function (src, sub, chan, ctx)

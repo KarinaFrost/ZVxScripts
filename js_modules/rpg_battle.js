@@ -171,7 +171,7 @@
 
          }
 
-         this.printOutStatus(pids, entities);
+         this.printOutStatus(pids, entities, ctx.chan);
 
 
          l0: for (x in entities)

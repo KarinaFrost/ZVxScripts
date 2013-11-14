@@ -219,7 +219,7 @@
 
      },
 
-     printOutStatus: function (pids, entities)
+     printOutStatus: function (pids, entities, chan)
      {
          var player_htmls = [];
          var mob_htmls= [];
@@ -239,7 +239,7 @@
 
 
 
-         this.com.message(pids, outhtml, -1, true);
+         this.com.message(pids, outhtml, -1, true, chan);
 
      }
 
