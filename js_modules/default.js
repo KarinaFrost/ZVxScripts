@@ -20,25 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /////////////////////// END LEGAL NOTICE /////////////////////////////// */
 ({
-     require: ["io", "user"],
+     require: ["io", "user", "constdata"],
 
      metatype: "runtime",
 
      DEFAULTS: ["logs",  "iologger", "interceptor", "dump", "gateway", "chat", "reset", "modprobe", "server","cmdlist", "kick", "mute", "info", "groupmod", "configure", "ban", "setauth", "sourcedist", "eval", "help", "modprobe", "io", "userconf"],
-
-     RENAMES:
-     {
-         "setauth_command": "setauth",
-         eval_command: "eval",
-         cmdlist_command: "commandslist",
-         kick_command: "kick",
-         authlist_command: "authlist",
-         readlogs_command: "readlogs",
-         me_command: "me",
-         mute_command: "mute",
-         ban_command: "ban",
-         info_command: "info"
-     },
 
      loadModule: function ()
      {
@@ -56,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
          for (x in this.config.modules)
          {
-             if (this.RENAMES[this.config.modules[x]]) this.config.modules[x] = this.RENAMES[this.config.modules[x]];
+             if (this.constdata.RENAMES[this.config.modules[x]]) this.config.modules[x] = this.constdata.RENAMES[this.config.modules[x]];
              this.script.loadModule(this.config.modules[x]);
          }
      }
