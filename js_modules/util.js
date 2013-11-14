@@ -96,7 +96,7 @@
       * @param {Boolean} exclude If duiplicates should only be printed once. (recommended)
       * @return {String} Human readable representation of variant.
       */
-     inspect: function (variant, exclude)
+     inspect: function (variant, exclude, maxdepth, iters)
      {
          // Rather complicated function, bear with it!
          /** The stack frames variable includes all the objects we are already inside of, to catch circular references. */
@@ -108,6 +108,8 @@
 
          function serialize (variant)
          {
+             if (typeof maxdepth === "number" && stack_frames.length > maxdepth) return "...";
+
              if (typeof variant === "undefined")
              {
                  return "<Undefined>";
@@ -159,12 +161,12 @@
 
                  if (stack_frames.indexOf(variant) != -1)
                  {
-                     str += " [[Circular Reference]]";
+                     str += "... [[Circular reference to &"+refidx+"]] ...";
                      return str;
                  }
                  else if (dup)
                  {
-                     str += " [[Duplicate Reference]]";
+                     str += "... [[Duplicate reference to &"+refidx+"]] ...";
                      return str;
                  }
 
@@ -176,9 +178,14 @@
 
                  stack_frames.push(variant);
 
-                 for (var x in variant)
+                 var q = 0;
+                 l0: for (var x in variant)
                  {
+
                      for (i = 0; i < stack_frames.length; i++) str += "    ";
+
+                     q++; if (typeof iters == typeof Number() && q > iters) { str += "... [[MORE]] ...\n"; break l0; }
+
                      str += JSON.stringify(x) + ": " + serialize(variant[x]) + "\n";
                  }
 
