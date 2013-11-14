@@ -130,37 +130,52 @@
           * Magical:
           * y = ln(x/3600 + 2)/ln(1.3) + x/3600*0.15
           *
+          * plot {y = ln(x + 1)/ln(1.2) + x*0.1, y = ln(x + 1)/ln(1.3) + x*0.15, y = 0.17x + ln(x+1)/ln(1.8), y = 0.172x + 5.5 ln (x + 1)} from 0 to 250
+          *
+          Physical  y = 0.1x + 5.48481 log(1+x)
+          Magical y = 0.15x + 3.81149 log(1+x)
+          Psychic y = 0.17x + 1.7013 log(1+x)
+          Defensive y = 0.172x + 5.5 log(1+x)
+          *
           */
-         //e.maxmp =  Math.floor(e.mag*0.13 + (Math.log(e.mag+Math.E)*10 | 0));
-         //e.maxsp = Math.floor(e.str*0.02 + e.res*0.02 + (Math.log(e.res/100+Math.E)*150 | 0));
-         //e.maxmsp = Math.floor(e.res*0.01 + e.mag*0.01 + e.psy*0.12 + e.spr*0.01 + (Math.log(e.psy/1000+Math.E)*50 | 0));
-         //e.maxhp = Math.floor(e.str*0.01 + e.res*0.03 + (Math.log(e.res/100+Math.E)*100 | 0));
+
+         e.physpower = Math.floor(  100*(0.1*e.str/3600 + 5.48181 * Math.log( e.str/3600 + 1))    );
+         e.magicpower = Math.floor(  100*(0.15*e.mag/3600 + 3.81149 * Math.log( e.mag/3600 + 1))    );
+         e.psypower = Math.floor(  100*(0.17*e.psy/3600 + 1.7013 * Math.log( e.psy/3600 + 1))   );
 
 
-         e.physpower =  Math.floor((Math.log(e.str/3600 + 1) * this["1/ln(1.2)"] + e.str * this["1/3600*0.1"])*100);
+         e.maxhp = Math.floor(    100*(0.172/3600*e.res + 5.5*Math.log(e.res/3600 + 1))   );
+         e.maxsp = Math.floor(    100*(0.172/3600*e.sta + 5.5*Math.log(e.sta/3600 + 1))   );
+         e.maxmp = Math.floor(    100*(0.172/3600*e.mag + 5.5*Math.log(e.mag/3600 + 1))   );
+         e.maxmsp = Math.floor(    100*(0.172/3600*e.men + 5.5*Math.log(e.men/3600 + 1))   );
+
+
+         /*e.physpower =  Math.floor((Math.log(e.str/3600 + 1) * this["1/ln(1.2)"] + e.str * this["1/3600*0.1"])*100);
          e.maxsp =  Math.floor((Math.log(e.sta/3600 + 1) * this["1/ln(1.2)"] + e.sta * this["1/3600*0.1"])*100);
-         e.maxhp = Math.floor( (Math.log(e.res/3600 + 1) * this["1/ln(1.2)"] + e.res * this["1/3600*0.1"])*100);
-
+         e.maxhp = Math.floor( (Math.log(e.res/3600 + 1) * this["1/ln(1.2)"] + e.res * this["1/3600*0.1"])*100);*/
+/*
          e.magicpower = Math.floor(  (Math.log(e.mag/3600 + 1) * this["1/ln(1.3)"] + e.mag * this["1/3600*0.15"])*100  );
          e.maxmsp =     Math.floor(  (Math.log(e.men/3600 + 1) * this["1/ln(1.3)"] + e.men * this["1/3600*0.15"])*100   );
          e.maxmp =      Math.floor(  (Math.log(e.mag/3600 + 1) * this["1/ln(1.3)"] + e.mag * this["1/3600*0.15"])*100  );
 
          e.psypower = Math.floor(  (Math.log(e.psy/3600 + 1) * this["1/ln(1.3)"] + e.psy * this["1/3600*0.15"])*100  );
-
+*/
          //e.offense = Math.floor(e.power / 10000 * (100 + this.equipAtk(e.lhand) + this.equipAtk(e.rhand)));
          //e.defense = Math.floor(e.power / 10000 * (100 + this.equipDef(e.lhand)/2 + this.equipDef(e.rhand)/2 + this.equipDef(e.body) + this.equipDef(e.feet) + this.equipDef(e.head) + this.equipDef(e.back)));
      },
 
      initializeEntity: function (e)
      {
-         if (!e.sta) e.sta = 100;
-         if (!e.str) e.str = 100;
-         if (!e.res) e.res = 100;
-         if (!e.men) e.men = 100;
-         if (!e.psy) e.psy = 100;
-         if (!e.spd) e.spd = 100;
-         if (!e.mag) e.mag = 100;
-         if (!e.spr) e.spr = 100;
+         var base = 100;
+         base = (e.totalexp / 7) || e.base || 100;
+         if (!e.sta) e.sta = base;
+         if (!e.str) e.str = base;
+         if (!e.res) e.res = base;
+         if (!e.men) e.men = base;
+         if (!e.psy) e.psy = base;
+         if (!e.spd) e.spd = base;
+         if (!e.mag) e.mag = base;
+         if (!e.spr) e.spr = base;
 
          this.entityUpdateStats(e);
          e.hp = e.maxhp;

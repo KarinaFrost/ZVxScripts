@@ -26,39 +26,79 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {
         graveyard:
         {
-            name: "The graveyard",
+            name: "The graveyard", desc: "You have been revived from the dead! Now crawl out of here and back where you belong.",
             adjc: ["town1"]
 
         },
         town1:
         {
-            name: "The town",
-            adjc: ["town1west", "cliff1", "dforest"],
+            name: "The Town", desc:"Center of all activity! The south center is closed.", adjc: ["town1west", "town1east", "town1north", "town1south"/*, "town1south"*/],
             mobs: [{prob: 2, mobs:["testchicken"]},{prob: 1, mobs:["eshroom", "testchicken"]}]
-        }
-        ,
+        },
         town1west:
         {
-            name: "Town West Side",
-            adjc: ["town1"],
+            name: "Town West Side", desc: "Naturalist hippies are protesting attempts to get rid of the frog overpopulation.", adjc: ["town1"],
             digs:
             {
                 ironore: 0.5
             },
             mobs: [{prob: 2, mobs:["dkfrog"]},{prob: 1, mobs:["dkfrog", "dkfrog"]}]
-        }
-        ,
+        },
+        town1east:
+        {
+            name: "Town East Side", desc:"Currently having a chicken problem...", adjc: ["town1"],
+            digs:
+            {
+                ironore: 0.5
+            },
+            mobs: [{prob: 2, mobs:["testchicken", "testchicken", "testchicken","testchicken"]},{prob: 1, mobs:["testchicken","testchicken", "testchicken"]}]
+        },
+
+        town1north:
+        {
+            name: "Town North Side", desc: "The locals don't seem to notice the local slime population.", adjc: ["town1"],
+            adjc: ["town1", {area:"sewer1",distance:3}],
+            digs:
+            {
+                ironore: 0.5
+            },
+            mobs: [{prob: 2, mobs:["slime"]},{prob: 1, mobs:["slime", "slime"]}]
+        },
+
+        town1south:
+        {
+            name: "Town South Side", desc: "This part of town has been abandonned since it was taken over by spooks.", adjc: ["town1"],
+            adjc: ["town1"],
+            digs:
+            {
+                ironore: 0.5
+            },
+            mobs: [{prob: 6, mobs:["spook"]},{prob: 2, mobs:["spook", "spook"]}, {prob: 1, mobs:["spook", "spook", "spook", "spook"]}, {prob: 1, mobs:["spook", "spook", "spook", "grim"]}]
+        },
+
+
+        //
+
+        sewer1:
+        {
+            name: "The Sewer", desc: "Seems like there are a lot of slimes down here!", adjc: ["town1north"],
+            digs:
+            {
+                ironore: 0.5
+            },
+            mobs: [{prob: 2, mobs:["slime","slime","slime","slime","slime"]},{prob: 1, mobs:["slime","slime", "slime"]}]
+        },
+
         cliff1:
         {
             name: "A cliff",
             adjc: ["town1", "proto"],
             mobs: [{prob: 1, mobs:["reddragon"]}]
         },
-        proto:
+
+        darkpathway:
         {
-            name: "Sie werden kämpfen, den Zorn mein Huhn!",
-            adjc: ["cliff1"],
-            mobs: [{prob: 2, mobs:["testchicken"]},{prob: 1, mobs:["eshroom", "testchicken"]}]
+
         },
 
         dforest:

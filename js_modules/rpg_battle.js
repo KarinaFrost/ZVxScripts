@@ -129,7 +129,7 @@
              // Battle players contains NAMES of players, not the player objects!
 
              // also set the tracker
-             if (!battle.tracker[battle.players[x].toLowerCase()]) battle.tracker[battle.players[x].toLowerCase()] = { str:0, sta:0, mag:0, msp:0, sp:0 };
+             if (!battle.tracker[battle.players[x].toLowerCase()]) battle.tracker[battle.players[x].toLowerCase()] = { str:0, sta:0, mag:0, men:0, psy:0 };
          }
 
          var team_mobs = []; // Do not save!
@@ -195,7 +195,7 @@
                      if (attacker.type == "player")
                      {
                          x3 = {"mp":"mag", "sp":"sta", "msp":"men", "hp":"res", "lp": "spr"}[x2];
-                         battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) + 100;
+                         battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) +  ctx.move.cost[x2]*5;
                      }
                      continue l0;
                  }
@@ -203,10 +203,10 @@
                  {
 
                      ctx.attacker[x2] -= ctx.move.cost[x2];
-                     if (attacker.type == "player")
+                     if (attacker.type == "player" && ctx.attacker[x2] <= ctx.attacker["max" + x2]/2)
                      {
                          x3 = {"mp":"mag", "sp":"sta", "msp":"men", "hp":"res", "lp": "spr"}[x2];
-                         battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) + 5;
+                         battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) +  ctx.move.cost[x2];
                      }
                  }
              }
@@ -243,7 +243,7 @@
 
                      if (attacker.exp[i[0]] >= (this.skills[i[0]] || {}).threshold)
                      {
-                         this.com.message(this.user.id(attacker.name), "You gained the skill " + this.skills[ar[x2]].name + "!");
+                         this.com.message(this.user.id(attacker.name), "<hr>/>You gained the skill " + this.skills[ar[x2]].name + "!<hr/>", this.theme.RPG, true, ctx.chan);
                      }
 
 
@@ -295,21 +295,22 @@
                          if (count-- === 0) break;
 
 
-                         var dmg = this.moves[cmp.move]({attacker: entities[x], target:targets[x3], component:cmp});
+                         var dmgObj = this.moves[cmp.move]({attacker: entities[x], target:targets[x3], component:cmp});
+                         var dmg = dmgObj.string;
 
 
                          struck.push(targets[x3].name + " "+dmg);
 
                          try {
-                             if (targets[x3].type == "player")
+                             if (targets[x3].type == "player" && dmgObj.exptype != "none" && dmgObj.exptype)
                              {
-                                 battle.tracker[targets[x3].name.toLowerCase()].res = (battle.tracker[targets[x3].name.toLowerCase()].res || 0) + 10;
+                                 battle.tracker[targets[x3].name.toLowerCase()].res = (battle.tracker[targets[x3].name.toLowerCase()][dmgObj.exptype||"res"] || 0) + (dmgObj.damage*2 || 0);
                              }
 
 
                              if (attacker.type == "player" && ctx.move.exp)
                              {
-                                 battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] = (battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] || 0) + 10;
+                                 battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] = (battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] || 0) + (Math.pow(cmp.base,2)/dmgObj.damage ||0);
                              }
                          } catch (e) {this.script.error(e);}
                      }

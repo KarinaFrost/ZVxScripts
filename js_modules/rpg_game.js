@@ -209,7 +209,7 @@
 
              if (!cmd.input || cmd.input.match(/^\s*$/))
              {
-                 this.com.message(src, "Subcommands, (/rpg <subcommand>):\nwalk <area> (ommit area to show current area)\nview (view player stats)\nbattle (start a battle)\nitems (show items)\nplan <move>:<prob> <move>:<prob> ... (e.g. /rpg plan attack:5 heal:2)\nskills (shows your skills available to use via /rpg plan)", this.theme.RPG, false, chan);
+                 this.com.message(src, "Subcommands, (/rpg <subcommand>):\nwalk <area> (ommit area to show current area)\nview (view player stats)\nbattle (start a battle)\nitems (show items)\nplan <move>:<prob> <move>:<prob> ... (e.g. /rpg plan attack:5 heal:2)\nskills (shows your skills available to use via /rpg plan)\nequip Show available equips or equip one.\ndequip remove slot item", this.theme.RPG, false, chan);
                  return;
              }
 

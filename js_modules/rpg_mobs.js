@@ -38,23 +38,37 @@
          {
              name: "Chicken",
              desc: "",
-             str: 75,
-             sta: 50,
-             res: 100,
-             men: 90,
-             drops: [{
-                         prob: 1,
-                         item: "testfeather",
-                         count: 1
-                     }],
+             base: 75, res: 100,
+             drops: [{ prob: 1, item: "testfeather", count: 1 }],
              plan:
-             [
-                 {
-                     prob: 0.7,
-                     skill: "peck"
-                 },
-                 { prob: 0.3, skill: "peckground" }
-             ]
+             [{ prob: 0.7, skill: "peck"}, { prob: 0.3, skill: "peckground" }]
+         },
+
+         slime:
+         {
+             name: "Slime",
+             desc: "A slimy slime!",
+             base: 120,
+             drops: [{ prob: 0.1, item: "goo", count: 1 }],
+             plan: [{prob:1, skill:"attack"}]
+         },
+
+         spook:
+         {
+             name: "Spook",
+             desc: "A ghastly spook. It's small size does not pack a small threat!",
+             base: 350, res: 200,
+             plan: [{prob:5, skill:"shadows"}, {prob:1, skill:"hellrain"}]
+
+         },
+
+         grim:
+         {
+             name: "Grim",
+             desc: "A ghastly grim. It's a dangerous devil!",
+             base: 350, res: 650,
+             plan: [{prob:3, skill:"hellrain"},{prob:1, skill:"shadows"}]
+
          },
 
          eshroom:
@@ -68,37 +82,29 @@
                          item: "shroomcap",
                          count: 1
                      }]
-         }
-         ,
+         },
+
          dkfrog:
          {
              name: "Dark Frog",
              desc: "You can ask this frog is he's read any well-known gririmore, and his responce, more than likely, will be 'read-it read-it'.",
-             str: 300,
-             res: 300,
-             sta: 300, men: 300
-         }
-         ,
+             base: 300
+         },
+
          dsquirrel:
          {
              name: "Deadly Squirrel",
              desc: "Nuts with evil, this squirrel is as dangerous as squirls get!",
-             str: 3600,
-             sta: 3600,
+             base: 3600,
              men: 2000,
-             spd: 4600,
-             res: 3600
+             spd: 4600
          },
 
          reddragon:
          {
              name: "Red Dragon",
              desc: "...",
-             str: 3600*1400,
-             sta: 3600*400,
-             men: 3600*100,
-             spd: 3600*1900,
-             res: 3600*1200,
+             base: 3600*1200,
              plan: [{
                      prob: 1,
                      skill: "firebreath"

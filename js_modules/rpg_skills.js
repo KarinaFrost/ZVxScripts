@@ -107,7 +107,7 @@
 
          attack:
          {
-             name: "Attack", element: "physical", cost:{sp:2}, exp: "str", next: ["psyburst", "heal" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
+             name: "Attack", element: "physical", cost:{sp:2}, exp: "str", next: ["psyburst", "heal", "shadows" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
              components: [{ target: "opp", base:5, move: "physical", desc: "%s attacked %t!", count:1 }]
          },
 
@@ -120,21 +120,21 @@
          healbubble:
          {
 
-             name: "Healing Bubble", cost: {mp:55, msp: 20}, exp: "mag", next: ["healwave"], threshold: 60*30,
+             name: "Healing Bubble", cost: {mp:55, msp: 20}, exp: "mag", next: ["healwave"], threshold: 60*10,
              components: [{ target: "ally", base: 85, move: "heal", desc: "%t was in %s's healing bubble.", count: 3}]
 
          },
 
          healwave:
          {
-             name: "Healing Wave", cost: {mp:120, msp: 25}, next: ["healrain"], threshold: 3600,
+             name: "Healing Wave", cost: {mp:120, msp: 25}, next: ["healrain"], threshold: 60*15,
              components: [{ target: "ally", base: 180, move: "heal", desc: "%t was caught in %s's healing wave.", count: 3}]
          },
 
          healrain:
          {
 
-             name: "Healing Rain", cost: {mp:175, msp: 30}, exp: "mag", next: ["elixarai",  "altruist"], threshold: 3600*3,
+             name: "Healing Rain", cost: {mp:175, msp: 30}, exp: "mag", next: ["elixarai",  "altruist"], threshold: 60*25,
              components: [{ target: "ally", base: 370, move: "heal", desc: "%t bathed in the healing rain", count: 9}]
 
          },
@@ -142,7 +142,7 @@
          elixarai:
          {
 
-             name: "Elixarai", cost: {mp:750, msp: 130}, exp: "mag", next: [], threshold: 3600*10,
+             name: "Elixarai", cost: {mp:750, msp: 130}, exp: "mag", next: [], threshold: 60*30,
              components: [{ target: "ally", base: 750, move: "heal", desc: "%t was healing by the blinding light!", count: 10}]
 
          },
@@ -229,6 +229,19 @@
              name: "Black Mind", desc: "The user unleashes a terrible flux of psychic energy.", cost: { msp: 158 },
              components: [{ desc: "%s unleashed a terrible flux of psychic energy!" },
                           { target: "opp", base: 175, move: "psychic", desc: "%t was caught in the flux!", count: 5}]
+         },
+
+         shadows:
+         {
+             name: "Shadows", desc: "A terrible shadow attacks the enemy!", cost: {mp: 10, msp:10}, threshold: 60*5,
+             components: [{ target: "opp", base: 25, move: "ghost", desc: "%t was caught by shadows controlled by %s!", count: 1}]
+         },
+
+         hellrain:
+         {
+             name: "Hell's Rain", desc: "A terrible downpour of pure darkness enroaches the battlefield!", cost: {mp:20, msp:25}, threshold: 60*35,
+             components: [{ target: "opp", base: 55, move: "ghost", desc: "%t was caught in the dark rain!", count: 5},{ target: "ally", base: 25, move: "ghost", desc: "%t was caught in the dark rain!", count: 2}]
+
          }
 
 

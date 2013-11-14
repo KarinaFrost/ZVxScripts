@@ -32,10 +32,14 @@
 
              if (sub.length == 1)
              {
-                 this.com.message(ctx.player.src, "You are at: " + this.areas[ctx.player.area].name + ". From here you can go to:", this.theme.GAME, false, ctx.chan);
+                 this.com.message(ctx.player.src, "You are at: " + this.areas[ctx.player.area].name + (this.areas[ctx.player.area].desc?": " + this.areas[ctx.player.area].desc : "")+ "\nFrom here you can go to:", this.theme.GAME, false, ctx.chan);
                  for ( i = 0; i < this.areas[ctx.player.area].adjc.length; i++)
                  {
-                     this.com.message(ctx.player.src, this.areas[this.areas[ctx.player.area].adjc[i]].name + " (" + this.areas[ctx.player.area].adjc[i] + ")", -1, false, ctx.chan);
+                     var obj = this.areas[ctx.player.area].adjc[i];
+                     var name = (typeof obj === "string" ? obj : obj.area);
+                     var dist = (typeof obj === "string" ? 10  : obj.distance);
+                     var areaObj = this.areas[name];
+                     this.com.message(ctx.player.src, areaObj.name + " (" + name + ") Distance: " + dist , -1, false, ctx.chan);
                  }
                  return;
              }
@@ -214,10 +218,15 @@
              msgs.push("<b>Feet:</b> " + this.equipName(ctx.player.feet));
              msgs.push("<b>Back:</b> " + this.equipName(ctx.player.back));
 
-             /*
-              msgs.push("<b>Offense:</b> " + ctx.player.offense);
-              msgs.push("<b>Defense:</b> " + ctx.player.defense);
-              msgs.push("<b>Magical:</b> " + 0/0);*/
+
+             msgs.push("<b>RES:</b> " + Math.floor(ctx.player.res));
+             msgs.push("<b>STR:</b> " + Math.floor(ctx.player.str));
+             msgs.push("<b>STA:</b> " + Math.floor(ctx.player.sta));
+             msgs.push("<b>SPD:</b> " + Math.floor(ctx.player.spd));
+             msgs.push("<b>MEN:</b> " + Math.floor(ctx.player.men));
+             msgs.push("<b>MAG:</b> " + Math.floor(ctx.player.mag));
+             msgs.push("<b>PSY:</b> " + Math.floor(ctx.player.psy));
+            // msgs.push("<b>SPR:</b> " + 0/0);
 
              this.less.less(src, msgs.join("<br />"), true);
          },
@@ -245,6 +254,11 @@
          plan: function (src, sub, chan, ctx)
          {
              var plan = [];
+             if (sub.length == 1)
+             {
+                 this.com.message(src,  "Your plan is: " + JSON.stringify(plan), this.theme.RPG, false, chan);
+                 return;
+             }
              for (var x in sub)
              {
                  if (x != 0)
@@ -386,10 +400,14 @@
              }
              ctx.player.area = act.to;
              if (ctx.player.activeActions.length != 1) return;
-             this.com.message(ctx.player.src, "You are at: " + this.areas[ctx.player.area].name + ". From here you can go to:", this.theme.GAME, false, ctx.chan);
+             this.com.message(ctx.player.src, "You are at: " + this.areas[ctx.player.area].name + (this.areas[ctx.player.area].desc?": " + this.areas[ctx.player.area].desc : "")+ "\nFrom here you can go to:", this.theme.GAME, false, ctx.chan);
              for (var i = 0; i < this.areas[ctx.player.area].adjc.length; i++)
              {
-                 this.com.message(ctx.player.src, this.areas[this.areas[ctx.player.area].adjc[i]].name + " (" + this.areas[ctx.player.area].adjc[i] + ")", -1, false, ctx.chan);
+                 var obj = this.areas[ctx.player.area].adjc[i];
+                 var name = (typeof obj === "string" ? obj : obj.area);
+                 var dist = (typeof obj === "string" ? 10  : obj.distance);
+                 var areaObj = this.areas[name];
+                 this.com.message(ctx.player.src, areaObj.name + " (" + name + ") Distance: " + dist , -1, false, ctx.chan);
              }
          },
 

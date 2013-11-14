@@ -22,7 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ({
     items:
     {
+	goo:
+        {
+            name:"Lump of Goo"
 
+        },
         /* METALS */
         ironore:
         {

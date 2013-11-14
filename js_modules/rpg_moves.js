@@ -35,7 +35,7 @@
          {
              var d = ctx.target.hp + ctx.target.maxhp;
              ctx.target.hp = -ctx.target.maxhp;
-             return d;
+             return {string: "(- " + d+" HP)", damage: d};
          },
 
          bunny: function (ctx)
@@ -44,6 +44,28 @@
 
              ctx.target.hp -= d;
              return d;
+         },
+
+         ghost:
+         function (ctx)
+         {
+              var offense = ctx.attacker.physpower;
+             var base = ctx.component.base;
+
+             var defense = ctx.target.physpower;
+
+
+             var mult = Math.min(Math.max(0.1, offense/defense), 10);
+
+
+             var damage = base * mult;
+
+             damage = Math.max(damage | 0, 5);
+             ctx.target.hp -= damage/5;
+             ctx.target.sp -= damage/5*2;
+             ctx.target.msp -= damage/5*2;
+
+             return {string: "(-" +Math.round(damage/5) + " HP, -"+Math.round(damage/5*2)+" SP, -"+Math.round(damage/5*2)+" MSP)", damage:damage, exptype: "mag"};
          },
 
          /** Physical does physical damage
@@ -65,7 +87,7 @@
              damage = Math.max(damage | 0, 1);
              ctx.target.hp -= damage;
 
-             return "(-" +damage + ")";
+             return {string: "(-" +damage + " HP)", damage:damage, exptype: "res"};
          },
 
 
@@ -86,7 +108,7 @@
              damage = Math.max(damage | 0, 1);
              ctx.target.msp -= damage;
 
-             return "(-" +damage + " MSP)";
+             return {string: "(-" +damage + " MSP)", damage:damage, exptype: "men"};
          },
 
          heal: function (ctx)
@@ -103,7 +125,7 @@
              var damage = base * mult;*/
              ctx.target.hp += ctx.component.base;
 
-             return "(+" + ctx.component.base + ")";
+             return {string: "(+" +ctx.component.base + " HP)", damage:ctx.component.base, exptype: "none"};
          }
      },
 
