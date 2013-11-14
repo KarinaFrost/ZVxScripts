@@ -120,8 +120,8 @@
                      this.configs[module.modname][x2] = JSON.parse(this.zsrx.zsrx(tempdb[x2]));
                  }
 
-                 this.io.closeDB(x + ".config");
-                 this.io.purgeDB(x + ".config");
+                 this.closeDB(x + ".config");
+                 this.purgeDB(x + ".config");
              }
          }
 
