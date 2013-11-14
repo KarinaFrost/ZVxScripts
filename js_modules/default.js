@@ -24,7 +24,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
      metatype: "runtime",
 
-     DEFAULTS: ["logs",  "iologger", "interceptor", "gateway", "chat", "reset", "modprobe", "server","cmdlist_command", "kick_command", "mute_command", "info_command", "groupmod", "configure", "ban_command", "setauth_command", "sourcedist", "eval_command", "help_command", "modprobe", "io_commands", "userconf"],
+     DEFAULTS: ["logs",  "iologger", "interceptor", "dump", "gateway", "chat", "reset", "modprobe", "server","cmdlist", "kick", "mute", "info", "groupmod", "configure", "ban", "setauth", "sourcedist", "eval", "help", "modprobe", "io", "userconf"],
+
+     RENAMES:
+     {
+         "setauth_command": "setauth",
+         eval_command: "eval",
+         cmdlist_command: "commandslist",
+         kick_command: "kick",
+         authlist_command: "authlist",
+         readlogs_command: "readlogs",
+         me_command: "me",
+         mute_command: "mute",
+         ban_command: "ban",
+         info_command: "info"
+     },
 
      loadModule: function ()
      {
@@ -32,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
-         this.io.registerConfig(this, { modules: ["me_command", "channels","info_command", "serverimp", "authlist_command", "readlogs_command", "automute", "logmessager", "rules", "die", "announcement", "clearchat", "antiproxy", "motd", "playerlist" ] });
+         this.io.registerConfig(this, { modules: ["me", "channels","info", "serverimp", "authlist", "readlogs", "automute", "logmessager", "rules", "die", "announcement", "clearchat", "antiproxy", "motd", "playerlist" ] });
 
          for (x in this.DEFAULTS)
          {
@@ -42,6 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
          for (x in this.config.modules)
          {
+             if (this.RENAMES[this.config.modules[x]]) this.config.modules[x] = this.RENAMES[this.config.modules[x]];
              this.script.loadModule(this.config.modules[x]);
          }
      }
