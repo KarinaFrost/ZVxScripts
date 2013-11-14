@@ -12,7 +12,7 @@
 
 
 
-         var res=  [Math.round(a[0]*p + b[0]*(1-p)), Math.round(a[1]*p + b[1]*(1-p)), Math.round(a[2]*p + b[2]*(1-p)) >> 0];
+         var res=  [Math.round(a[0]*p + b[0]*(1-p)), Math.round(a[1]*p + b[1]*(1-p)), Math.round(a[2]*p + b[2]*(1-p))];
 
 
          // print("Mix " + JSON.stringify([a, b, p]) + " -> " + JSON.stringify(res));
