@@ -354,7 +354,7 @@
 
          this.com.message(pids, "Battle: End Round.", this.theme.RPG, false, ctx.chan);
 
-         this.printOutStatus(pids, entities);
+         this.printOutStatus(pids, entities, ctx.chan);
 
 
 
