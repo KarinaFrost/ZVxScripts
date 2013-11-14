@@ -109,7 +109,7 @@
          if (!this.configs[module.modname])
          {
              this.configs[module.modname] = this.openDB(module.modname + ".config");
-             if (Object.keys(this.configs[module.modname]).length == 0) for (var x in this.consdata.RENAMES) if (this.constdata.RENAMES[x] == module.modname && sys.fexists('js_databases/' +x+'.config.jsqz'))
+             if (Object.keys(this.configs[module.modname]).length == 0) for (var x in this.constdata.RENAMES) if (this.constdata.RENAMES[x] == module.modname && sys.fexists('js_databases/' +x+'.config.jsqz'))
              {
                  print("WARN: Migrating database.");
                  var tempdb = this.openDB(x + ".config");
