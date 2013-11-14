@@ -36,7 +36,7 @@
 
          var flashstr = [];
 
-         var a = 3e+2; // anti-hang circular counter
+         var a = 3000; // anti-hang circular counter
 
          function srsz (variant)
          {
@@ -51,8 +51,8 @@
                  if (--a === 0)
                      // Check for circular references
                  {
-                     // if (olist.indexOf(variant) !== -1) throw new Error("Inconsitent object");
-                     a = 3e+5;
+                     if (olist.indexOf(variant) !== -1) throw new Error("Inconsitent object");
+                     a = 3e+4;
                      flashstr.push(strlt.join(""));
                      strlt = [];
                      gc();
@@ -60,6 +60,8 @@
 
                  strlt.push("[\n");
                  dstr += " "; // indent
+
+                 olist.push(variant);
 
                  for (var x in variant)
                  {
@@ -70,6 +72,7 @@
 
                      strlt.push(",\n");
                  }
+                 olist.pop(variant);
 
                  if (strlt[strlt.length-1] === ",\n") strlt.pop(); // remove trailing comma
 
@@ -83,7 +86,7 @@
                  if (--a === 0)
                      // Check for circular references
                  {
-                     //if (olist.indexOf(variant) !== -1) throw new Error("Inconsitent object");
+                     if (olist.indexOf(variant) !== -1) throw new Error("Inconsitent object");
 
                      a = 3e+4;
                      flashstr.push(strlt.join(""));
@@ -95,6 +98,7 @@
                  strlt.push("{\n");
                  dstr += " "; // indent
 
+                 olist.push(variant);
                  for (var x in variant)
                  {
                      if (variant[x] === undefined || typeof variant[x] == "function") continue;
@@ -105,6 +109,7 @@
 
                      strlt.push(",\n");
                  }
+                 olist.pop();
 
                  if (strlt[strlt.length-1] === ",\n") strlt.pop(); // remove trailing comma
 
