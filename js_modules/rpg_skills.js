@@ -286,8 +286,8 @@
 
          blood:
          {
-             name: "Devil's Blood", exp: "mag", desc: "The user sacrafices their own blood to lay a curse on the enemy", cost: { hp: 25, mp: 10, msp: 10 }, threshold: 60*15, next: ["hellrain"],
-             components: [{ target: "opp", base: 50, move: "ghost", desc: "%s drew blood unto the ground and it curses %t!", count: 1}]
+             name: "Devil's Blood", exp: "mag", desc: "The user sacrafices their own blood to lay a curse on the enemy", cost: { hp: 55, mp: 10, msp: 10 }, threshold: 60*15, next: ["hellrain"],
+             components: [{ target: "opp", base: 85, move: "ghost", desc: "%s drew blood unto the ground and it curses %t!", count: 1}]
 
          },
 
