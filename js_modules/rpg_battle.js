@@ -159,7 +159,7 @@
 
          var pids = [];
 
-         for ( x in battle.players) pids.push(sys.id(battle.players[x]));
+         for ( x in battle.players) if (sys.id(battle.players[x])) pids.push(sys.id(battle.players[x]));
 
          this.com.message(pids, "Battle: Start Round.", this.theme.RPG, false, ctx.chan);
 
