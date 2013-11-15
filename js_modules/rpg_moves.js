@@ -73,7 +73,7 @@
          {
              ctx.target.msp += ctx.component.base;
              return {string: "(+" +ctx.component.base + " MSP)", damage:damage, exptype: "men"};
-         }
+         },
 
          /** Physical does physical damage
           * @param {rpgContext} ctx
