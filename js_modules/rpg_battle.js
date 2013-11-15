@@ -394,7 +394,7 @@
                      this.getPlayer(rpg.name, battle.players[i]).items[x] = (this.getPlayer(rpg.name, battle.players[i]).items[x] || 0) + dps[i][x];
                  }
 
-                 if (msg.length) this.com.message(pids, battle.players[i] + " got " + msg.join(", ") + "!");
+                 if (msg.length) this.com.message(pids, battle.players[i] + " got " + msg.join(", ") + "!", this.theme.RPG, false, ctx.chan);
              }
 
 

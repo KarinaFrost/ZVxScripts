@@ -32,14 +32,14 @@
 
              if (sub.length == 1)
              {
-                 this.com.message(ctx.player.src, "You are at: " + this.areas[ctx.player.area].name + (this.areas[ctx.player.area].desc?": " + this.areas[ctx.player.area].desc : "")+ "\nFrom here you can go to:", this.theme.GAME, false, ctx.chan);
+                 this.com.message(ctx.player.src, "You are at: " + this.areas[ctx.player.area].name + (this.areas[ctx.player.area].desc?": " + this.areas[ctx.player.area].desc : "")+ "\nFrom here you can go to:", this.theme.GAME, false, chan);
                  for ( i = 0; i < this.areas[ctx.player.area].adjc.length; i++)
                  {
                      var obj = this.areas[ctx.player.area].adjc[i];
                      var name = (typeof obj === "string" ? obj : obj.area);
                      var dist = (typeof obj === "string" ? 10  : obj.distance);
                      var areaObj = this.areas[name];
-                     this.com.message(ctx.player.src, areaObj.name + " (" + name + ") Distance: " + dist , -1, false, ctx.chan);
+                     this.com.message(ctx.player.src, areaObj.name + " (" + name + ") Distance: " + dist , -1, false, chan);
                  }
                  return;
              }
