@@ -27,6 +27,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             name:"Lump of Goo"
 
         },
+
+        spkcrystal:
+        {
+              name:"Spooky Crystal"
+        },
+
+        destinygem:
+        {
+              name:"Destiny Gem"
+        },
+
+
         /* METALS */
         ironore:
         {

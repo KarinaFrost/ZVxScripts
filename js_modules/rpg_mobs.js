@@ -58,7 +58,8 @@
              name: "Spook",
              desc: "A ghastly spook. It's small size does not pack a small threat!",
              base: 350, res: 200,
-             plan: [{prob:5, skill:"shadows"}, {prob:1, skill:"hellrain"}]
+             plan: [{prob:5, skill:"shadows"}, {prob:1, skill:"hellrain"}],
+             drops: [{ prob:0.1, item: "spkcrystal", count:1 }, { prob:0.1, item: "spkcrystal", count:1 }, { prob: 0.01, item: "destinygem", count:1 }]
 
          },
 
@@ -76,7 +77,8 @@
              name: "Medium Spook",
              desc: "A ghastly spook. It's much larger than your average spook!",
              base: 950, res: 700,
-             plan: [{prob:2, skill:"shadows"}, {prob:3, skill:"hellrain"}]
+             plan: [{prob:2, skill:"shadows"}, {prob:3, skill:"hellrain"}],
+             drops: [{ prob:0.2, item: "spkcrystal", count:1 }, { prob:0.2, item: "spkcrystal", count:1 }, { prob: 0.07, item: "destinygem", count:1 }]
 
          },
 
@@ -85,7 +87,8 @@
              name: "Large Spook",
              desc: "A ghastly spook. It's WAY larger than your average spook!",
              base: 1950, res: 1400,
-             plan: [{prob:2, skill:"blackfog"},{prob:1, skill:"shadows"}, {prob:1, skill:"hellrain"}, {prob:2, skill: "blood"}]
+             plan: [{prob:2, skill:"blackfog"},{prob:1, skill:"shadows"}, {prob:1, skill:"hellrain"}, {prob:2, skill: "blood"}],
+             drops: [{ prob:0.3, item: "spkcrystal", count:1 }, { prob:0.3, item: "spkcrystal", count:1 }, { prob: 0.1, item: "destinygem", count:1 }]
 
          },
 
@@ -93,7 +96,8 @@
          {
              name: "Sinester",
              base: 3700,
-             plan: [{prob:5, skill:"blackfog"}, {prob:1, skill:"hellrain"}, {prob:3, skill: "blood"}]
+             plan: [{prob:5, skill:"blackfog"}, {prob:1, skill:"hellrain"}, {prob:3, skill: "blood"}],
+             drops: [{ prob:1, item: "destinygem", count:1 }, { prob:0.5, item: "destinygem", count:1 }, { prob: 0.3, item: "destinygem", count:1 }]
          },
 
          eshroom:
