@@ -75,7 +75,7 @@
          {
              name: "Medium Spook",
              desc: "A ghastly spook. It's much larger than your average spook!",
-             base: 950, res: 300,
+             base: 950, res: 700,
              plan: [{prob:2, skill:"shadows"}, {prob:3, skill:"hellrain"}]
 
          },
@@ -84,16 +84,16 @@
          {
              name: "Large Spook",
              desc: "A ghastly spook. It's WAY larger than your average spook!",
-             base: 950, res: 700,
-             plan: [{prob:1, skill:"shadows"}, {prob:3, skill:"hellrain"}, {prob:2, skill: "blood"}]
+             base: 1950, res: 1400,
+             plan: [{prob:2, skill:"darkfog"},{prob:1, skill:"shadows"}, {prob:1, skill:"hellrain"}, {prob:2, skill: "blood"}]
 
          },
 
          sinester:
          {
              name: "Sinester",
-             base: 1800,
-             plan: [{prob:5, skill:"darkfog"}, {prob:3, skill:"hellrain"}, {prob:2, skill: "blood"}]
+             base: 3700,
+             plan: [{prob:5, skill:"darkfog"}, {prob:1, skill:"hellrain"}, {prob:3, skill: "blood"}]
          },
 
          eshroom:
