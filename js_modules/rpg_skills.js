@@ -293,7 +293,7 @@
 
          hellrain:
          {
-             name: "Hell's Rain", exp: "mag", desc: "A terrible downpour of pure darkness enroaches the battlefield!", cost: {mp:20, msp:25}, threshold: 60*35,
+             name: "Hell's Rain", exp: "mag", desc: "A terrible downpour of pure darkness enroaches the battlefield!", cost: {mp:20, msp:5}, threshold: 60*35,
              components: [{ target: "opp", base: 55, move: "ghost", desc: "%t was caught in the dark rain!", count: 5},{ target: "ally", base: 25, move: "ghost", desc: "%t was caught in the dark rain!", count: 2}]
 
          }
