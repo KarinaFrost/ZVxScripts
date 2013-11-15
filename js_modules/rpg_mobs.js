@@ -120,8 +120,7 @@
          {
              name: "Lethal Squirrel",
              desc: "Nuts with evil, this squirrel is as dangerous as squirls get!",
-             base: 1600,
-             men: 1000,
+             base: 1200,
              spd: 3600
          },
 

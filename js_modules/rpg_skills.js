@@ -273,19 +273,26 @@
 
          psyslice:
          {
-             name: "Psycho Slice", exp: "psy", desc: "The user concentrates psychic energy into a wedge and unleashes it.", cost: { msp: 40 }, threshold: 60*35, next: ["psyblast"],
+             name: "Psycho Slice", exp: "psy", desc: "The user concentrates psychic energy into a wedge and unleashes it.", cost: { msp: 40 }, threshold: 60*35, next: ["psyblast", "blackout"],
              components: [{ target: "opp", base: 45, move: "psychic", desc: "%s unleashed a blade of psychic energy towards %t!", count: 1}]
          },
 
          psyblast:
          {
-             name: "Psycho Blast", exp: "psy", desc: "The user unleashes a blast of psychic energy", cost: { msp: 80 }, threshold: 3600,
-             components: [{ target: "opp", base: 340, move: "psychic", desc: "%s blasted %t with psychic energy!", count: 1}]
+             name: "Psycho Blast", exp: "psy", desc: "The user unleashes a blast of psychic energy", cost: { msp: 80 }, threshold: 60*45,
+             components: [{ target: "opp", base: 155, move: "psychic", desc: "%s blasted %t with psychic energy!", count: 1}]
+         },
+
+         blackout:
+         {
+             name: "Blackout", desc: "The user unleashes a large of psychic energy which hits multiple enemies.", cost: { msp: 95 }, next: ["blackmind"], threshold: 60*45,
+             components: [{ desc: "%s unleashed a storm of psychic energy!" },
+                          { target: "opp", base: 85, move: "psychic", desc: "%t was caught in the flux!", count: 3}]
          },
 
          blackmind:
          {
-             name: "Black Mind", desc: "The user unleashes a terrible flux of psychic energy.", cost: { msp: 158 },
+             name: "Black Mind", desc: "The user unleashes a terrible flux of psychic energy.", cost: { msp: 198 }, threshold: 60*78,
              components: [{ desc: "%s unleashed a terrible flux of psychic energy!" },
                           { target: "opp", base: 175, move: "psychic", desc: "%t was caught in the flux!", count: 5}]
          },
@@ -304,15 +311,21 @@
 
          blood:
          {
-             name: "Devil's Blood", exp: "mag", desc: "The user sacrafices their own blood to lay a curse on the enemy", cost: { hp: 55, mp: 10, msp: 10 }, threshold: 60*15, next: ["hellrain"],
+             name: "Devil's Blood", exp: "mag", desc: "The user sacrafices their own blood to lay a curse on the enemy", cost: { hp: 55, mp: 10, msp: 10 }, threshold: 60*15, next: ["hellrain", "sarchith"],
              components: [{ target: "opp", base: 85, move: "ghost", desc: "%s drew blood unto the ground and it curses %t!", count: 1}]
 
+         },
+
+         sarachith:
+         {
+             name: "Sarachith", exp: "res", desc: "The user users a contract of demons to injure their opponent.", cost: { hp: 85, mp: 10, msp: 10 },
+             components: [{ target: "opp", base: 85, move: "ghost", desc: "%s exchanged a contract with demons and it curses %t!", count: 1}]
          },
 
          hellrain:
          {
              name: "Hell's Rain", exp: "mag", desc: "A terrible downpour of pure darkness enroaches the battlefield!", cost: {mp:20, msp:5}, threshold: 60*35,
-             components: [{ target: "opp", base: 55, move: "ghost", desc: "%t was caught in the dark rain!", count: 5},{ target: "ally", base: 25, move: "ghost", desc: "%t was caught in the dark rain!", count: 2}]
+             components: [{ target: "opp", base: 65, move: "ghost", desc: "%t was caught in the dark rain!", count: 5},{ target: "ally", base: 25, move: "ghost", desc: "%t was caught in the dark rain!", count: 2}]
 
          }
 
