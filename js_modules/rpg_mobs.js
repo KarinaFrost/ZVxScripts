@@ -85,7 +85,7 @@
              name: "Large Spook",
              desc: "A ghastly spook. It's WAY larger than your average spook!",
              base: 1950, res: 1400,
-             plan: [{prob:2, skill:"darkfog"},{prob:1, skill:"shadows"}, {prob:1, skill:"hellrain"}, {prob:2, skill: "blood"}]
+             plan: [{prob:2, skill:"blackfog"},{prob:1, skill:"shadows"}, {prob:1, skill:"hellrain"}, {prob:2, skill: "blood"}]
 
          },
 
@@ -93,7 +93,7 @@
          {
              name: "Sinester",
              base: 3700,
-             plan: [{prob:5, skill:"darkfog"}, {prob:1, skill:"hellrain"}, {prob:3, skill: "blood"}]
+             plan: [{prob:5, skill:"blackfog"}, {prob:1, skill:"hellrain"}, {prob:3, skill: "blood"}]
          },
 
          eshroom:
