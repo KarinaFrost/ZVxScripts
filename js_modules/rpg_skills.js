@@ -154,8 +154,20 @@
 
          lightblast:
          {
-             name: "Light Blast", cost: {mp: 35, sp: 5, msp: 15}, exp: "mag", threshold: 60*15,
-             components: [{ target: "opp", base: 45, move: "magical", desc: "%s released a luminous light which burns %t!", count:1 }]
+             name: "Light Blast", cost: {mp: 35, sp: 5, msp: 15}, exp: "mag", threshold: 60*15, next: ["sunburst", "blitzfield"],
+             components: [{ target: "opp", base: 75, move: "magical", desc: "%s fired a blast of billiant light at %t!", count:1 }]
+         },
+
+         sunburst:
+         {
+             name: "Sunburst", cost: {mp: 89, sp: 5, msp: 35}, exp: "mag", threshold: 60*20,
+             components: [{ target: "opp", base: 172, move: "magical", desc: "%s shot a ball of white hot light at %t!", count:1 }]
+         },
+
+         blitzfield:
+         {
+             name: "Blitzfield", cost: {mp: 89, sp: 5, msp: 35}, exp: "mag", threshold: 60*20,
+             components: [{ target: "opp", base: 65, move: "magical", desc: "%s casts a spell which engulfs the field in light, burning their enemies! %t", count:5 }]
          },
 
          healbubble:
