@@ -361,7 +361,8 @@
          if (battle.players.length == 0 || battle.mobs.length == 0)
          {
              this.com.message(pids, "Battle ended!", this.theme.RPG, false, ctx.chan);
-
+            // print("endbattle");
+             delete ctx.rpg.battles[ctx.battleId];
              if (battle.players.length == 0) return;
              var dps = new Array(battle.players.length);
              // [i] = index of player id
@@ -441,7 +442,8 @@
 
              }
 
-             delete rpg.battles[ctx.battleId];
+             //print("Deletebattle " + ctx.battleId);
+             //delete rpg.battles[ctx.battleId];
          }
      }
 
