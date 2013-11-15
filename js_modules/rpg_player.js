@@ -61,6 +61,9 @@
          }
 
          pobj.name = name;
+         if (!pobj.totalexp) pobj.totalexp = 0;
+
+         this.entityUpdateStats(pobj);
          return pobj;
 
 
@@ -165,7 +168,7 @@
              player.msp = 1;
              player.area = "graveyard";
              player.activeActions = [];
-             
+
              this.com.message(player.src, 'You were revived at the graveyard...');
          }
 
