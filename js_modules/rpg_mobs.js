@@ -116,13 +116,32 @@
              base: 300
          },
 
+         lsquirrel:
+         {
+             name: "Lethal Squirrel",
+             desc: "Nuts with evil, this squirrel is as dangerous as squirls get!",
+             base: 1600,
+             men: 1000,
+             spd: 3600
+         },
+
          dsquirrel:
          {
              name: "Deadly Squirrel",
              desc: "Nuts with evil, this squirrel is as dangerous as squirls get!",
-             base: 3600,
-             men: 2000,
+             base: 1600,
+             men: 800,
              spd: 4600
+         },
+
+         adsquirrel:
+         {
+             name: "Armored Deadly Squirrel",
+             desc: "Nuts with evil, this squirrel is as dangerous as squirls get!",
+             base: 1600,
+             res: 4600,
+             men: 800,
+             spd: 3600
          },
 
          reddragon:

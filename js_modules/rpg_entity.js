@@ -138,6 +138,16 @@
           Defensive y = 0.172x + 5.5 log(1+x)
           *
           */
+         var base = 100;
+         base = (e.totalexp / 7) || e.base || 100;
+         if (!e.sta) e.sta = base;
+         if (!e.str) e.str = base;
+         if (!e.res) e.res = base;
+         if (!e.men) e.men = base;
+         if (!e.psy) e.psy = base;
+         if (!e.spd) e.spd = base;
+         if (!e.mag) e.mag = base;
+         if (!e.spr) e.spr = base;
 
          e.physpower = Math.floor(  100*(0.1*e.str/3600 + 5.48181 * Math.log( e.str/3600 + 1))    );
          e.magicpower = Math.floor(  100*(0.15*e.mag/3600 + 3.81149 * Math.log( e.mag/3600 + 1))    );
