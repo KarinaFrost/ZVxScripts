@@ -68,12 +68,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         town1south:
         {
             name: "Town South Side", desc: "This part of town has been abandonned since it was taken over by spooks.", adjc: ["town1"],
-            adjc: ["town1"],
+            adjc: ["town1", {area:"darkforest", distance: 40}],
             digs:
             {
                 ironore: 0.5
             },
             mobs: [{prob: 6, mobs:["spook"]},{prob: 2, mobs:["spook", "spook"]}, {prob: 1, mobs:["spook", "spook", "spook", "spook"]}, {prob: 1, mobs:["spook", "spook", "spook", "grim"]}]
+        },
+
+        darkforest:
+        {
+            name: "Dark Forest", desc: "This forest is the natural home of spooks, townspeople avoid it like the plauge. Legend tells of the deadly sinesters that live here.",
+            adjc: [{area:"town1south", distance: 40}],
+            mobs: [{prob: 0.5, mobs:["spook", "mspook", "sinester"]},{prob: 1, mobs:["spook", "mspook"]},{prob: 2, mobs:["spook", "grim", "mspook"]}, {prob: 1, mobs:["lspook", "mspook", "spook", "grim"]}, {prob: 1, mobs:["grim", "lspook", "mspook", "spook"]}]
         },
 
 

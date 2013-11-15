@@ -49,10 +49,10 @@
          ghost:
          function (ctx)
          {
-              var offense = ctx.attacker.physpower;
+              var offense = ctx.attacker.magicpower;
              var base = ctx.component.base;
 
-             var defense = ctx.target.physpower;
+             var defense = ctx.target.defpower;
 
 
              var mult = Math.min(Math.max(0.1, offense/defense), 10);
@@ -76,7 +76,7 @@
              var offense = ctx.attacker.physpower;
              var base = ctx.component.base;
 
-             var defense = ctx.target.physpower;
+             var defense = ctx.target.defpower;
 
 
              var mult = Math.min(Math.max(0.1, offense/defense), 10);
@@ -97,7 +97,7 @@
              var offense = ctx.attacker.psypower;
              var base = ctx.component.base;
 
-             var defense = ctx.target.physpower;
+             var defense = ctx.target.defpower;
 
 
              var mult = Math.min(Math.max(0.1, offense/defense), 10);
@@ -109,6 +109,25 @@
              ctx.target.msp -= damage;
 
              return {string: "(-" +damage + " MSP)", damage:damage, exptype: "men"};
+         },
+
+         magical: function (ctx)
+         {
+             var offense = ctx.attacker.magicpower;
+             var base = ctx.component.base;
+
+             var defense = ctx.target.defpower;
+
+
+             var mult = Math.min(Math.max(0.1, offense/defense), 10);
+
+
+             var damage = base * mult;
+
+             damage = Math.max(damage | 0, 1);
+             ctx.target.hp -= damage;
+
+             return {string: "(-" +damage + " HP)", damage:damage, exptype: "res"};
          },
 
          heal: function (ctx)

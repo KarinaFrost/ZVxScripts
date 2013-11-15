@@ -142,6 +142,7 @@
          e.physpower = Math.floor(  100*(0.1*e.str/3600 + 5.48181 * Math.log( e.str/3600 + 1))    );
          e.magicpower = Math.floor(  100*(0.15*e.mag/3600 + 3.81149 * Math.log( e.mag/3600 + 1))    );
          e.psypower = Math.floor(  100*(0.17*e.psy/3600 + 1.7013 * Math.log( e.psy/3600 + 1))   );
+         e.defpower = Math.floor(    100*(0.172*e.res/3600 + 5.5 *Math.log(e.res/3600+1))    );
 
 
          e.maxhp = Math.floor(    100*(0.172/3600*e.res + 5.5*Math.log(e.res/3600 + 1))   );

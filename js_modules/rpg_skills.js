@@ -82,7 +82,7 @@
 
          firebreath:
          {
-             name: "Fire Breath", elemet: "fire",
+             name: "Fire Breath", elemet: "fire", cost: { mp: 1300},
              components: [{ target: "opp", base: 3500, move: "physical", desc: "%s blasted fire at %t!", count: 3 }]
          },
          peck:
@@ -111,17 +111,58 @@
              components: [{ target: "opp", base:5, move: "physical", desc: "%s attacked %t!", count:1 }]
          },
 
+         punch:
+         {
+             name: "Punch", cost: {sp:5, msp:1}, exp: "str", next: ["kick", "superpunch"], threshold: 60*5,
+             components: [{ target: "opp", base:15, move: "physical", desc: "%s punched %t!", count:1 }]
+
+         },
+
+         superpunch:
+         {
+             name: "Super Punch", cost: {sp:15, msp:5}, exp: "str", next: ["kick", "superpunch"], threshold: 60*10,
+             components: [{ target: "opp", base:36, move: "physical", desc: "%s punched %t!", count:1 }]
+
+         },
+
+
+         megapunch:
+         {
+             name: "Mega Punch", cost: {sp:32, msp:12}, exp: "str", next: ["kick", "superpunch"], threshold: 60*15,
+             components: [{ target: "opp", base:56, move: "physical", desc: "%s punched %t with a powerful punch!", count:1 }]
+
+         },
+
+         kick:
+         {
+             name: "Kick", cost: {sp:8, msp:2}, exp: "str", next: ["punch", "superkick"], threshold: 60*5,
+             components: [{ target: "opp", base:20, move: "physical", desc: "%s kicked %t!", count:1 }]
+
+         },
+
          heal:
          {
-             name: "Healing Spell", cost: {mp:10, msp: 5}, exp: "mag", next: ["healbubble", "healpulse", "lightburst"], threshold: 60*5,
-             components: [{ target: "ally", base: 35, move: "heal", desc: "%s healed %t!", count: 1}]
+             name: "Healing Spell", cost: {mp:5, msp: 5}, exp: "mag", next: ["healbubble", "healpulse", "lightburst"], threshold: 60*5,
+             components: [{ target: "ally", base: 15, move: "heal", desc: "%s healed %t!", count: 1}]
+         },
+
+         lightburst:
+         {
+             name: "LightBurst", cost: {mp: 20, sp: 5, msp: 5}, exp: "mag", threshold: 60*10, next: ["lightblast"],
+             components: [{ target: "opp", base: 45, move: "magical", desc: "%s released a luminous light which burns %t!", count:1 }]
+         },
+
+         lightblast:
+         {
+             name: "Light Blast", cost: {mp: 35, sp: 5, msp: 15}, exp: "mag", threshold: 60*15,
+             components: [{ target: "opp", base: 45, move: "magical", desc: "%s released a luminous light which burns %t!", count:1 }]
          },
 
          healbubble:
          {
 
-             name: "Healing Bubble", cost: {mp:30, msp: 20}, exp: "mag", next: ["healwave"], threshold: 60*10,
-             components: [{ target: "ally", base: 85, move: "heal", desc: "%t was in %s's healing bubble.", count: 3}]
+             name: "Healing Bubble", cost: {mp:30, msp: 5}, exp: "mag", next: ["healwave"], threshold: 60*10,
+             components: [{ target: "ally", base: 60, move: "heal", desc: "%t was in %s's healing bubble.", count: 3}]
 
          },
 
@@ -215,7 +256,7 @@
          psyslice:
          {
              name: "Psycho Slice", exp: "psy", desc: "The user concentrates psychic energy into a wedge and unleashes it.", cost: { msp: 40 }, threshold: 60*35, next: ["psyblast"],
-             components: [{ target: "opp", base: 70, move: "psychic", desc: "%s unleashed a blade of psychic energy towards %t!", count: 1}]
+             components: [{ target: "opp", base: 45, move: "psychic", desc: "%s unleashed a blade of psychic energy towards %t!", count: 1}]
          },
 
          psyblast:
@@ -233,13 +274,26 @@
 
          shadows:
          {
-             name: "Shadows", desc: "A terrible shadow attacks the enemy!", cost: {mp: 10, msp:10}, threshold: 60*5,
+             name: "Shadows", exp: "mag",  desc: "A terrible shadow attacks the enemy!", cost: {mp: 10, msp:5}, threshold: 60*5, next:["blackfog"],
              components: [{ target: "opp", base: 25, move: "ghost", desc: "%t was caught by shadows controlled by %s!", count: 1}]
+         },
+
+         blackfog:
+         {
+             name: "Black Fog", exp: "mag", desc: "A black fog engulfs the enemy!", cost: {mp: 15, msp:10}, threshold: 60*10, next: ["blood"],
+             components: [{ target: "opp", base: 35, move: "ghost", desc: "%t suffocated in black fog!", count: 1}]
+         },
+
+         blood:
+         {
+             name: "Devil's Blood", exp: "mag", desc: "The user sacrafices their own blood to lay a curse on the enemy", cost: { hp: 25, mp: 10, msp: 10 }, threshold: 60*15, next: ["hellrain"],
+             components: [{ target: "opp", base: 50, move: "ghost", desc: "%s drew blood unto the ground and it curses %t!", count: 1}]
+
          },
 
          hellrain:
          {
-             name: "Hell's Rain", desc: "A terrible downpour of pure darkness enroaches the battlefield!", cost: {mp:20, msp:25}, threshold: 60*35,
+             name: "Hell's Rain", exp: mag, desc: "A terrible downpour of pure darkness enroaches the battlefield!", cost: {mp:20, msp:25}, threshold: 60*35,
              components: [{ target: "opp", base: 55, move: "ghost", desc: "%t was caught in the dark rain!", count: 5},{ target: "ally", base: 25, move: "ghost", desc: "%t was caught in the dark rain!", count: 2}]
 
          }

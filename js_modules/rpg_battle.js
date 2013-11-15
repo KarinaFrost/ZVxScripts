@@ -320,7 +320,7 @@
 
                  }
 
-                  if (cmp.desc) this.com.message(pids, cmp.desc.replace(/%s/g, ctx.attacker.name).replace(/%t/, struck.join(" ")), this.theme.RPG, false, ctx.chan);
+                 if (cmp.desc) this.com.message(pids, cmp.desc.replace(/%s/g, ctx.attacker.name).replace(/%t/, struck.join(" ")), this.theme.RPG, false, ctx.chan);
 
 
 
