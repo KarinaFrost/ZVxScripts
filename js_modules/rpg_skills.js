@@ -249,8 +249,14 @@
 
          psyshock:
          {
-             name: "Psycho Shock", exp: "psy", desc: "The user concentrates psychic energy and unleashes it in a shockwave.", cost: { msp: 20 }, threshold: 60*15, next: ["psyslice"],
+             name: "Psycho Shock", exp: "psy", desc: "The user concentrates psychic energy and unleashes it in a shockwave.", cost: { msp: 20 }, threshold: 60*15, next: ["psyslice", 'hyperfocus'],
              components: [{ target: "opp", base: 25, move: "psychic", desc: "%s unleashed a shockwave of psychic energy towards %t!", count: 1}]
+         },
+
+         hyperfocus:
+         {
+             name: 'Hyperfocus', exp: 'men', desc: 'The user improves their focus to regain mental stamina', cost: {sp: 30}, threshold: 60*20,
+             components: [{ target: "self", base: 25, move: "boostmsp", desc: "%s gained a state of higher focus!", count: 1}]
          },
 
          psyslice:

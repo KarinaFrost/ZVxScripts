@@ -61,12 +61,19 @@
              var damage = base * mult;
 
              damage = Math.max(damage | 0, 5);
-             ctx.target.hp -= damage/5;
-             ctx.target.sp -= damage/5*2;
-             ctx.target.msp -= damage/5*2;
+             ctx.target.hp -= damage/3;
+             ctx.target.sp -= damage/3;
+             ctx.target.msp -= damage/3;
 
-             return {string: "(-" +Math.round(damage/5) + " HP, -"+Math.round(damage/5*2)+" SP, -"+Math.round(damage/5*2)+" MSP)", damage:damage, exptype: "mag"};
+             return {string: "(-" +Math.round(damage/3) + " HP, -"+Math.round(damage/3)+" SP, -"+Math.round(damage/3)+" MSP)", damage:damage, exptype: "mag"};
          },
+
+         boostmsp:
+         function (ctx)
+         {
+             ctx.target.msp += ctx.component.base;
+             return {string: "(+" +ctx.component.base + " MSP)", damage:damage, exptype: "men"};
+         }
 
          /** Physical does physical damage
           * @param {rpgContext} ctx
