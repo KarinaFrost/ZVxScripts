@@ -150,10 +150,12 @@
              entities.push(team_mobs[x]);
          }
 
+         this.util.shuffle(entities);
+
          entities.sort(
              function (a, b)
              {
-                 return b.speed - a.speed;
+                 return b.spd - a.spd;
              }
          );
 
@@ -166,7 +168,7 @@
 
          for (x in entities)
          {
-             this.entityUpdateStats(entities[x]);
+             if (battle.round == 1) this.entityUpdateStats(entities[x]);
              this.entityTick(entities[x]);
 
          }
@@ -363,7 +365,7 @@
              this.com.message(pids, "Battle ended!", this.theme.RPG, false, ctx.chan);
             // print("endbattle");
              delete ctx.rpg.battles[ctx.battleId];
-             if (battle.players.length == 0) return;
+            // if (battle.players.length == 0) return;
              var dps = new Array(battle.players.length);
              // [i] = index of player id
 
