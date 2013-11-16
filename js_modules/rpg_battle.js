@@ -302,7 +302,7 @@
                          if (count-- === 0) break;
 
 
-                         var dmgObj = this.moves[cmp.move]({attacker: entities[x], target:targets[x3], component:cmp});
+                         var dmgObj = this.moves[cmp.move].call(this, {attacker: entities[x], target:targets[x3], component:cmp, move: move});
                          var dmg = dmgObj.string;
 
 

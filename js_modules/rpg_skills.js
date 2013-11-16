@@ -138,12 +138,14 @@
          attack:
          {
              name: "Attack", element: "physical", cost:{sp:2}, exp: "str", next: ["psyburst", "heal", "shadows", "punch", "kick" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
+             desc: "A basic attack",
              components: [{ target: "opp", base:5, move: "physical", desc: "%s attacked %t!", count:1 }]
          },
 
          punch:
          {
              name: "Punch", cost: {sp:5, msp:1}, exp: "str", next: ["kick", "superpunch"], threshold: 60*5,
+             desc: "The user punches their enemy.",
              components: [{ target: "opp", base:15, move: "physical", desc: "%s punched %t!", count:1 }]
 
          },
@@ -151,6 +153,7 @@
          superpunch:
          {
              name: "Super Punch", cost: {sp:15, msp:5}, exp: "str", next: ["megapunch"], threshold: 60*10,
+             desc: "The user punches their enemy with greater force.",
              components: [{ target: "opp", base:36, move: "physical", desc: "%s punched %t!", count:1 }]
 
          },
@@ -159,6 +162,8 @@
          megapunch:
          {
              name: "Mega Punch", cost: {sp:32, msp:12}, exp: "str", next: [], threshold: 60*15,
+
+             desc: "The user punches their enemy with even greater force.",
              components: [{ target: "opp", base:56, move: "physical", desc: "%s punched %t with a powerful punch!", count:1 }]
 
          },
@@ -166,6 +171,8 @@
          kick:
          {
              name: "Kick", cost: {sp:8, msp:2}, exp: "str", next: ["punch", "superkick"], threshold: 60*5,
+
+             desc: "The user kicks their enemy.",
              components: [{ target: "opp", base:20, move: "physical", desc: "%s kicked %t!", count:1 }]
 
          },
@@ -173,42 +180,49 @@
          heal:
          {
              name: "Healing Spell", cost: {mp:10, msp: 5}, exp: "mag", next: ["healbubble", "healpulse", "lightburst"], threshold: 60*5,
+             desc: "Heals an ally.",
              components: [{ target: "ally", base: 17, move: "heal", desc: "%s healed %t!", count: 1}]
          },
 
          lightburst:
          {
              name: "LightBurst", cost: {mp: 20, sp: 5, msp: 5}, exp: "mag", threshold: 60*10, next: ["lightblast"],
+             desc: "Releases a light which burns an enemy.",
              components: [{ target: "opp", base: 45, move: "magical", desc: "%s released a luminous light which burns %t!", count:1 }]
          },
 
          lightblast:
          {
              name: "Light Blast", cost: {mp: 35, sp: 5, msp: 15}, exp: "mag", threshold: 60*15, next: ["sunburst", "blitzfield"],
-             components: [{ target: "opp", base: 75, move: "magical", desc: "%s fired a blast of billiant light at %t!", count:1 }]
+             desc: "Releases a strong blast of light which burns an enemy.",
+             components: [{ target: "opp", base: 75, move: "magical", desc: "%s released a blast of billiant light at %t!", count:1 }]
          },
 
          sunburst:
          {
              name: "Sunburst", cost: {mp: 89, sp: 5, msp: 35}, exp: "mag", threshold: 60*20,
+             desc: "Fires a ball of condensed light energy which burns an enemy.",
              components: [{ target: "opp", base: 172, move: "magical", desc: "%s shot a ball of white hot light at %t!", count:1 }]
          },
 
          lux:
          {
              name: "Luxecaedere", cost: {mp: 160, sp: 35, msp: 68}, exp: "mag", threshold: 3600*0.8,
+             desc: "Summons powerful light energy which burns an enemy.",
              components: [{ target: "opp", base: 320, move: "magical", desc: "%s summoned a blazing hot light which burns %t!", count:1 }]
          },
 
          luxi:
          {
              name: "Luxiudicium", cost: {mp: 305, sp: 120, msp: 230}, exp: "mag", threshold: 3600,
+             desc: "Summons powerful light energy which wraps around and burns an enemy.",
              components: [{ target: "opp", base: 780, move: "magical", desc: "%s summoned a blazing hot light which purges %t!", count:1 }]
          },
 
          judgement:
          {
              name: "Judgement", cost: {mp: 705, sp: 420, msp: 630}, exp: "mag", threshold: 3600*2.5,
+             desc: "Summons powerful light energy from the sky which which burns an enemy.",
              components: [{ target: "opp", base: 1430, move: "magical", desc: "%s calls a blazing judgement upon %t!", count:1 }]
          },
 
@@ -216,31 +230,36 @@
          blitzfield:
          {
              name: "Blitzfield", cost: {mp: 89, sp: 5, msp: 35}, exp: "mag", threshold: 60*20,
+             desc: "Brings forth a power from the world which purges from the ground to all enemies.",
              components: [{ target: "opp", base: 65, move: "magical", desc: "%s casts a spell which engulfs the field in light, burning their enemies! %t", count:5 }]
          },
 
          hseal:
          {
              nane: "Holy Seal", cost: {mp: 148, sp: 20, msp: 85}, exp: "mag", threshold: 60*35,
+             desc: "Traps enemies in a magical spell which injures all enemies within it.",
              components: [{ target: "opp", base: 113, move: "magical", desc: "%s casts a spell seal around the battlefield which damages %t within it!", count:5 }]
          },
 
          ager:
          {
              nane: "Agerexussum", cost: {mp: 328, sp: 30, msp: 125}, exp: "mag", threshold: 3600,
+             desc: "Traps enemies in a magical spell which purges and burns all enemies within it.",
              components: [{ target: "opp", base: 210, move: "magical", desc: "%s casts a spell seal around the battlefield which purges %t!", count:5 }]
          },
 
          halfld:
          {
              name: "Hallowed Field",
+             desc: "Calls upon a mysterious power to slay the casters enemies.",
              cost: {mp: 428, sp: 60, msp: 225}, exp: "mag", threshold: 3600*1.5,
-             components: [{ target: "opp", base: 410, move: "magical", desc: "%s invokes a spell which causes a hallowed aura to descent upon %t!", count:7 }]
+             components: [{ target: "opp", base: 410, move: "magical", desc: "%s invokes a mysterious power which causes a hallowed aura to descent upon %t!", count:7 }]
          },
 
          purgatory:
          {
              nane: "Purgatory", cost: {mp:628, sp: 30, msp: 125}, exp: "mag", threshold: 3600*2.5,
+             desc: "Calls upon a greater holy power to slay the casters enemies.",
              components: [{ target: "opp", base: 810, move: "magical", desc: "%s invokes purgatory! %t was crushed by the holy aura!", count:7 }]
          },
 
@@ -248,6 +267,8 @@
          {
 
              name: "Healing Bubble", cost: {mp:15, msp: 5}, exp: "mag", next: ["healwave"], threshold: 60*10,
+
+             desc: "Creates a bubble of magical energy that heals all allies within it.",
              components: [{ target: "ally", base: 25, move: "heal", desc: "%t was in %s's healing bubble.", count: 3}]
 
          },
@@ -255,6 +276,7 @@
          healwave:
          {
              name: "Healing Wave", cost: {mp:30, msp: 25}, next: ["healrain"], threshold: 60*15,
+             desc: "Creates a wave of magical energy that heals all allies who touch it.",
              components: [{ target: "ally", base: 50, move: "heal", desc: "%t was caught in %s's healing wave.", count: 3}]
          },
 
@@ -262,6 +284,7 @@
          {
 
              name: "Healing Rain", cost: {mp:67, msp: 45}, exp: "mag", next: ["elixarai",  "altruist"], threshold: 60*25,
+             desc: "Creates a shower of magical energy that heals all allies who touch it.",
              components: [{ target: "ally", base: 120, move: "heal", desc: "%t bathed in the healing rain", count: 9}]
 
          },
@@ -270,6 +293,7 @@
          {
 
              name: "Elixarai", cost: {mp:140, msp: 110}, exp: "mag", next: [], threshold: 60*30,
+             desc: "The field is engulfed in a blinding ligth which heals all allies within it.",
              components: [{ target: "ally", base: 240, move: "heal", desc: "%t was healing by the blinding light!", count: 10}]
 
          },
@@ -279,6 +303,7 @@
          {
 
              name: "Healing Pulse", cost: {mp:25, msp: 10},  exp: "mag", next: ["healingenergy"], threshold: 60*10,
+             desc: "Creates a pulse of magical energy with stronger healing abilities.",
              components: [{ target: "ally", base: 50, move: "heal", desc: "%s used healing pulse on %t!", count: 1}]
 
          },
@@ -287,6 +312,7 @@
          {
 
              name: "Healing Energy", cost: {mp:45, msp: 25}, exp: "mag", next: ["healinghope"], threshold: 60*30,
+             desc: "A healing energy that restores health.",
              components: [{ target: "ally", base: 95, move: "heal", desc: "%s used healing energy on %t!", count: 1}]
 
          },
@@ -295,6 +321,7 @@
          {
 
              name: "Healing Hope", cost: {mp:75, msp: 60}, exp: "mag", next: ["angelwing", "invigoration"], threshold: 60*45,
+             desc: "A wish of healing creates miracles in even the most dire circumstances.",
              components: [{ target: "ally", base: 180, move: "heal", desc: "%s used healing hope on %t!", count: 1}]
 
          },
@@ -303,6 +330,7 @@
          {
 
              name: "Angel's Wing", cost: {mp:140, msp: 110}, exp: "mag", next: ["angelpromise"], threshold: 3600,
+             desc: "Calls upon a greater power to assist in healing where people fail.",
              components: [{ target: "ally", base: 340, move: "heal", desc: "A holy energy healed %t!", count: 1}]
 
          },
@@ -311,6 +339,7 @@
          {
 
              name: "Angel's Promise", cost: {mp:250, msp: 230}, exp: "mag", next: [], threshold: 3600*1.5,
+             desc: "Calls upon a greater power to assist in healing where people fail.",
              components: [{ target: "ally", base: 670, move: "heal", desc: "A holy energy healed %t!", count: 1}]
 
          },

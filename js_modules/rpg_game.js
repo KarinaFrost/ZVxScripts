@@ -264,7 +264,8 @@
      qMult:
      function (q)
      {
-         return 1 - (1 / Math.log(q + Math.E));
+         // min
+         return 1 - (1 / Math.log(q + 4));
      }
 
 

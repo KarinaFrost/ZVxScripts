@@ -325,7 +325,7 @@
              {
                  if (this.playerCanUseSkill(ctx.player, x))
                  {
-                     msg.push("<b>" + this.skills[x].name + "</b> ("+x+") " + this.skills[x].desc);
+                     msg.push("<b>" + this.skills[x].name + "</b> ("+x+") [level "+this.level(ctx.player.exp[x])+"] " + (this.skills[x].desc|| "<description not yet added>"));
                  }
 
              }

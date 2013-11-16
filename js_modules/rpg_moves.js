@@ -99,7 +99,7 @@
              var mult = Math.min(Math.max(0.1, offense/defense), 10);
 
 
-             var damage = base * mult * qmult;
+             var damage = base * mult * qmlt;
 
              damage = Math.max(damage | 0, 1);
              ctx.target.hp -= damage;
@@ -126,7 +126,7 @@
              var mult = Math.min(Math.max(0.1, offense/defense), 10);
 
 
-             var damage = base * mult * qmult;
+             var damage = base * mult * qmlt;
 
              damage = Math.max(damage | 0, 1);
              ctx.target.msp -= damage;
