@@ -71,7 +71,7 @@
                      } // end for loop
 
 
-                     this.com.message([src], "Can't find that place!", this.theme.RPG, false, ctx.chan);
+                     this.com.message([src], "Can't find that place!", this.theme.RPG, false, chan);
                      break l0;
                  } // end l1
 
@@ -91,7 +91,7 @@
 
              if (dest)
              {
-                 this.com.message(ctx.player.src, "You started walking to " +this.areas[dest].name+ "!", this.theme.GAME, false, ctx.chan);
+                 this.com.message(ctx.player.src, "You started walking to " +this.areas[dest].name+ "!", this.theme.GAME, false, chan);
 //                 ctx.player.activeActions.push({ timer:1, done: "location"});
              }
 
