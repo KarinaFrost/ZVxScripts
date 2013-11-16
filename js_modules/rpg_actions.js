@@ -318,6 +318,38 @@
              this.com.message(src, "Your plan has been set to: " + JSON.stringify(plan), this.theme.RPG, false, chan);
 
          },
+
+         print: function (src, sub, chan,ctx)
+         {
+             this.com.message(src, "Copy/pasteable char output:", this.theme.RPG, true, chan);
+
+             var msgs = [];
+
+             msgs.push("<b>Player:</b> " + ctx.player.name);
+             msgs.push("<b>Level:</b> " + this.level(ctx.player.totalexp || 0));
+             msgs.push("<b>RES:</b> " + Math.floor(ctx.player.res));
+             msgs.push("<b>STR:</b> " + Math.floor(ctx.player.str));
+             msgs.push("<b>STA:</b> " + Math.floor(ctx.player.sta));
+             msgs.push("<b>SPD:</b> " + Math.floor(ctx.player.spd));
+             msgs.push("<b>MEN:</b> " + Math.floor(ctx.player.men));
+             msgs.push("<b>MAG:</b> " + Math.floor(ctx.player.mag));
+             msgs.push("<b>PSY:</b> " + Math.floor(ctx.player.psy));
+
+
+             for (var x in ctx.player.exp)
+             {
+                 if (this.playerCanUseSkill(ctx.player, x))
+                 {
+                     msgs.push("<b>["+x+"]</b>: "+this.level(ctx.player.exp[x]));
+                 }
+
+             }
+
+             this.com.message(src, msgs.join(", ") + " **", this.theme.RPG, true, chan);
+
+
+         },
+
          skills: function (src, sub, chan, ctx)
          {
              var msg = [];
