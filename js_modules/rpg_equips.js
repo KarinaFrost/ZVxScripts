@@ -233,9 +233,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         if (e.quality === null) return 10; // items blessed by tux (hacked dev toys >:D)
 
-        else return 1 - (1 / Math.log(e.quality/100 + Math.E));
-    }
-    ,
+        else return this.qMult(e.quality/100);
+    },
+    
     equipAtk: function (e)
     {
         if (!e) return 0;

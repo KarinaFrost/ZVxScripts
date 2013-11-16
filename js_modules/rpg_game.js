@@ -259,6 +259,13 @@
 
              this.startRPGinChan(rpgname, chan);
          }
+     },
+
+     qMult:
+     function (q)
+     {
+         return 1 - (1 / Math.log(q + Math.E));
      }
+
 
  });

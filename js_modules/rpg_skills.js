@@ -129,8 +129,8 @@
 
          fangs:
          {
-             name: "Fangs", cost: {sp: 5},
-             components: [{target: "opp", base: 9, move: "physical", desc: "%s bit %t!", count:2}]
+             name: "Fangs", cost: {sp: 8},
+             components: [{target: "opp", base: 14, move: "physical", desc: "%s bit %t!", count:2}]
          },
 
          // Player skills
@@ -194,10 +194,54 @@
              components: [{ target: "opp", base: 172, move: "magical", desc: "%s shot a ball of white hot light at %t!", count:1 }]
          },
 
+         lux:
+         {
+             name: "Luxecaedere", cost: {mp: 160, sp: 35, msp: 68}, exp: "mag", threshold: 3600*0.8,
+             components: [{ target: "opp", base: 320, move: "magical", desc: "%s summoned a blazing hot light which burns %t!", count:1 }]
+         },
+
+         luxi:
+         {
+             name: "Luxiudicium", cost: {mp: 305, sp: 120, msp: 230}, exp: "mag", threshold: 3600,
+             components: [{ target: "opp", base: 780, move: "magical", desc: "%s summoned a blazing hot light which purges %t!", count:1 }]
+         },
+
+         judgement:
+         {
+             name: "Judgement", cost: {mp: 705, sp: 420, msp: 630}, exp: "mag", threshold: 3600*2.5,
+             components: [{ target: "opp", base: 1430, move: "magical", desc: "%s calls a blazing judgement upon %t!", count:1 }]
+         },
+
+
          blitzfield:
          {
              name: "Blitzfield", cost: {mp: 89, sp: 5, msp: 35}, exp: "mag", threshold: 60*20,
              components: [{ target: "opp", base: 65, move: "magical", desc: "%s casts a spell which engulfs the field in light, burning their enemies! %t", count:5 }]
+         },
+
+         hseal:
+         {
+             nane: "Holy Seal", cost: {mp: 148, sp: 20, msp: 85}, exp: "mag", threshold: 60*35,
+             components: [{ target: "opp", base: 113, move: "magical", desc: "%s casts a spell seal around the battlefield which damages %t within it!", count:5 }]
+         },
+
+         ager:
+         {
+             nane: "Agerexussum", cost: {mp: 328, sp: 30, msp: 125}, exp: "mag", threshold: 3600,
+             components: [{ target: "opp", base: 210, move: "magical", desc: "%s casts a spell seal around the battlefield which purges %t!", count:5 }]
+         },
+
+         halfld:
+         {
+             name: "Hallowed Field",
+             cost: {mp: 428, sp: 60, msp: 225}, exp: "mag", threshold: 3600*1.5,
+             components: [{ target: "opp", base: 410, move: "magical", desc: "%s invokes a spell which causes a hallowed aura to descent upon %t!", count:7 }]
+         },
+
+         purgatory:
+         {
+             nane: "Purgatory", cost: {mp:628, sp: 30, msp: 125}, exp: "mag", threshold: 3600*2.5,
+             components: [{ target: "opp", base: 810, move: "magical", desc: "%s invokes purgatory! %t was crushed by the holy aura!", count:7 }]
          },
 
          healbubble:
@@ -250,7 +294,7 @@
          healinghope:
          {
 
-             name: "Healing Hope", cost: {mp:75, msp: 60}, exp: "mag", next: ["angelwing", "invigoration"], threshold: 3600,
+             name: "Healing Hope", cost: {mp:75, msp: 60}, exp: "mag", next: ["angelwing", "invigoration"], threshold: 60*45,
              components: [{ target: "ally", base: 180, move: "heal", desc: "%s used healing hope on %t!", count: 1}]
 
          },
@@ -258,7 +302,7 @@
          angelwing:
          {
 
-             name: "Angel's Wing", cost: {mp:140, msp: 110}, exp: "mag", next: ["angelpromise"], threshold: 3600*2,
+             name: "Angel's Wing", cost: {mp:140, msp: 110}, exp: "mag", next: ["angelpromise"], threshold: 3600,
              components: [{ target: "ally", base: 340, move: "heal", desc: "A holy energy healed %t!", count: 1}]
 
          },
@@ -266,7 +310,7 @@
          angelpromise:
          {
 
-             name: "Angel's Promise", cost: {mp:250, msp: 230}, exp: "mag", next: [], threshold: 3600*5,
+             name: "Angel's Promise", cost: {mp:250, msp: 230}, exp: "mag", next: [], threshold: 3600*1.5,
              components: [{ target: "ally", base: 670, move: "heal", desc: "A holy energy healed %t!", count: 1}]
 
          },

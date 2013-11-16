@@ -56,6 +56,12 @@
 
 
              var mult = Math.min(Math.max(0.1, offense/defense), 10);
+             var qmlt = 0.8;
+
+             if (ctx.attacker.type == "player")
+             {
+                 qmlt = this.qMult(ctx.attacker.exp[ctx.move.shortname]/base*2 || 0 + Math.E);
+             }
 
 
              var damage = base * mult;
@@ -82,14 +88,18 @@
          {
              var offense = ctx.attacker.physpower;
              var base = ctx.component.base;
+             var qmlt = 0.8;
+
+             if (ctx.attacker.type == "player")
+             {
+                 qmlt = this.qMult(ctx.attacker.exp[ctx.move.shortname]/base || 0 + Math.E);
+             }
 
              var defense = ctx.target.defpower;
-
-
              var mult = Math.min(Math.max(0.1, offense/defense), 10);
 
 
-             var damage = base * mult;
+             var damage = base * mult * qmult;
 
              damage = Math.max(damage | 0, 1);
              ctx.target.hp -= damage;
@@ -105,12 +115,18 @@
              var base = ctx.component.base;
 
              var defense = ctx.target.defpower;
+             var qmlt = 0.8;
+
+             if (ctx.attacker.type == "player")
+             {
+                 qmlt = this.qMult(ctx.attacker.exp[ctx.move.shortname]/base*0.6 || 0 + Math.E);
+             }
 
 
              var mult = Math.min(Math.max(0.1, offense/defense), 10);
 
 
-             var damage = base * mult;
+             var damage = base * mult * qmult;
 
              damage = Math.max(damage | 0, 1);
              ctx.target.msp -= damage;
@@ -127,9 +143,15 @@
 
 
              var mult = Math.min(Math.max(0.1, offense/defense), 10);
+             var qmlt = 0.8;
+
+             if (ctx.attacker.type == "player")
+             {
+                 qmlt = this.qMult(ctx.attacker.exp[ctx.move.shortname]/base || 0 + Math.E);
+             }
 
 
-             var damage = base * mult;
+             var damage = base * mult * qmlt;
 
              damage = Math.max(damage | 0, 1);
              ctx.target.hp -= damage;
@@ -149,9 +171,15 @@
 
 
              var damage = base * mult;*/
-             ctx.target.hp += ctx.component.base;
+             var qmlt = 0.8;
 
-             return {string: "(+" +ctx.component.base + " HP)", damage:ctx.component.base, exptype: "none"};
+             if (ctx.attacker.type == "player")
+             {
+                 qmlt = this.qMult(ctx.attacker.exp[ctx.move.shortname]/base || 0 + Math.E);
+             }
+             ctx.target.hp += Math.floor(ctx.component.base * qmlt);
+
+             return {string: "(+" + Math.floor(ctx.component.base * qmlt) + " HP)", damage: Math.floor(ctx.component.base * qmlt), exptype: "none"};
          }
      },
 
