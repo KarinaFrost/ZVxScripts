@@ -138,6 +138,8 @@
           Defensive y = 0.172x + 5.5 log(1+x)
           *
           */
+
+         if (!e.attr) e.attr = {};
          var base = 100;
          base = (e.totalexp / 7) || e.base || 100;
          if (!e.sta) e.sta = base;

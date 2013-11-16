@@ -173,6 +173,12 @@
 
              for (x in mobs) mba.push(this.mkMob(mobs[x]));
 
+             if (mba.length == 0)
+             {
+                 this.com.message(src, "No mobs here to battle!", this.theme.RPG, false, chan);
+                 return;
+             }
+
              ctx.player.battle = ctx.rpg.battleCounter;
              ctx.rpg.battles[ctx.rpg.battleCounter++] = {players: [ctx.player.name], mobs: mba};
 
@@ -249,6 +255,24 @@
              this.less.less(src, msgs.join("<br />"), true);
 
 
+         },
+
+         use:
+         function (src, sub, chan, ctx)
+         {
+             if (sub.length == 1)
+             {
+                 this.com.message(src,  "Select a move to use next turn using /rpg use <skillname> , for example: /rpg use heal", this.theme.RPG, false, chan);
+                 return;
+             }
+
+             if (this.playerCanUseSkill(ctx.player, sub[1]))
+             {
+                 ctx.player.use = sub[1];
+                 this.com.message(src,  "You plan to use " + sub[1] +".", this.theme.RPG, false, chan);
+             }
+             else if (this.skills[sub[1]]) this.com.message(src, "Skill Error: Not able to use skill \""+sub[1]+"\"!", this.theme.ERROR, false, chan);
+             else this.com.message(src, "Skill Error: No such skill \""+sub[1]+"\", (example: /rpg use heal), make sure to use the shortnames, (e.g. elshock and not Electric Shock.)", this.theme.ERROR, false, chan);
          },
 
          plan: function (src, sub, chan, ctx)
@@ -390,7 +414,8 @@
 
              ctx.player.sp -= act.sp || 0;
              this.com.message(ctx.player.src, "Walked from " + this.areas[ctx.player.area].name + " to " +this.areas[act.to].name + ".", this.theme.RPG, false, ctx.chan);
-             ctx.player.sta += act.sp;
+             ctx.player.sta += Math.floor(act.sp/2);
+             ctx.player.spd += Math.ceil(act.sp/2);
              var lv = this.level(ctx.player.totalexp);
              ctx.player.totalexp += act.sp;
              var newlv = this.level(ctx.player.totalexp);

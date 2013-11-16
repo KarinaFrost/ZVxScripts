@@ -167,7 +167,7 @@
          {
              temp = entity.use;
              delete entity.use;
-             return temp;
+             return this.skills[temp];
          }
 
          else if (entity.plan)

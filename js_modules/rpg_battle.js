@@ -217,6 +217,9 @@
 
              if (attacker.type === "player")
              {
+                 // spd exp
+                 battle.tracker[attacker.name.toLowerCase()].spd = (battle.tracker[attacker.name.toLowerCase()].spd || 0) + 10 * +x;
+                 // move exp
                  if (!ctx.attacker.exp[move.shortname]) ctx.attacker.exp[move.shortname] = 0;
 
                  ctx.attacker.exp[move.shortname] += 10;

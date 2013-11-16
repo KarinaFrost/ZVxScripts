@@ -103,6 +103,36 @@
              components:[{ target: "opp", base:20, move: "instakill", desc: "A killer rabbit was summonned by %s and it attacked %t!", count: 1}]
          },
 
+         sltackle:
+         {
+             name: "Slimy Tackle", cost: {sp: 10},
+             components: [{target: "opp", base: 15, move: "physical", desc: "%s tackled %t!", count:1}]
+         },
+
+         slvortex:
+         {
+             name: "Slimy Vortex", cost: {mp: 25},
+             components: [{target: "opp", base: 35, move: "physical", desc: "%s summoned a slimy vortex which engulfs %t!", count:1}]
+         },
+
+         slexp:
+         {
+             name: "Slimy Explosion", cost: {mp: 57},
+             components: [{target: "opp", base: 95, move: "physical", desc: "%s created a slimy explosion which blasted %t!", count:5}]
+         },
+
+         slcrash:
+         {
+             name: "Slimy Crash", cost: {mp: 89},
+             components: [{target: "opp", base: 195, move: "physical", desc: "%s used slimy crash which covered %t in slime!", count:2}]
+         },
+
+         fang:
+         {
+             name: "Fangs", cost: {sp: 5},
+             components: [{target: "opp", base: 9, move: "physical", desc: "%s bit %t!", count:2}]
+         },
+
          // Player skills
 
          attack:
@@ -120,7 +150,7 @@
 
          superpunch:
          {
-             name: "Super Punch", cost: {sp:15, msp:5}, exp: "str", next: ["kick", "superpunch"], threshold: 60*10,
+             name: "Super Punch", cost: {sp:15, msp:5}, exp: "str", next: ["megapunch"], threshold: 60*10,
              components: [{ target: "opp", base:36, move: "physical", desc: "%s punched %t!", count:1 }]
 
          },
@@ -128,7 +158,7 @@
 
          megapunch:
          {
-             name: "Mega Punch", cost: {sp:32, msp:12}, exp: "str", next: ["kick", "superpunch"], threshold: 60*15,
+             name: "Mega Punch", cost: {sp:32, msp:12}, exp: "str", next: [], threshold: 60*15,
              components: [{ target: "opp", base:56, move: "physical", desc: "%s punched %t with a powerful punch!", count:1 }]
 
          },

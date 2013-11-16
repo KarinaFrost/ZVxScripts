@@ -37,13 +37,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         },
         town1west:
         {
-            name: "Town West Side", desc: "Naturalist hippies are protesting attempts to get rid of the frog overpopulation.", adjc: ["town1"],
+            name: "Town West Side", desc: "Naturalist hippies are protesting attempts to get rid of the frog overpopulation.", adjc: ["town1", "westpath"],
             digs:
             {
                 ironore: 0.5
             },
             mobs: [{prob: 2, mobs:["dkfrog"]},{prob: 1, mobs:["dkfrog", "dkfrog"]}]
         },
+
+        westpath:
+        {
+            name: "West Pathway", desc: "The pathway to the West Forest. Travelers sometimes avoid it due to the scary bats the live here.", adjc: ["westforest", "town1west"],
+            mobs: [{prob:1, mobs: ["bat"]}, {prob:1, mobs: ["bat","bat"]}]
+        },
+
+        westforest:
+        {
+            name: "West Forest", desc: "The west forest, inhabited by angry squirrels...", adcj: ["westpath", "westforest2"],
+            mobs: [{prob:1, mobs: ["bat","lsquirrel"]}, {prob:1, mobs: ["lsquirrel","lsquirrel"]}]
+        },
+
+        westforest2:
+        {
+            name: "West Forest (deep)", desc: "Watch out for the deadly squirrels!", adjc: ["westforest"],
+            mobs: [{prob:1, mobs: ["lsquirrel","lsquirrel"]}, {prob:1, mobs: ["lsquirrel","dsquirrel"]}, {prob:1, mobs: ["dsquirrel"]},
+                   {prob:1, mobs: ["dsquirrel","adsquirrel"]}, {prob:1, mobs: ["dsquirrel","dsquirrel"]},{prob:1, mobs: ["adsquirrel","adsquirrel"]}
+                  ]
+        },
+
         town1east:
         {
             name: "Town East Side", desc:"Currently having a chicken problem...", adjc: ["town1"],
@@ -88,13 +109,128 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         sewer1:
         {
-            name: "The Sewer", desc: "Seems like there are a lot of slimes down here!", adjc: ["town1north"],
+            name: "The Sewer", desc: "Seems like there are a lot of slimes down here!", adjc: ["town1north", "sewer2"],
             digs:
             {
                 ironore: 0.5
             },
             mobs: [{prob: 2, mobs:["slime","slime","slime","slime","slime"]},{prob: 1, mobs:["slime","slime", "slime"]}]
         },
+
+        sewer2:
+        {
+            name: "The Sewer (somewhere)", desc: "Seems like there are a lot of slimes down here!", adjc: ["sewer1", "sewer3"],
+            digs:
+            {
+                ironore: 0.5
+            },
+            mobs: [{prob: 2, mobs:["slime","slime","slime","slime"]},{prob: 1, mobs:["slime","slime", "slime"]}]
+        },
+
+        sewer3:
+        {
+            name: "The Sewer (pipeway)", desc: "Seems like there are a lot of slimes down here!", adjc: ["sewer2", "sewer4"],
+            digs:
+            {
+                ironore: 0.5
+            },
+            mobs: [{prob: 2, mobs:["slime","slime2","slime2"]},{prob: 1, mobs:["slime2","slime2", "slime2"]}]
+        },
+
+
+        sewer4:
+        {
+            name: "The Sewer (intersection)", desc: "Seems like there are a lot of slimes down here!", adjc: ["sewer3", "sewer5", "sewer4b"],
+            digs:
+            {
+                ironore: 0.5
+            },
+            mobs: [{prob: 2, mobs:["slime3","slime3"]},{prob: 1, mobs:["slime2","slime3", "slime3"]}]
+        },
+
+
+        sewer4b:
+        {
+
+            name: "The Sewer (bat room)", desc: "Seems like there are a lot of slimes down here! ... and some spooks? There seems to be a pipe here which goes back to the entrace, but there's no way to climb back up it if you go down.", adjc: ["sewer4", "sewer1"],
+            digs:
+            {
+                ironore: 0.5
+            },
+            mobs: [{prob: 2, mobs:["slime3","slime3", "lspook"]},{prob: 1, mobs:["slime2", "mspook", "slime3", "lspook"]}]
+        },
+
+        sewer5:
+        {
+            name: "The Sewer (slimy pathway)", desc: "Seems like there are a lot of slimes down here!", adjc: ["sewer6", "sewer4"],
+            digs:
+            {
+                ironore: 0.5
+            },
+            mobs: [{prob: 2, mobs:["slime4","slime4","slime"]},{prob: 1, mobs:["slime4","slime4", "slime3"]}, {prob: 1, mobs:["slime","slime", "slime2"]}]
+        },
+
+        sewer6:
+        {
+            name: "The Sewer (rusted room)", desc: "Seems like there are a lot of slimes down here!", adjc: ["sewer5", "sewer7"],
+            digs:
+            {
+                ironore: 0.5
+            },
+            mobs: [{prob: 2, mobs:["slime","slime"]},{prob: 1, mobs:["slime3","slime", "slime2"]},
+                   {prob: 2, mobs:["slime2","slime5"]},{prob: 1, mobs:["slime4","slime5", "slime5"]},
+                   {prob: 2, mobs:["slime5","slime5"]},{prob: 1, mobs:["slime5","slime3", "slime5"]},
+                  {prob: 2, mobs:["slime4","slime2"]},{prob: 1, mobs:["slime5","slime3", "slime4"]}]
+        },
+
+        sewer7:
+        {
+            name: "The Sewer (stinky pipes)", desc: "Seems like there are a lot of slimes down here!", adjc: ["sewer6", "sewer8"],
+            digs:
+            {
+                ironore: 0.5
+            },
+            mobs: [{prob: 2, mobs:["slime","slime6"]},{prob: 1, mobs:["slime6","slime", "slime2"]},
+                   {prob: 2, mobs:["slime2","slime6"]},{prob: 1, mobs:["slime4","slime5", "slime6"]},
+                   {prob: 2, mobs:["slime5","slime6"]},{prob: 1, mobs:["slime5","slime6", "slime5"]},
+                  {prob: 2, mobs:["slime6","slime2"]},{prob: 1, mobs:["slime6","slime3", "slime4"]}]
+        },
+
+        sewer8:
+        {
+            name: "The Sewer (slime path)", desc: "Seems like there are a lot of slimes down here!", adjc: ["sewer7", "sewer9" ],
+            digs:
+            {
+                ironore: 0.5
+            },
+            mobs: [{prob: 2, mobs:["slime7","slime7"]},{prob: 1, mobs:["slime3","slime", "slime7"]},
+                   {prob: 2, mobs:["slime7","slime5"]},{prob: 1, mobs:["slime7","slime5", "slime5"]},
+                   {prob: 2, mobs:["slime5","slime7"]},{prob: 1, mobs:["slime5","slime7", "slime5"]},
+                  {prob: 2, mobs:["slime7","slime2"]},{prob: 1, mobs:["slime5","slime3", "slime4"]}]
+        },
+
+        sewer9:
+        {
+            name: "The Sewer (slime core)", desc: "Seems like there are a lot of slimes down here!", adjc: ["sewer8", "sewer10"],
+            digs:
+            {
+                ironore: 0.5
+            },
+            mobs: [{prob: 2, mobs:["slime7","slime7"]},{prob: 1, mobs:["slime7","slime7", "slime7"]},
+                   {prob: 1, mobs:["slime7","slime7", "slime6"]}]
+        },
+
+        sewer10:
+        {
+            name: "The Sewer (slime fortress)", desc: "Seems like some kind of slime fortress...", adjc: ["sewer9"],
+            digs:
+            {
+                ironore: 0.5
+            },
+            mobs: [{prob: 2, mobs:["slime7","slime8"]},{prob: 1, mobs:["slime7","slime8", "slime7"]},
+                   {prob: 1, mobs:["slime8","slime7", "slime8"]}, {prob: 2, mobs:["slime8"]}]
+        },
+
 
         cliff1:
         {
