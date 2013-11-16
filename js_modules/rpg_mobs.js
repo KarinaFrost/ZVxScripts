@@ -59,7 +59,7 @@
              desc: "Larger than average slime.",
              base: 480,
              drops: [{ prob: 0.14, item: "goo", count: 1 }],
-             plan: [{prob:1, skill:"attack"},{prob:1, skill: "sltacke"}]
+             plan: [{prob:1, skill:"attack"},{prob:1, skill: "sltackle"}]
 
          },
 
@@ -69,7 +69,7 @@
              desc: "Larger than average slime.",
              base: 960,
              drops: [{ prob: 0.14, item: "goo", count: 2 }],
-             plan: [{prob:1, skill:"sltacke"}]
+             plan: [{prob:1, skill:"sltackle"}]
 
          },
 
@@ -79,7 +79,7 @@
              desc: "Larger than average slime.",
              base: 1440,
              drops: [{ prob: 0.16, item: "goo", count: 3 }],
-             plan: [{prob:1, skill:"slvortex"},{prob:2, skill: "sltacke"}]
+             plan: [{prob:1, skill:"slvortex"},{prob:2, skill: "sltackle"}]
 
          },
 
@@ -109,7 +109,7 @@
              desc: "Larger than average slime.",
              base: 3600*2,
              drops: [{ prob: 0.2, item: "goo", count: 6 }],
-             plan: [{prob:1, skill:"sltackle"}, {prob:1, skill: "slexp"}]
+             plan: [{prob:1, skill:"slvortex"}, {prob:1, skill: "slexp"}]
 
          },
 
