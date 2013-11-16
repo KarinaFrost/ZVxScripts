@@ -161,9 +161,9 @@
 
          heal: function (ctx)
          {
-            /* var offense = ctx.attacker.physpower;
+            // var offense = ctx.attacker.physpower;
              var base = ctx.component.base;
-
+             /*
              var defense = ctx.target.physpower;
 
 
