@@ -60,7 +60,7 @@
          this.script.registerHandler("step", this);
 
 
-         this.io.registerConfig(this, {materias: this.materials});
+         this.io.registerConfig(this, { lowBandwidth: false });
 
          for (var x in this.skills)
          {

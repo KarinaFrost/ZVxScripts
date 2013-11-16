@@ -205,21 +205,26 @@
              var hpBar = "";
              var d;
 
-             var hpFract = Math.floor(val/max*8*10);
-             if (hpFract < 0) hpFract = 0;
-             var hpTenths = (hpFract - hpFract%8)/8;
-             var hpEightiths = (hpFract-hpTenths*8) % 8;
+             if (!that.config.lowBandwidth)
+             {
+                 var hpFract = Math.floor(val/max*8*10);
+                 if (hpFract < 0) hpFract = 0;
+                 var hpTenths = (hpFract - hpFract%8)/8;
+                 var hpEightiths = (hpFract-hpTenths*8) % 8;
 
-             for (var x = 0; x < hpTenths; x++) hpBar += "\u2588";
-             var hpSlivers = ["", "\u258f", "\u258e", "\u258d", "\u258c", "\u258b", "\u258a", "\u2589"];
+                 for (var x = 0; x < hpTenths; x++) hpBar += "\u2588";
+                 var hpSlivers = ["", "\u258f", "\u258e", "\u258d", "\u258c", "\u258b", "\u258a", "\u2589"];
 
-             //if ("" + hpSlivers[hpEightiths] == "undefined") print( "UNDEFINED " + [val, max, hpSlivers, hpEightiths, hpFract, hpTenths, hpTenths*8, hpFract - hpTenths].join(", "));
+                 //if ("" + hpSlivers[hpEightiths] == "undefined") print( "UNDEFINED " + [val, max, hpSlivers, hpEightiths, hpFract, hpTenths, hpTenths*8, hpFract - hpTenths].join(", "));
 
-             if (hpEightiths >= 4) hpBar += "\u2588";
-             //else hpBar += hpSlivers[hpEightiths];
-             while(hpBar.length < 10) hpBar += "\u259e";
+                 if (hpEightiths >= 4) hpBar += "\u2588";
+                 //else hpBar += hpSlivers[hpEightiths];
+                 while(hpBar.length < 10) hpBar += "\u259e";
 
-             return "<code>[<span style='color:" + that.color.colorTriadToString(that.color.neonify(that.color.colorMixProp(colorfull, colorempty, val/max), neon))+ "'>" + hpBar + "</span>]</code> ("+String(val/max*100).substring(0, 5)+"%) " + Math.floor(val) + "/" + Math.floor(max);
+                 return "[<span style='color:" + that.color.colorTriadToString(that.color.neonify(that.color.colorMixProp(colorfull, colorempty, val/max), neon))+ "'>" + hpBar + "</span>] ("+String(val/max*100).substring(0, 5)+"%) " + Math.floor(val) + "/" + Math.floor(max);
+
+             }
+             else return "<span style='color:" + that.color.colorTriadToString(that.color.neonify(that.color.colorMixProp(colorfull, colorempty, val/max), neon))+ "'>("+String(val/max*100).substring(0, 5)+"%) " + Math.floor(val) + "/" + Math.floor(max) + "</span>";
          }
 
          return "<table><tr><td></td><td>" + e.name + "</td></tr>" +
