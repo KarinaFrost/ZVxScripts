@@ -127,7 +127,7 @@
              components: [{target: "opp", base: 195, move: "physical", desc: "%s used slimy crash which covered %t in slime!", count:2}]
          },
 
-         fang:
+         fangs:
          {
              name: "Fangs", cost: {sp: 5},
              components: [{target: "opp", base: 9, move: "physical", desc: "%s bit %t!", count:2}]
