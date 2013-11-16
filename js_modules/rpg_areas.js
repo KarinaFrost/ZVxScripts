@@ -53,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         westforest:
         {
-            name: "West Forest", desc: "The west forest, inhabited by angry squirrels...", adcj: ["westpath", "westforest2"],
+            name: "West Forest", desc: "The west forest, inhabited by angry squirrels...", adjc: ["westpath", "westforest2"],
             mobs: [{prob:1, mobs: ["bat","lsquirrel"]}, {prob:1, mobs: ["lsquirrel","lsquirrel"]}]
         },
 
