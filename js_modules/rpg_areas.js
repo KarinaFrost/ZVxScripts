@@ -104,6 +104,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             mobs: [{prob: 0.5, mobs:["spook", "mspook", "sinester"]},{prob: 1, mobs:["spook", "mspook"]},{prob: 2, mobs:["spook", "grim", "mspook"]}, {prob: 1, mobs:["lspook", "mspook", "spook", "grim"]}, {prob: 1, mobs:["grim", "lspook", "mspook", "spook"]}]
         },
 
+        darkforest2:
+        {
+            name: "Dark Forest [bones]", desc: "Bones lie on the ground everywhere here. There is an ominous presense about.",
+            adjc: [{area:"town1south", distance: 40}],
+            mobs: [{prob: 0.5, mobs:["sinester", "mspook", "sinester"]},{prob: 1, mobs:["lspook", "mspook", "sinester"]},{prob: 2, mobs:["lspook", "grim", "mspook"]}, {prob: 1, mobs:["lspook", "lspook", "spook", "grim"]}, {prob: 1, mobs:["grim", "lspook", "sinester", "sinester"]}]
+        }
+
 
         //
 

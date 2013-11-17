@@ -169,11 +169,39 @@
 
          megapunch:
          {
-             name: "Mega Punch", cost: {sp:32, msp:12}, exp: "str", next: [], threshold: 60*15,
+             name: "Mega Punch", cost: {sp:32, msp:12}, exp: "str", next: ["sonichand", "ghostpunch"], threshold: 60*15,
 
              desc: "The user punches their enemy with even greater force.",
              components: [{ target: "opp", base:56, move: "physical", desc: "%s punched %t with a powerful punch!", count:1 }]
 
+         },
+
+         sonichand:
+         {
+             name: "Sonic Hand", cost: {sp: 65, msp: 12}, exp: "str", next: ["blitzhand"], threshold: 60*20,
+             desc: "The user punches their enemy with great speed and power.",
+             components: [{ target: "opp", base:107, move: "physical", desc: "%s punched %t with a powerful punch at blinding speed!", count:1 }]
+         },
+
+         blitzhand:
+         {
+             name: "Bliltz Hand", cost: {sp: 160, msp: 12}, exp: "str", next: ["shatterbreak"], threshold: 60*35,
+             desc: "The user punches their enemy with incredible great speed and power.",
+             components: [{ target: "opp", base:340, move: "physical", desc: "%s punched %t with a powerful punch at blinding speed!", count:1 }]
+         },
+
+         shatterbreak:
+         {
+             name: "Shatterbreak", cost: {sp: 254, msp: 22}, exp: "str", next: [], threshold: 60*35,
+             desc: "A secret move which shatters bones and smashes rocks.",
+             components: [{ target: "opp", base:512, move: "physical", desc: "%s used shatterbreak against %t!", count:1 }]
+         },
+
+         ghostpunch:
+         {
+             name: "Ghostly Punch", cost: {sp: 65, msp: 12}, exp: "str", next: [], threshold: 60*20,
+             desc: "The user punches their enemy with shadows.",
+             components: [{ target: "opp", base:107, move: "phyghost", desc: "%s punched %t with a ghostly punch!", count:1 }]
          },
 
          kick:
@@ -475,6 +503,9 @@
              components: [{ target: "opp", base: 315, move: "ghost", desc: "%s summoned an evil energy which descended upon the battlefield and injured %t!", count: 5}]
 
          }
+
+         //vhemenence:
+
 
 
 

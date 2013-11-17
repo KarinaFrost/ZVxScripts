@@ -227,12 +227,14 @@
                  l1: if (this.skills[move.shortname].next)
                  {
                      var ar = this.skills[move.shortname].next;
+                     var div = 1;
                      i = [];
 
                      for (x2 in ar)
                      {
                          attacker.exp[ar[x2]] = attacker.exp[ar[x2]] || 0;
                          if (attacker.exp[ar[x2]] < (this.skills[ar[x2]] || {}).threshold) i.push(ar[x2]);
+                         else div++;
                      }
 
                      if (i.length == 0)
@@ -244,7 +246,7 @@
                      i.sort( function (a, b){ return ctx.attacker.exp[b] - ctx.attacker.exp[a]; } );
 
                      var oldexp = attacker.exp[i[0]] || 0;
-                     attacker.exp[i[0]] = oldexp + 10;
+                     attacker.exp[i[0]] = oldexp + Math.ceil(4 + 6/div);
 
                      if (attacker.exp[i[0]] >= (this.skills[i[0]] || {}).threshold)
                      {
