@@ -100,16 +100,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         darkforest:
         {
             name: "Dark Forest", desc: "This forest is the natural home of spooks, townspeople avoid it like the plauge. Legend tells of the deadly sinesters that live here.",
-            adjc: [{area:"town1south", distance: 40}],
+            adjc: [{area:"town1south", distance: 40}, {area:"darkforest2", distance: 20}],
             mobs: [{prob: 0.5, mobs:["spook", "mspook", "sinester"]},{prob: 1, mobs:["spook", "mspook"]},{prob: 2, mobs:["spook", "grim", "mspook"]}, {prob: 1, mobs:["lspook", "mspook", "spook", "grim"]}, {prob: 1, mobs:["grim", "lspook", "mspook", "spook"]}]
         },
 
         darkforest2:
         {
-            name: "Dark Forest [bones]", desc: "Bones lie on the ground everywhere here. There is an ominous presense about.",
-            adjc: [{area:"town1south", distance: 40}],
+            name: "Dark Forest [bones]", desc: "Bones lie on the ground everywhere here. There is an ominous presense about. Somehow the walk back seems longer.",
+            adjc: [{area:"darkforest", distance: 40}],
             mobs: [{prob: 0.5, mobs:["sinester", "mspook", "sinester"]},{prob: 1, mobs:["lspook", "mspook", "sinester"]},{prob: 2, mobs:["lspook", "grim", "mspook"]}, {prob: 1, mobs:["lspook", "lspook", "spook", "grim"]}, {prob: 1, mobs:["grim", "lspook", "sinester", "sinester"]}]
-        }
+        },
 
 
         //

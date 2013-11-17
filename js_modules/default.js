@@ -42,8 +42,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
          for (x in this.config.modules)
          {
-             if (this.constdata.RENAMES[this.config.modules[x]]) this.config.modules[x] = this.constdata.RENAMES[this.config.modules[x]];
-             this.script.loadModule(this.config.modules[x]);
+             try
+             {
+
+                 if (this.constdata.RENAMES[this.config.modules[x]]) this.config.modules[x] = this.constdata.RENAMES[this.config.modules[x]];
+                 this.script.loadModule(this.config.modules[x]);
+             } catch(e)
+             {
+                 this.script.error(e);
+             }
          }
      }
 
