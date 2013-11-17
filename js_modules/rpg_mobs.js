@@ -175,9 +175,48 @@
          sinester:
          {
              name: "Sinester",
-             base: 3700, attr: { ghost: true, flying: true },
-             plan: [{prob:5, skill:"blackfog"}, {prob:1, skill:"hellrain"}, {prob:3, skill: "blood"}],
+             base: 3700, attr: { ghost: true, flying: true }, mag: 4200,
+             plan: [{prob:5, skill:"blackfog"}, {prob:1, skill:"hellstorm"}, {prob:3, skill: "blood"}],
              drops: [{ prob:1, item: "destinygem", count:1 }, { prob:0.5, item: "destinygem", count:1 }, { prob: 0.3, item: "destinygem", count:1 }]
+         },
+
+         sshell:
+         {
+             name: "Shallow Shell",
+             base: 5600, str: 3600, sta: 1600, attr: {ghost: true},
+             plan: [{prob:5, skill:"dispulse"}]
+         },
+
+         lshell:
+         {
+             name: "Lost Shell",
+             base: 8600, str: 3600, sta: 2600,
+             attr: {ghost: true},
+             plan: [{prob:5, skill:"disblast"}, {prob:2, skill:"disfield"}]
+         },
+
+         oshell:
+         {
+             name: "Oblivion Shell",
+             base: 15600, str: 3600, sta: 3600,
+             attr: {ghost: true},
+             plan: [{prob:5, skill:"diswarp"}]
+         },
+
+         ushell:
+         {
+             name: "Uber Shell",
+             base: 22600, str: 3600, sta: 4600,
+             attr: {ghost: true},
+             plan: [{prob:5, skill:"disexpl"}]
+         },
+
+         zombie:
+         {
+             name: "Zombie",
+             base: 3600, str: 4000, res: 8000,
+             attr: {undead: true},
+             plan: [{prob:3, skill: "superpunch"}, {prop: 1, skill:"sonichand"}]
          },
 
          eshroom:

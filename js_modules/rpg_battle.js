@@ -59,16 +59,16 @@
 
          function isDead(e)
          {
-             return e.hp <= 0 || e.msp <= 0 || e.sp <= 0;
+             return (e.attr && e.attr.undead ? e.hp < -e.maxhp : e.hp <= 0) || e.msp <= 0 || e.sp <= 0;
          }
 
          function testDead (e)
          {
 
 
-             if (e.hp <= 0 || e.msp <= 0 || e.sp <= 0 || e.forceDead)
+             if ((e.attr && e.attr.undead ? e.hp < -e.maxhp : e.hp <= 0) || e.msp <= 0 || e.sp <= 0)
              {
-                 if (e.hp <= 0) that.com.message(pids, e.name + " was slain!", that.theme.RPG, false, ctx.chan);
+                 if ((e.attr && e.attr.undead ? e.hp < -e.maxhp : e.hp <= 0)) that.com.message(pids, e.name + " was slain!", that.theme.RPG, false, ctx.chan);
                  else if (e.sp <= 0) that.com.message(pids, e.name + " collapsed!", that.theme.RPG, false, ctx.chan);
                  else if (e.msp <= 0) that.com.message(pids, e.name + " lost consciousness!" , that.theme.RPG, false, ctx.chan);
                  else that.com.message(pids, e.name + " died a mysterious death!", that.theme.RPG, false, ctx.chan);

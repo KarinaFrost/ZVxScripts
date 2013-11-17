@@ -27,6 +27,12 @@
          e.sp += e.maxsp/30;
          e.msp += e.maxmsp/15;
 
+         if (e.attr && e.attr.ghost)
+         {
+             e.hp += e.maxhp/15;
+             if (typeof e.attr.ghost == typeof Number()) e.attr.ghost--;
+         }
+
          // Stamina
          if (e.sp < 0)
              // No stamina
@@ -37,6 +43,7 @@
              e.sp = 0;
              // Reset stamina
          }
+
          if (e.sp > e.maxsp / 3)
              // Has a fairly large amount of stamina
          {
@@ -98,10 +105,10 @@
          }
 
          // Health
-         if (e.hp <= 0 && !e.invincible && (!e.undead && e.hp > -e.maxhp*5))
-             // check for death
+         if (e.hp <= 0 && e.attr && e.attr.undead && e.hp > -e.maxhp)
          {
-             // this.entityDie(e);
+             e.hp += e.maxhp/5;
+             if (e.hp > 0) e.hp = 0;
          }
          else if (e.hp > e.maxhp)
          // overflow
@@ -109,6 +116,8 @@
              e.hp = e.maxhp;
              // reset
          }
+
+
 
 
 

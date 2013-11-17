@@ -107,8 +107,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         darkforest2:
         {
             name: "Dark Forest [bones]", desc: "Bones lie on the ground everywhere here. There is an ominous presense about. Somehow the walk back seems longer.",
-            adjc: [{area:"darkforest", distance: 40}],
+            adjc: [{area:"darkforest", distance: 40}, {area:"darkforest3", distance: 20}, {area:"darkforest5", distance: 20}],
             mobs: [{prob: 0.5, mobs:["sinester", "mspook", "sinester"]},{prob: 1, mobs:["lspook", "mspook", "sinester"]},{prob: 2, mobs:["lspook", "grim", "mspook"]}, {prob: 1, mobs:["lspook", "lspook", "spook", "grim"]}, {prob: 1, mobs:["grim", "lspook", "sinester", "sinester"]}]
+        },
+
+        darkforest3:
+        {
+            name: "Dark Forest [graveyard]", desc: "An old graveyard Somehow the walk back seems longer.",
+            adjc: [{area:"darkforest2", distance: 65}, {area:"darkforest", distance: 40}, {area:"darkforest4", distance: 10}],
+            mobs: [{prob: 0.5, mobs:["sinester", "zombie", "sinester"]},{prob: 1, mobs:["lspook", "mspook", "sinester"]},{prob: 2, mobs:["lspook", "zombie", "mspook"]}, {prob: 1, mobs:["lspook", "lspook", "zombie", "grim"]}, {prob: 1, mobs:["zombie", "lspook", "zombie", "sinester"]}]
+        },
+
+        darkforest4:
+        {
+            name: "Dark Forest [crypt]", desc: "An old crypt.",
+            adjc: [{area:"darkforest3", distance: 10}],
+            mobs: [{prob: 0.5, mobs:["zombie", "zomibe", "sinester"]},{prob: 1, mobs:["zombie", "shell", "sinester"]},{prob: 2, mobs:["zombie", "grim", "mspook"]}, {prob: 1, mobs:["lspook", "lspook", "spook", "grim"]}, {prob: 1, mobs:["zombie", "zombie", "sshell", "sinester"]}]
+        },
+
+        darkforest5:
+        {
+            name: "Dark Forest [clearing]", desc: "Something tells you this place is dangerous. Somehow you can't find your way back",
+            adjc: [{area:"darkforest4", distance: 40}],
+            mobs: [{prob: 0.5, mobs:["sinester", "mspook", "sshell"]},{prob: 1, mobs:["lspook", "mspook", "sinester"]},{prob: 2, mobs:["sshell", "grim", "mspook"]}, {prob: 1, mobs:["lspook", "lspook", "spook", "grim"]}, {prob: 1, mobs:["grim", "lspook", "sshell", "sinester"]}]
         },
 
 
@@ -159,7 +180,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         sewer4b:
         {
 
-            name: "The Sewer (bat room)", desc: "Seems like there are a lot of slimes down here! ... and some spooks? There seems to be a pipe here which goes back to the entrace, but there's no way to climb back up it if you go down.", adjc: ["sewer4", "sewer1"],
+            name: "The Sewer (ghost room)", desc: "Seems like there are a lot of slimes down here! ... and some spooks? There seems to be a pipe here which goes back to the entrace, but there's no way to climb back up it if you go down.", adjc: ["sewer4", "sewer1"],
             digs:
             {
                 ironore: 0.5

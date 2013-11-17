@@ -133,11 +133,55 @@
              components: [{target: "opp", base: 14, move: "physical", desc: "%s bit %t!", count:1}]
          },
 
+         diswave:
+         {
+             name: "Distortion Wave", cost: {msp: 2}, threshold: 60*15, next: ["disbrk"],
+             components: [{target: "opp", base: 14, move: "magical", desc: "%s blasted %t with a distortion wave!", count:1}]
+         },
+
+         disbrk:
+         {
+             name: "Distortion Break", cost: {msp: 4}, threshold: 60*35, next: ["dispulse"],
+             components: [{target: "opp", base: 34, move: "magical", desc: "%s caught %t in a distortion fissure!", count:1}]
+         },
+
+         dispulse:
+         {
+             name: "Distortion Pulse", cost: {msp: 6}, threshold: 60*45, next: ["disblast"],
+             components: [{target: "opp", base: 74, move: "magical", desc: "%s blasted %t with a distortion pulse!", count:1}]
+         },
+
+         disblast:
+         {
+             name: "Distortion Blast", cost: {msp: 8}, next: ["disfield"], threshold: 60*60,
+             components: [{target: "opp", base: 104, move: "magical", desc: "%s blasted %t with a surge of distortion energy!", count:1}]
+         },
+
+         disfield:
+         {
+             name: "Distortion Field", cost: {msp: 10}, next: ["diswarp"], threshold: 60*85,
+             components: [{target: "opp", base: 104, move: "magical", desc: "%s captured %t within a distortion field!", count:4}]
+         },
+
+         diswarp:
+         {
+             name: "Distortion Warp", cost: {msp: 14}, next: ["disexpl"], threshold: 3600*2.2,
+             components: [{target: "opp", base: 204, move: "magical", desc: "%s captured %t within a distortion warp!", count:4}]
+         },
+
+         disexpl:
+         {
+             name: "Distortion Explosion", threshold: 3600* 3.5,
+             cost: {msp: 16}, next: [],
+             components: [{target: "opp", base: 304, move: "magical", desc: "%s released an explosion of distortion energy! It struk %t!", count:4}]
+         },
+
+
          // Player skills
 
          attack:
          {
-             name: "Attack", element: "physical", cost:{sp:2}, exp: "str", next: ["psyburst", "heal", "shadows", "punch", "kick", "thunershock" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
+             name: "Attack", element: "physical", cost:{sp:2}, exp: "str", next: ["psyburst", "heal", "shadows", "punch", "thunershock" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
              desc: "A basic attack",
              components: [{ target: "opp", base:5, move: "physical", desc: "%s attacked %t!", count:1 }]
          },
@@ -206,11 +250,45 @@
 
          kick:
          {
-             name: "Kick", cost: {sp:8, msp:2}, exp: "str", next: ["punch", "superkick"], threshold: 60*5,
+             name: "Kick", cost: {sp:8, msp:2}, exp: "str", next: ["superkick"], threshold: 60*5,
 
              desc: "The user kicks their enemy.",
              components: [{ target: "opp", base:20, move: "physical", desc: "%s kicked %t!", count:1 }]
 
+         },
+
+         superkick:
+         {
+             name: "Super Kick", cost: {sp:16, msp:2}, exp: "str", next: ["superkick"], threshold: 60*5,
+
+             desc: "The user kicks their enemy.",
+             components: [{ target: "opp", base:35, move: "physical", desc: "%s kicked %t!", count:1 }]
+
+         },
+
+         sweep:
+         {
+             name: "Sweeping Kick", cost: {sp:16, msp:2}, exp: "str", next: ["superkick"], threshold: 60*5,
+
+             desc: "The user kicks their enemies with a spinning flourish.",
+             components: [{ target: "opp", base:35, move: "physical", desc: "%s kicked %t!", count:2 }]
+
+         },
+
+         grndsweep:
+         {
+             name: "Groundsweeper", cost: {sp:25, msp:4}, exp: "str", next: ["superkick"], threshold: 60*5,
+
+             desc: "The user kicks their enemies with a spinning flourish.",
+             components: [{ target: "opp", base:45, move: "physical", desc: "%s hit %t in a fast combo flurry of kicks!", count: 4 }]
+         },
+
+         grndbrk:
+         {
+             name: "Groundbreak", cost: {sp:45, msp:5}, exp: "str", next: ["superkick"], threshold: 60*5,
+
+             desc: "The user uses a strong kick, tearing up even the ground.",
+             components: [{ target: "opp", base:75, move: "physical", desc: "%s hit %t in a fast combo flurry of kicks!", count: 2 }]
          },
 
          heal:
@@ -476,8 +554,14 @@
 
          darkblitz:
          {
-             name: "Dark Blitz", exp: "mag", desc: "Weapons made from shadows injure your enemy.", cost: { mp: 35, msp:15}, next:  [],  threshold: 60*30,
+             name: "Dark Blitz", exp: "mag", desc: "Weapons made from shadows injure your enemy.", cost: { mp: 35, msp:15}, next:  ["diswave", "darkstorm"],  threshold: 60*30,
              components: [{ target: "opp", base: 165, move: "dark", desc: "%t was blasted by %s's evil energy!", count: 1}]
+         },
+
+         darkstorm:
+         {
+             name: "Dark Storm", exp: "mag", desc: "Darkness falls from the sky.", cost: { mp: 35, msp:15}, next:  [],  threshold: 60*30,
+             components: [{ target: "opp", base: 165, move: "dark", desc: "Dark energy falls from the sky and injures %t!", count: 1}]
          },
 
 
@@ -499,10 +583,21 @@
 
          scourge:
          {
-             name: "Hell's Scourge", exp: "mag", desc: "A descent of horrible energy devastates the battlefield!", cost: {mp:120, msp:30}, threshold: 60*45, next: [],
+             name: "Hell's Scourge", exp: "mag", desc: "A descent of horrible energy devastates the battlefield!", cost: {mp:120, msp:30}, threshold: 60*45, next: ["vehemence"],
              components: [{ target: "opp", base: 315, move: "ghost", desc: "%s summoned an evil energy which descended upon the battlefield and injured %t!", count: 5}]
 
-         }
+         },
+
+         vehemence:
+         {
+             name: "Vehemence", exp: "mag", desc: "An evil energy descends upon an enemy.", cost: {mp: 220, msp: 60}, threshold: 3600*1.5,
+             components: [{ target: "opp", base: 650, move: "ghost", desc: "An evil energy descended upon %t!", count: 1}]
+         },
+         /*
+         ardor:
+         {
+             name: 'Tricksters Ardour', exp: "mag", desc: "A
+         }*/
 
          //vhemenence:
 
