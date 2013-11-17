@@ -202,9 +202,6 @@
      {
          var that = this;
 
-         var droid = false;
-
-         if (e.type == "player" && e.os == "android") droid = true;
 
          function bar (val, max, colorfull, colorempty, neon)
          {
@@ -233,9 +230,9 @@
              else return "<span style='color:" + that.color.colorTriadToString(that.color.neonify(that.color.colorMixProp(colorfull, colorempty, val/max), neon))+ "'>("+String(val/max*100).substring(0, 5)+"%) " + Math.floor(val) + "/" + Math.floor(max) + "</span>";
          }
 
-         return "<table><tr><td></td><td>" + e.name +(droid?"<br/>":"")+ "</td></tr>" +
+         return "<table><tr><td></td><td>" + e.name +"<br/></td></tr>" +
              "<tr><td><b>HP</b></td><td>" + bar(e.hp, e.maxhp, [0, 0xff, 0], [0xff, 00, 00], 1) + "</td></tr>"+
-             "<tr><td><b>SP</b></td><td>" + bar(e.sp, e.maxsp,  [0x20, 0xff, 0x20], [0xaa, 0xaa, 0xaa], 0) +"</td></tr>"+
+             "<tr><td><b>SP</b></td><td>" + bar(e.sp, e.maxsp,  [0x40, 0xee, 0x30], [0xaa, 0xaa, 0xaa], 0) +"</td></tr>"+
              "<tr><td><b>MP</b></td><td>" + bar(e.mp, e.maxmp, [0, 0, 0xff], [0, 00, 00], 0) +"</td></tr>"+
              "<tr><td><b>MSP</b></td><td>" + bar(e.msp, e.maxmsp,  [0xaa, 0xaa, 0xff], [00, 00, 00], 0) +"</td></tr></table>";
 

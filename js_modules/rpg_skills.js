@@ -408,30 +408,65 @@
 
          blackfog:
          {
-             name: "Black Fog", exp: "mag", desc: "A black fog engulfs the enemy!", cost: {mp: 15, msp:10}, threshold: 60*10, next: ["blood"],
+             name: "Black Fog", exp: "mag", desc: "A black fog engulfs the enemy!", cost: {mp: 15, msp:10}, threshold: 60*10, next: ["blood", "hellrain"],
              components: [{ target: "opp", base: 35, move: "ghost", desc: "%t suffocated in black fog!", count: 1}]
          },
 
          blood:
          {
-             name: "Devil's Blood", exp: "mag", desc: "The user sacrafices their own blood to lay a curse on the enemy", cost: { hp: 55, mp: 10, msp: 10 }, threshold: 60*15, next: ["hellrain", "sarchith"],
+             name: "Devil's Blood", exp: "mag", desc: "The user sacrafices their own blood to lay a curse on the enemy", cost: { hp: 55, mp: 10, msp: 10 }, threshold: 60*15, next: ["sarchith"],
              components: [{ target: "opp", base: 85, move: "ghost", desc: "%s drew blood unto the ground and it curses %t!", count: 1}]
 
          },
 
          sarachith:
          {
-             name: "Sarachith", exp: "res", desc: "The user users a contract of demons to injure their opponent.", cost: { hp: 85, mp: 10, msp: 10 },
-             components: [{ target: "opp", base: 85, move: "ghost", desc: "%s exchanged a contract with demons and it curses %t!", count: 1}]
+             name: "Sarachith", exp: "res", desc: "The user users a contract of demons to injure their opponent.", cost: { hp: 85, mp: 10, msp: 10 }, threshold: 60*25,
+             components: [{ target: "opp", base: 175, move: "ghost", desc: "%s exchanged a contract with demons and it curses %t!", count: 1}]
          },
 
          hellrain:
          {
-             name: "Hell's Rain", exp: "mag", desc: "A terrible downpour of pure darkness enroaches the battlefield!", cost: {mp:20, msp:5}, threshold: 60*35,
+             name: "Hell's Rain", exp: "mag", desc: "A terrible downpour of pure darkness enroaches the battlefield!", cost: {mp:20, msp:5}, threshold: 60*20, next: ["hellstorm", "darkpulse"],
              components: [{ target: "opp", base: 65, move: "ghost", desc: "%t was caught in the dark rain!", count: 5},{ target: "ally", base: 25, move: "ghost", desc: "%t was caught in the dark rain!", count: 2}]
 
-         }
+         },
 
+         darkpulse:
+         {
+             name: "Dark Pulse", exp: "mag", desc: "A pulse of evil energy injures a foe.", cost: { mp: 35, msp:15}, next:  ["darkblitz"],
+             components: [{ target: "opp", base: 165, move: "dark", desc: "%t was blasted by %s's evil energy!", count: 1}]
+         },
+
+         darkblitz:
+         {
+             name: "Dark Blitz", exp: "mag", desc: "Weapons made from shadows injure your enemy.", cost: { mp: 35, msp:15}, next:  [],  threshold: 60*30,
+             components: [{ target: "opp", base: 165, move: "dark", desc: "%t was blasted by %s's evil energy!", count: 1}]
+         },
+
+
+         hellstorm:
+         {
+             name: "Hellstorm", exp: "mag", desc: "A wretched downpour of pure darkness enroaches the battlefield!", cost: {mp:40, msp:15}, threshold: 60*20, next: ["helltwister"],
+             components: [{ target: "opp", base: 135, move: "ghost", desc: "%t was caught in the dark storm!", count: 5},{ target: "ally", base: 25, move: "ghost", desc: "%t was caught in the dark storm!", count: 2}]
+
+
+         },
+
+         helltwister:
+         {
+             name: "Hell's Twister", exp: "mag", desc: "A swirling vortex of shadows attacks the enemy!", cost: {mp:90, msp:20}, threshold: 60*30, next: ["scourge"],
+             components: [{ target: "opp", base: 235, move: "ghost", desc: "%t was caught in the dark twister!", count: 3}]
+
+
+         },
+
+         scourge:
+         {
+             name: "Hell's Scourge", exp: "mag", desc: "A descent of horrible energy devastates the battlefield!", cost: {mp:120, msp:30}, threshold: 60*45, next: [],
+             components: [{ target: "opp", base: 315, move: "ghost", desc: "%s summoned an evil energy which descended upon the battlefield and injured %t!", count: 5}]
+
+         }
 
 
 

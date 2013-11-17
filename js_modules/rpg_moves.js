@@ -74,6 +74,34 @@
              return {string: "(-" +Math.round(damage/3) + " HP, -"+Math.round(damage/3)+" SP, -"+Math.round(damage/3)+" MSP)", damage:damage, exptype: "mag"};
          },
 
+
+         dark:
+         function (ctx)
+         {
+              var offense = ctx.attacker.magicpower;
+             var base = ctx.component.base;
+
+             var defense = ctx.target.defpower;
+
+
+             var mult = Math.min(Math.max(0.1, offense/defense), 10);
+             var qmlt = 0.8;
+
+             if (ctx.attacker.type == "player")
+             {
+                 qmlt = this.qMult(ctx.attacker.exp[ctx.move.shortname]/base*2 || 0 + Math.E);
+             }
+
+
+             var damage = base * mult;
+
+             damage = Math.max(damage | 0, 5);
+             ctx.target.hp -= damage/2;
+             ctx.target.mp -= damage/2;
+
+             return {string: "(-" +Math.round(damage/2) + " HP, -"+Math.round(damage/2)+" MP)", damage:damage, exptype: "mag"};
+         },
+
          boostmsp:
          function (ctx)
          {
