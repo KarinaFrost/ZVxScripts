@@ -117,9 +117,19 @@
          {
              name: "Giga Slime",
              desc: "Larger than average slime.",
-             base: 3600*4,
+             base: 3600*4.5,
              drops: [{ prob: 0.2, item: "goo", count: 6 }],
              plan: [{prob:1, skill:"slcrash"}, {prob:1, skill: "slexp"}]
+
+         },
+
+         slimed:
+         {
+             name: "Giga Slime Dragon",
+             desc: "lolwut.",
+             base: 3600*9,
+             drops: [{ prob: 1, item: "goo", count: 8 }],
+             plan: [{prob:1, skill:"slcrash"}]
 
          },
 
@@ -220,7 +230,7 @@
 
          adsquirrel:
          {
-             name: "Armored Deadly Squirrel",
+             name: "Armoured Deadly Squirrel",
              desc: "Nuts with evil, this squirrel is as dangerous as squirls get!",
              base: 1600,
              res: 4600,

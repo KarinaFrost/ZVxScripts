@@ -211,7 +211,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         sewer9:
         {
-            name: "The Sewer (slime core)", desc: "Seems like there are a lot of slimes down here!", adjc: ["sewer8", "sewer10"],
+            name: "The Sewer (slime core)", desc: "Seems like there are a lot of slimes down here!", adjc: ["sewer8", "slfort1"],
             digs:
             {
                 ironore: 0.5
@@ -220,15 +220,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                    {prob: 1, mobs:["slime7","slime7", "slime6"]}]
         },
 
-        sewer10:
+        slfort1:
         {
-            name: "The Sewer (slime fortress)", desc: "Seems like some kind of slime fortress...", adjc: ["sewer9"],
+            name: "Underground Slime Fortress [outside]", desc: "Seems like some kind of slime fortress...", adjc: ["sewer9", "slfort2"],
             digs:
             {
                 ironore: 0.5
             },
             mobs: [{prob: 2, mobs:["slime7","slime8"]},{prob: 1, mobs:["slime7","slime8", "slime7"]},
                    {prob: 1, mobs:["slime8","slime7", "slime8"]}, {prob: 2, mobs:["slime8"]}]
+        },
+
+        slfort2:
+        {
+            name: "Underground Slime Fortress [inside]", desc: "There seems be something awfully dangerous here!", adjc: ["slfort1"],
+            digs:
+            {
+                ironore: 0.5
+            },
+            mobs: [{prob: 1, mobs:["slimed"]}]
         },
 
 

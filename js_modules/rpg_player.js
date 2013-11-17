@@ -160,7 +160,7 @@
          if (player.battle) return;
          // Regular player events don't occur while the player is in a battle!
 
-         if (player.hp <= 0)
+         if (!this.areas[player.area] || player.hp <= 0)
          {
              player.hp = 1;
              player.sp = 1;

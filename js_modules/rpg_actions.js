@@ -209,7 +209,7 @@
              this.com.message(src, "Your player:", this.theme.RPG, false, chan);
              msgs.push("<b>Level:</b> " + this.level(ctx.player.totalexp || 0));
 
-             this.com.message(src, this.entHtml(ctx.player), this.theme.GAME, true, chan);
+             this.com.message(src, this.entHtml(ctx.player, sys.os(src) == "android"), this.theme.GAME, true, chan);
              if (ctx.player.rhand && this.equips[ctx.player.rhand.type].hands === 2)
              {
                  msgs.push("<b>Both Hands:</b> " + this.equipName(ctx.player.rhand));
