@@ -157,7 +157,7 @@
          if (!src) return;
          else { player.src = src; player.os = sys.os(src); }
 
-         if (player.bat/tle) return;
+         if (player.battle) return;
          // Regular player events don't occur while the player is in a battle!
 
          if (player.hp <= 0)
