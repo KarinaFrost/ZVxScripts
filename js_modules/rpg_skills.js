@@ -145,7 +145,7 @@
          thundershock:
          {
 
-             name: "Thundershock", cost: {sp:15, msp:5}, exp: "str", next: [], threshold: 60*10,
+             name: "Thundershock", cost: {mp:15, msp:5}, exp: "mag", next: [], threshold: 60*10,
              desc: "User calls upon lighting.",
              components: [{ target: "opp", base:36, move: "magical", desc: "%s zapped %t!", count:1 }]
          },
@@ -244,7 +244,7 @@
 
          hseal:
          {
-             nane: "Holy Seal", cost: {mp: 148, sp: 20, msp: 85}, exp: "mag", threshold: 60*35, next: ["ager"],
+             name: "Holy Seal", cost: {mp: 148, sp: 20, msp: 85}, exp: "mag", threshold: 60*35, next: ["ager"],
              desc: "Traps enemies in a magical spell which injures all enemies within it.",
              components: [{ target: "opp", base: 113, move: "magical", desc: "%s casts a spell seal around the battlefield which damages %t within it!", count:5 }]
          },
