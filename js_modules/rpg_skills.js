@@ -129,7 +129,7 @@
 
          fangs:
          {
-             name: "Fangs", cost: {sp: 8},
+             name: "Fangs", cost: {sp: 8}, threshold: 100,
              components: [{target: "opp", base: 14, move: "physical", desc: "%s bit %t!", count:2}]
          },
 

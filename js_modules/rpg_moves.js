@@ -46,6 +46,34 @@
              return d;
          },
 
+         phyghost:
+         function (ctx)
+         {
+              var offense = ctx.attacker.physpower;
+             var base = ctx.component.base;
+
+             var defense = ctx.target.defpower;
+
+
+             var mult = Math.min(Math.max(0.1, offense/defense), 10);
+             var qmlt = 0.8;
+
+             if (ctx.attacker.type == "player")
+             {
+                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base*2 || 0 + Math.E);
+             }
+
+
+             var damage = base * mult;
+
+             damage = Math.max(damage | 0, 5);
+             ctx.target.hp -= damage/3;
+             ctx.target.sp -= damage/3;
+             ctx.target.msp -= damage/3;
+
+             return {string: "(-" +Math.round(damage/3) + " HP, -"+Math.round(damage/3)+" SP, -"+Math.round(damage/3)+" MSP)", damage:damage, exptype: "mag"};
+         },
+
          ghost:
          function (ctx)
          {
