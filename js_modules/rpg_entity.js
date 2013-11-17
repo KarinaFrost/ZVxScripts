@@ -198,16 +198,20 @@
 
      },
 
-     entHtml:  function (e)
+     entHtml:  function (e, droid)
      {
          var that = this;
+
+         var droid = false;
+
+         if (e.type == "player" && e.os == "android") droid = true;
 
          function bar (val, max, colorfull, colorempty, neon)
          {
              var hpBar = "";
              var d;
 
-             if (!that.config.lowBandwidth)
+             if (!droid && !that.config.lowBandwidth)
              {
                  var hpFract = Math.floor(val/max*8*10);
                  if (hpFract < 0) hpFract = 0;
@@ -229,7 +233,7 @@
              else return "<span style='color:" + that.color.colorTriadToString(that.color.neonify(that.color.colorMixProp(colorfull, colorempty, val/max), neon))+ "'>("+String(val/max*100).substring(0, 5)+"%) " + Math.floor(val) + "/" + Math.floor(max) + "</span>";
          }
 
-         return "<table><tr><td></td><td>" + e.name + "</td></tr>" +
+         return "<table><tr><td></td><td>" + e.name +(droid?"<br/>":"")+ "</td></tr>" +
              "<tr><td><b>HP</b></td><td>" + bar(e.hp, e.maxhp, [0, 0xff, 0], [0xff, 00, 00], 1) + "</td></tr>"+
              "<tr><td><b>SP</b></td><td>" + bar(e.sp, e.maxsp,  [0x20, 0xff, 0x20], [0xaa, 0xaa, 0xaa], 0) +"</td></tr>"+
              "<tr><td><b>MP</b></td><td>" + bar(e.mp, e.maxmp, [0, 0, 0xff], [0, 00, 00], 0) +"</td></tr>"+
