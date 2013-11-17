@@ -328,14 +328,14 @@
 
          luxi:
          {
-             name: "Luxiudicium", cost: {mp: 305, sp: 120, msp: 230}, exp: "mag", threshold: 3600, next: ["judgement"],
+             name: "Luxiudicium", cost: {mp: 305, sp: 45, msp: 230}, exp: "mag", threshold: 3600, next: ["judgement"],
              desc: "Summons powerful light energy which wraps around and burns an enemy.",
              components: [{ target: "opp", base: 780, move: "magical", desc: "%s summoned a blazing hot light which purges %t!", count:1 }]
          },
 
          judgement:
          {
-             name: "Judgement", cost: {mp: 705, sp: 420, msp: 630}, exp: "mag", threshold: 3600*2.5,
+             name: "Judgement", cost: {mp: 705, sp: 170, msp: 330}, exp: "mag", threshold: 3600*2.5,
              desc: "Summons powerful light energy from the sky which which burns an enemy.",
              components: [{ target: "opp", base: 1430, move: "magical", desc: "%s calls a blazing judgement upon %t!", count:1 }]
          },
@@ -592,7 +592,7 @@
          {
              name: "Vehemence", exp: "mag", desc: "An evil energy descends upon an enemy.", cost: {mp: 220, msp: 60}, threshold: 3600*1.5,
              components: [{ target: "opp", base: 650, move: "ghost", desc: "An evil energy descended upon %t!", count: 1}]
-         },
+         }
          /*
          ardor:
          {
