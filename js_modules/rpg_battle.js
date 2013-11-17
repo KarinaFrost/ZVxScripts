@@ -42,7 +42,11 @@
       * @param {rpgClass} ctx.rpg The current rpg we are in.
       */
 
-
+     getBattle:
+     function (rpg, bat)
+     {
+         return rpg.battles[bat];
+     },
 
      battleStep: function (ctx)
      {
@@ -66,11 +70,16 @@
          {
 
 
-             if ((e.attr && e.attr.undead ? e.hp < -e.maxhp : e.hp <= 0) || e.msp <= 0 || e.sp <= 0)
+             if ((typeof e.flee == typeof Number() && e.flee <= 0) || (e.attr && e.attr.undead ? e.hp < -e.maxhp : e.hp <= 0) || e.msp <= 0 || e.sp <= 0)
              {
                  if ((e.attr && e.attr.undead ? e.hp < -e.maxhp : e.hp <= 0)) that.com.message(pids, e.name + " was slain!", that.theme.RPG, false, ctx.chan);
                  else if (e.sp <= 0) that.com.message(pids, e.name + " collapsed!", that.theme.RPG, false, ctx.chan);
                  else if (e.msp <= 0) that.com.message(pids, e.name + " lost consciousness!" , that.theme.RPG, false, ctx.chan);
+                 else if (typeof e.flee == typeof Number() && e.flee <= 0)
+                 {
+                     delete e.flee;
+                     that.com.message(pids, e.name + " escaped!" , that.theme.RPG, false, ctx.chan);
+                 }
                  else that.com.message(pids, e.name + " died a mysterious death!", that.theme.RPG, false, ctx.chan);
 
 
@@ -161,9 +170,14 @@
 
          var pids = [];
 
-         for ( x in battle.players) if (sys.id(battle.players[x])) pids.push(sys.id(battle.players[x]));
+         for ( x in battle.players) if (sys.id(battle.players[x]))
+         {
+             var id = sys.id(battle.players[x]);
+             pids.push(id);
+             if (! sys.isInChannel(id, ctx.chan)) sys.putInChannel(id, ctx.chan);
+         }
 
-         this.com.message(pids, "Battle: Start Round.", this.theme.RPG, false, ctx.chan);
+         this.com.message(pids, "Battle: Start Round #" + battle.round + ":", this.theme.RPG, false, ctx.chan);
 
 
          for (x in entities)
@@ -181,6 +195,13 @@
              var attacker = ctx.attacker = entities[x];
              var at = entities[x].type;
              var move = ctx.move = this.pickMove(entities[x]);
+
+             if (typeof attacker.flee == typeof Number())
+             {
+                 attacker.flee--;
+                 this.com.message(pids, ctx.attacker.name + " is trying to escape!",
+                                  this.theme.GAME, false, ctx.chan);
+             }
 
              if (isDead(attacker)) continue;
 
@@ -359,7 +380,7 @@
 
          }
 
-         this.com.message(pids, "Battle: End Round.", this.theme.RPG, false, ctx.chan);
+         this.com.message(pids, "Battle: End Round #" + battle.round + ":", this.theme.RPG, false, ctx.chan);
 
          this.printOutStatus(pids, entities, ctx.chan);
 

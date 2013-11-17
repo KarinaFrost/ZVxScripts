@@ -104,6 +104,15 @@
              ctx.player.activeActions.push({ timer: 40, done: "dig", tick: "digTick" });
          },
 
+         flee: function (src, sub, chan, ctx)
+         {
+             if (!ctx.player.battle) return;
+
+             if (ctx.player.flee) return;
+             ctx.player.flee = 3;
+             this.com.message(ctx.player.src, "You plan to flee this battle!", this.theme.GAME, false, chan);
+         },
+
          dequip: function (src, sub, chan, ctx)
          {
              var slot = (sub[1]||"").toLowerCase();

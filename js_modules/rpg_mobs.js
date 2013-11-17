@@ -214,7 +214,7 @@
          zombie:
          {
              name: "Zombie",
-             base: 3600, str: 4000, res: 8000,
+             base: 3600, sta: 6000, men: 6000, str: 4000, res: 8000,
              attr: {undead: true},
              plan: [{prob:3, skill: "superpunch"}, {prop: 1, skill:"sonichand"}]
          },

@@ -113,7 +113,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         darkforest3:
         {
-            name: "Dark Forest [graveyard]", desc: "An old graveyard Somehow the walk back seems longer.",
+            name: "Dark Forest [graveyard]", desc: "An old graveyard. Somehow the walk back seems longer.",
             adjc: [{area:"darkforest2", distance: 65}, {area:"darkforest", distance: 40}, {area:"darkforest4", distance: 10}],
             mobs: [{prob: 0.5, mobs:["sinester", "zombie", "sinester"]},{prob: 1, mobs:["lspook", "mspook", "sinester"]},{prob: 2, mobs:["lspook", "zombie", "mspook"]}, {prob: 1, mobs:["lspook", "lspook", "zombie", "grim"]}, {prob: 1, mobs:["zombie", "lspook", "zombie", "sinester"]}]
         },

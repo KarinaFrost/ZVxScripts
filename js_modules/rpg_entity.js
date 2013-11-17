@@ -107,7 +107,7 @@
          // Health
          if (e.hp <= 0 && e.attr && e.attr.undead && e.hp > -e.maxhp)
          {
-             e.hp += e.maxhp/5;
+             e.hp += e.maxhp/10;
              if (e.hp > 0) e.hp = 0;
          }
          else if (e.hp > e.maxhp)
