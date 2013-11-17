@@ -60,7 +60,7 @@
 
              if (ctx.attacker.type == "player")
              {
-                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.moves[ctx.move.shortname].threshold)/base*2 || 0 + Math.E);
+                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base*2 || 0 + Math.E);
              }
 
 
@@ -89,7 +89,7 @@
 
              if (ctx.attacker.type == "player")
              {
-                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.moves[ctx.move.shortname].threshold)/base*2 || 0 + Math.E);
+                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base*2 || 0 + Math.E);
              }
 
 
@@ -120,7 +120,7 @@
 
              if (ctx.attacker.type == "player")
              {
-                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.moves[ctx.move.shortname].threshold)/base || 0 + Math.E);
+                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base || 0 + Math.E);
              }
 
              var defense = ctx.target.defpower;
@@ -147,7 +147,7 @@
 
              if (ctx.attacker.type == "player")
              {
-                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.moves[ctx.move.shortname].threshold)/base*0.6 || 0 + Math.E);
+                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base*0.6 || 0 + Math.E);
              }
 
 
@@ -175,7 +175,7 @@
 
              if (ctx.attacker.type == "player")
              {
-                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.moves[ctx.move.shortname].threshold)/base || 0 + Math.E);
+                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base || 0 + Math.E);
              }
 
 
@@ -203,7 +203,7 @@
 
              if (ctx.attacker.type == "player")
              {
-                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.moves[ctx.move.shortname].threshold)/base || 0 + Math.E);
+                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base || 0 + Math.E);
              }
              ctx.target.hp += Math.floor(ctx.component.base * qmlt);
 
