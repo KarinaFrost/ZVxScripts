@@ -190,7 +190,7 @@
 
                  if (ctx.attacker[x2] <  ctx.move.cost[x2])
                  {
-                     ctx.attacker[x2] -= ctx.move.cost[x2]/3;
+                     //ctx.attacker[x2] -= ctx.move.cost[x2]/3;
                      this.com.message(pids, ctx.attacker.name + " tried to use "  + ctx.move.name + " but didn't have enough " + x2.toUpperCase(),
                                       this.theme.GAME, false, ctx.chan);
 

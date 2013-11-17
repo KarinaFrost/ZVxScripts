@@ -200,21 +200,21 @@
 
          sunburst:
          {
-             name: "Sunburst", cost: {mp: 89, sp: 5, msp: 35}, exp: "mag", threshold: 60*20,
+             name: "Sunburst", cost: {mp: 89, sp: 5, msp: 35}, exp: "mag", threshold: 60*20, next: ["lux"],
              desc: "Fires a ball of condensed light energy which burns an enemy.",
              components: [{ target: "opp", base: 172, move: "magical", desc: "%s shot a ball of white hot light at %t!", count:1 }]
          },
 
          lux:
          {
-             name: "Luxecaedere", cost: {mp: 160, sp: 35, msp: 68}, exp: "mag", threshold: 3600*0.8,
+             name: "Luxecaedere", cost: {mp: 160, sp: 35, msp: 68}, exp: "mag", threshold: 3600*0.8, next: ["luxi"],
              desc: "Summons powerful light energy which burns an enemy.",
              components: [{ target: "opp", base: 320, move: "magical", desc: "%s summoned a blazing hot light which burns %t!", count:1 }]
          },
 
          luxi:
          {
-             name: "Luxiudicium", cost: {mp: 305, sp: 120, msp: 230}, exp: "mag", threshold: 3600,
+             name: "Luxiudicium", cost: {mp: 305, sp: 120, msp: 230}, exp: "mag", threshold: 3600, next: ["judgement"],
              desc: "Summons powerful light energy which wraps around and burns an enemy.",
              components: [{ target: "opp", base: 780, move: "magical", desc: "%s summoned a blazing hot light which purges %t!", count:1 }]
          },
