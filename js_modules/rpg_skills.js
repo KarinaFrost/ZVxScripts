@@ -229,28 +229,28 @@
 
          blitzfield:
          {
-             name: "Blitzfield", cost: {mp: 89, sp: 5, msp: 35}, exp: "mag", threshold: 60*20,
+             name: "Blitzfield", cost: {mp: 89, sp: 5, msp: 35}, exp: "mag", threshold: 60*20, next: ["hseal"],
              desc: "Brings forth a power from the world which purges from the ground to all enemies.",
              components: [{ target: "opp", base: 65, move: "magical", desc: "%s casts a spell which engulfs the field in light, burning their enemies! %t", count:5 }]
          },
 
          hseal:
          {
-             nane: "Holy Seal", cost: {mp: 148, sp: 20, msp: 85}, exp: "mag", threshold: 60*35,
+             nane: "Holy Seal", cost: {mp: 148, sp: 20, msp: 85}, exp: "mag", threshold: 60*35, next: ["ager"],
              desc: "Traps enemies in a magical spell which injures all enemies within it.",
              components: [{ target: "opp", base: 113, move: "magical", desc: "%s casts a spell seal around the battlefield which damages %t within it!", count:5 }]
          },
 
          ager:
          {
-             nane: "Agerexussum", cost: {mp: 328, sp: 30, msp: 125}, exp: "mag", threshold: 3600,
+             nane: "Agerexussum", cost: {mp: 328, sp: 30, msp: 125}, exp: "mag", threshold: 3600, next: ["halfld"],
              desc: "Traps enemies in a magical spell which purges and burns all enemies within it.",
              components: [{ target: "opp", base: 210, move: "magical", desc: "%s casts a spell seal around the battlefield which purges %t!", count:5 }]
          },
 
          halfld:
          {
-             name: "Hallowed Field",
+             name: "Hallowed Field", next: ["purgatory"],
              desc: "Calls upon a mysterious power to slay the casters enemies.",
              cost: {mp: 428, sp: 60, msp: 225}, exp: "mag", threshold: 3600*1.5,
              components: [{ target: "opp", base: 410, move: "magical", desc: "%s invokes a mysterious power which causes a hallowed aura to descent upon %t!", count:7 }]
