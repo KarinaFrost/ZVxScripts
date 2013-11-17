@@ -137,9 +137,17 @@
 
          attack:
          {
-             name: "Attack", element: "physical", cost:{sp:2}, exp: "str", next: ["psyburst", "heal", "shadows", "punch", "kick" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
+             name: "Attack", element: "physical", cost:{sp:2}, exp: "str", next: ["psyburst", "heal", "shadows", "punch", "kick", "thunershock" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
              desc: "A basic attack",
              components: [{ target: "opp", base:5, move: "physical", desc: "%s attacked %t!", count:1 }]
+         },
+
+         thundershock:
+         {
+
+             name: "Thundershock", cost: {sp:15, msp:5}, exp: "str", next: [], threshold: 60*10,
+             desc: "User calls upon lighting.",
+             components: [{ target: "opp", base:36, move: "magical", desc: "%s zapped %t!", count:1 }]
          },
 
          punch:
