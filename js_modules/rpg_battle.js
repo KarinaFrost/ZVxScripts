@@ -201,6 +201,8 @@
                  attacker.flee--;
                  this.com.message(pids, ctx.attacker.name + " is trying to escape!",
                                   this.theme.GAME, false, ctx.chan);
+
+                 continue;
              }
 
              if (isDead(attacker)) continue;
