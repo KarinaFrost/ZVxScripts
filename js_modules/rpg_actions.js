@@ -289,6 +289,8 @@
                      }
                      this.com.message([pl.src, src], "Started battle between " + pl.name + " and " + ctx.player.name + "!", this.theme.RPG, false, chan);
 
+                     delete pl.chall;
+                     delete ctx.player.chall;
                      var batId = this.newBattle(ctx.rpg);
                      var batObj = this.getBattle(ctx.rpg, batId);
 
