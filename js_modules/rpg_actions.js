@@ -555,6 +555,7 @@
          walk:
          function (act, ctx)
          {
+             var oldarea;
 
              ctx.player.sp -= act.sp || 0;
              this.com.message(ctx.player.src, "Walked from " + this.areas[ctx.player.area].name + " to " +this.areas[act.to].name + ".", this.theme.RPG, false, ctx.chan);
@@ -572,9 +573,12 @@
              {
                  if (pll[x] != ctx.player && pll[x].area == ctx.player.area && sys.exists(pll[x].src) && sys.isInChannel(pll[x].src, ctx.chan))
                  {
-                     this.com.message(pll[x].src, ctx.player.name + " walked out of your area.", this.theme.RPG, false, chan);
+                     this.com.message(pll[x].src, ctx.player.name + " walked out of your area towards " +this.areas[act.to].name +".", this.theme.RPG, false, chan);
                  }
              }
+
+             oldarea = ctx.player.area;
+
              ctx.player.area = act.to;
              if (ctx.player.activeActions.length != 1) return;
              this.com.message(ctx.player.src, "You are at: " + this.areas[ctx.player.area].name + (this.areas[ctx.player.area].desc?": " + this.areas[ctx.player.area].desc : "")+ "\nFrom here you can go to:", this.theme.GAME, false, ctx.chan);
@@ -592,7 +596,7 @@
                  if (pll[x] != ctx.player && pll[x].area == ctx.player.area && sys.exists(pll[x].src) && sys.isInChannel(pll[x].src, ctx.chan))
                  {
                      this.com.message(ctx.player.src, pll[x].name + " [level "+this.level(pll[x].totalexp)+"]" + (pll[x].battle ? " [battling]": ""), this.theme.RPG, false, chan);
-                     this.com.message(pll[x].src, ctx.player.name + " walked into your area.", this.theme.RPG, false, chan);
+                     this.com.message(pll[x].src, ctx.player.name + " walked from " + this.areas[oldarea].name +" into your area.", this.theme.RPG, false, chan);
                  }
              }
              return;
