@@ -397,13 +397,11 @@
                  var bat = this.getBattle(ctx.rpg, ctx.player.battle);
                  if (bat) bat.watchers.splice(bat.watchers.indexOf(ctx.player.name.toLowerCase(), 1));
                  ctx.player.watching = null;
-
-
              }
 
              if (!plname)
              {
-                 this.com.message(src,  "You quit watching that battle.", this.theme.RPG, false, chan);
+                 this.com.message(src,  "No player to watch.", this.theme.RPG, false, chan);
                  return;
              }
 
