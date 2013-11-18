@@ -643,21 +643,21 @@
 
          vehemence:
          {
-             name: "Hell's Vehemence", exp: "mag", desc: "An evil energy descends upon an enemy.", cost: {mp: 220, msp: 60}, threshold: 3600*1.5,
+             name: "Hell's Vehemence", exp: "mag", desc: "An evil energy descends upon an enemy.", cost: {mp: 220, msp: 60}, threshold: 3600*1.5, next: ["ardour"],
              components: [{ target: "opp", base: 650, move: "ghost", desc: "An evil energy descended upon %t!", count: 1}]
          },
 
          ardor:
          {
-             name: "Ghost's Ardour", exp: "mag", desc: "An evil energy descends upon an enemy.", cost: {mp: 420, msp: 60}, threshold: 3600*3,
+             name: "Ghost's Ardour", exp: "mag", desc: "An evil energy descends upon an enemy.", cost: {mp: 420, msp: 60}, threshold: 3600*3, next: ["pillars"],
              components: [{ target: "opp", base: 1050, move: "ghost", desc: "An evil energy descended upon %t!", count: 1}]
 
          },
 
-         ardor:
+         pillars:
          {
-             name: "7 Ghostly Pillars", exp: "mag", desc: "An evil energy descends upon an enemy.", cost: {mp: 420, msp: 60}, threshold: 3600*5,
-             components: [{ target: "opp", base: 1050, move: "ghost", desc: "An evil energy descended upon %t!", count: 1}]
+             name: "7 Ghostly Pillars", exp: "mag", desc: "An evil energy descends upon an enemy.", cost: {mp: 870, msp: 60}, threshold: 3600*6,
+             components: [{ target: "opp", base: 2150, move: "ghost", desc: "An evil energy descended upon %t!", count: 1}]
 
          }
 
