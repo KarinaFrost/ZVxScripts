@@ -99,32 +99,32 @@
 
          rabbit:
          {
-             name: "Root Crest: Rabbit Attack!", element: "root",
-             components:[{ target: "opp", base:20, move: "instakill", desc: "A killer rabbit was summonned by %s and it attacked %t!", count: 1}]
+             name: "It's Dyanamite", element: "root", threshold:1,
+             components:[{ target: "opp", base:20, move: "instakill", desc: "A killer rabbit that's dynamite was summonned by %s and it attacked %t!", count: 1},{desc:"http://www.youtube.com/watch?v=Nvs5pqf-DMA", count: 0}]
          },
 
          sltackle:
          {
-             name: "Slimy Tackle", cost: {sp: 10},
-             components: [{target: "opp", base: 15, move: "physical", desc: "%s tackled %t!", count:1}]
+             name: "Slimy Tackle", cost: {sp: 15},
+             components: [{target: "opp", base: 35, move: "physical", desc: "%s tackled %t!", count:1}]
          },
 
          slvortex:
          {
              name: "Slimy Vortex", cost: {mp: 25},
-             components: [{target: "opp", base: 35, move: "physical", desc: "%s summoned a slimy vortex which engulfs %t!", count:1}]
+             components: [{target: "opp", base: 95, move: "physical", desc: "%s summoned a slimy vortex which engulfs %t!", count:1}]
          },
 
          slexp:
          {
-             name: "Slimy Explosion", cost: {mp: 57},
-             components: [{target: "opp", base: 95, move: "physical", desc: "%s created a slimy explosion which blasted %t!", count:5}]
+             name: "Slimy Explosion", cost: {mp: 87},
+             components: [{target: "opp", base: 195, move: "physical", desc: "%s created a slimy explosion which blasted %t!", count:5}]
          },
 
          slcrash:
          {
-             name: "Slimy Crash", cost: {mp: 89},
-             components: [{target: "opp", base: 195, move: "physical", desc: "%s used slimy crash which covered %t in slime!", count:2}]
+             name: "Slimy Crash", cost: {mp: 189},
+             components: [{target: "opp", base: 409, move: "physical", desc: "%s used slimy crash which covered %t in slime!", count:2}]
          },
 
          fangs:
@@ -288,7 +288,7 @@
 
          superkick:
          {
-             name: "Super Kick", cost: {sp:16, msp:2}, exp: "str", next: ["superkick"], threshold: 60*5,
+             name: "Super Kick", cost: {sp:16, msp:2}, exp: "str", next: ["sweep"], threshold: 60*5,
 
              desc: "The user kicks their enemy.",
              components: [{ target: "opp", base:35, move: "physical", desc: "%s kicked %t!", count:1 }]
@@ -297,7 +297,7 @@
 
          sweep:
          {
-             name: "Sweeping Kick", cost: {sp:16, msp:2}, exp: "str", next: ["superkick"], threshold: 60*5,
+             name: "Sweeping Kick", cost: {sp:16, msp:2}, exp: "str", next: ["grndsweep"], threshold: 60*5,
 
              desc: "The user kicks their enemies with a spinning flourish.",
              components: [{ target: "opp", base:35, move: "physical", desc: "%s kicked %t!", count:2 }]
@@ -306,7 +306,7 @@
 
          grndsweep:
          {
-             name: "Groundsweeper", cost: {sp:25, msp:4}, exp: "str", next: ["superkick"], threshold: 60*5,
+             name: "Groundsweeper", cost: {sp:25, msp:4}, exp: "str", next: ["grndbrk"], threshold: 60*5,
 
              desc: "The user kicks their enemies with a spinning flourish.",
              components: [{ target: "opp", base:45, move: "physical", desc: "%s hit %t in a fast combo flurry of kicks!", count: 4 }]
@@ -314,7 +314,7 @@
 
          grndbrk:
          {
-             name: "Groundbreak", cost: {sp:45, msp:5}, exp: "str", next: ["superkick"], threshold: 60*5,
+             name: "Groundbreak", cost: {sp:45, msp:5}, exp: "str", next: [], threshold: 60*5,
 
              desc: "The user uses a strong kick, tearing up even the ground.",
              components: [{ target: "opp", base:75, move: "physical", desc: "%s hit %t in a fast combo flurry of kicks!", count: 2 }]
@@ -371,10 +371,11 @@
 
          reign:
          {
-             name: "King's Reign", cost: {mp: 705, sp: 170, msp: 330}, exp: "mag", threshold: 3600*2.5,
+             name: "King's Reign", cost: {mp: 1305, sp: 170, msp: 330}, exp: "mag", threshold: 3600*2.5,
              desc: "Summons powerful light energy from the sky which which burns an enemy.",
-             components: [{ target: "opp", base: 1430, move: "magical", desc: "%s calls a blazing judgement upon %t!", count:1 }]
+             components: [{ target: "opp", base: 2430, move: "magical", desc: "%s calls a blazing judgement upon %t!", count:1 }]
          },
+
 
 
          blitzfield:

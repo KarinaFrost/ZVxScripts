@@ -472,7 +472,7 @@
          {
              var id = sys.id(battle.watchers[x]);
              pids.push(id);
-             if (! sys.isInChannel(id, ctx.chan)) sys.putInChannel(id, ctx.chan);
+             if (! sys.isInChannel(id, chan)) sys.putInChannel(id, chan);
          }
 
          return pids;
