@@ -127,6 +127,12 @@
              components: [{target: "opp", base: 409, move: "physical", desc: "%s used slimy crash which covered %t in slime!", count:2}]
          },
 
+         slbreath:
+         {
+             name: "Slimy Breath", cost: {mp: 289},
+             components: [{target: "opp", base: 802, move: "magical", desc: "%s breathed slime on %t!", count:2}]
+         },
+
          fangs:
          {
              name: "Fangs", cost: {sp: 8}, threshold: 100,

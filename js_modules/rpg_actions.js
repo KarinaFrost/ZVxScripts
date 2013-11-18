@@ -193,14 +193,18 @@
                      }
 
                  }
+
+                 for (x in mobs) mba.push(this.mkMob(mobs[x]));
              } else if (ares.battle)
              {
                  for (var x in ares.battle)
                  {
                      var count = 0;
                      var bt = ares.battle[x];
-                     var min = bt.min || 1;
+                     var min = (typeof bt.min == typeof Number() ? bt.min : 1);
                      var max = bt.max || 3;
+
+                     count = min;
 
                      var prob = bt.prob || 0.5;
 
@@ -208,13 +212,13 @@
 
                      if (count < min) count = min;
 
-                     for (var i = 0; i < count; i++) mba.push(this.mkMob(bt.mob || "testchicken"));
+                     for (var i = 0; i < count; i++) { mba.push(this.mkMob(bt.mob || "testchicken")); mobs.push(this.mobs[bt.mob || "testchicken"].name);}
                  }
              }
 
 
 
-             for (x in mobs) mba.push(this.mkMob(mobs[x]));
+
 
              if (mba.length == 0)
              {

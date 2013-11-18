@@ -119,7 +119,7 @@
              desc: "Larger than average slime.",
              base: 3600*4.5,
              drops: [{ prob: 0.2, item: "goo", count: 6 }],
-             plan: [{prob:1, skill:"slcrash"}, {prob:1, skill: "slexp"}]
+             plan: [{prob:2, skill:"slcrash"}, {prob:1, skill: "slexp"}]
 
          },
 
@@ -129,7 +129,7 @@
              desc: "lolwut.",
              base: 3600*9,
              drops: [{ prob: 1, item: "goo", count: 8 }],
-             plan: [{prob:1, skill:"slcrash"}]
+             plan: [{prob:1, skill:"slcrash"}, {prob:1, skill: "slbreath"}]
 
          },
 
@@ -183,14 +183,14 @@
          sshell:
          {
              name: "Shallow Shell",
-             base: 5600, str: 3600, sta: 1600, attr: {ghost: true},
+             base: 7600, str: 3600, sta: 1600, attr: {ghost: true},
              plan: [{prob:5, skill:"dispulse"}]
          },
 
          lshell:
          {
              name: "Lost Shell",
-             base: 8600, str: 3600, sta: 2600,
+             base: 12600,
              attr: {ghost: true},
              plan: [{prob:5, skill:"disblast"}, {prob:2, skill:"disfield"}]
          },
@@ -198,7 +198,7 @@
          oshell:
          {
              name: "Oblivion Shell",
-             base: 15600, str: 3600, sta: 3600,
+             base: 17600, str: 3600, sta: 3600,
              attr: {ghost: true},
              plan: [{prob:5, skill:"diswarp"}]
          },
@@ -206,7 +206,23 @@
          ushell:
          {
              name: "Uber Shell",
-             base: 22600, str: 3600, sta: 4600,
+             base: 23600, str: 3600, sta: 8600,
+             attr: {ghost: true},
+             plan: [{prob:5, skill:"disexpl"}]
+         },
+
+         xshell:
+         {
+             name: "X Shell",
+             base: 35600, str: 3600, sta: 23600,
+             attr: {ghost: true},
+             plan: [{prob:5, skill:"disexpl"}]
+         },
+
+         xshell2:
+         {
+             name: "X Shell Vespir",
+             base: 41600, str: 3600, sta: 36600,
              attr: {ghost: true},
              plan: [{prob:5, skill:"disexpl"}]
          },

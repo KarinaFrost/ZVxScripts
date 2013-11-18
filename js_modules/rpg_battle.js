@@ -263,7 +263,7 @@
                  var targets = ctx.targets = [];
                  var count = cmp.count;
                  var t = this.util.arrayify(cmp.target);
-                 print(JSON.stringify(teams));
+
 
                  for (x3 in t) switch(t[x3])
                  {
