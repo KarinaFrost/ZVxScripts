@@ -232,6 +232,15 @@
 
              this.com.message(sys.id(ctx.player.name), "You started battle with " + mobs.join(", ") + "!", this.theme.RPG, false,chan);
 
+              var pll = this.activeState[ctx.rpg.name].players;
+             for (x in pll)
+             {
+                 if (pll[x] != ctx.player && pll[x].area == ctx.player.area && sys.exists(pll[x].src) && sys.isInChannel(pll[x].src, chan))
+                 {
+                     this.com.message(pll[x].src, ctx.player.name + " started a battle! You can watch it using /rpg watchbattle " + ctx.player.name, this.theme.RPG, false, chan);
+                 }
+             }
+
 
          },
 
