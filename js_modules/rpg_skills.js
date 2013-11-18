@@ -357,24 +357,33 @@
 
          luxi:
          {
-             name: "Luxiudicium", cost: {mp: 305, sp: 45, msp: 230}, exp: "mag", threshold: 3600, next: ["judgement"],
+             name: "Luxiudicium", cost: {mp: 305, sp: 45, msp: 230}, exp: "mag", threshold: 3600*2, next: ["judgement"],
              desc: "Summons powerful light energy which wraps around and burns an enemy.",
              components: [{ target: "opp", base: 780, move: "magical", desc: "%s summoned a blazing hot light which purges %t!", count:1 }]
          },
 
          judgement:
          {
-             name: "Judgement", cost: {mp: 705, sp: 170, msp: 330}, exp: "mag", threshold: 3600*2.5,
+             name: "Judgement", cost: {mp: 705, sp: 170, msp: 330}, exp: "mag", threshold: 3600*5, next: ["decree"],
              desc: "Summons powerful light energy from the sky which which burns an enemy.",
              components: [{ target: "opp", base: 1430, move: "magical", desc: "%s calls a blazing judgement upon %t!", count:1 }]
          },
 
-         reign:
+         decree:
          {
-             name: "King's Reign", cost: {mp: 1305, sp: 170, msp: 330}, exp: "mag", threshold: 3600*2.5,
-             desc: "Summons powerful light energy from the sky which which burns an enemy.",
-             components: [{ target: "opp", base: 2430, move: "magical", desc: "%s calls a blazing judgement upon %t!", count:1 }]
+             name: "King's Decree", cost: {mp: 1305, sp: 170, msp: 330}, exp: "mag", threshold: 3600*9, next: ["law"],
+             desc: "A decree issued with power from the heavens.",
+             components: [{ target: "opp", base: 2430, move: "magical", desc: "%s casts a powerfull decree. The spell brings down holy fire upon %t!", count:1 }]
          },
+
+         law:
+         {
+             name: "Spirit's Law", cost: {mp: 2305, sp: 470, msp: 730}, exp: "mag", threshold: 3600*24,
+             desc: "A powerful magical attack that draws upon light energy to attack.",
+             components: [{ target: "opp", base: 4690, move: "magical", desc: "%s casts a spell which causes fire from all sides to burn %t!", count:1 }]
+         },
+
+
 
 
 
@@ -394,7 +403,7 @@
 
          ager:
          {
-             nane: "Agerexussum", cost: {mp: 328, sp: 30, msp: 125}, exp: "mag", threshold: 3600, next: ["halfld"],
+             name: "Agerexussum", cost: {mp: 328, sp: 30, msp: 125}, exp: "mag", threshold: 3600, next: ["halfld"],
              desc: "Traps enemies in a magical spell which purges and burns all enemies within it.",
              components: [{ target: "opp", base: 210, move: "magical", desc: "%s casts a spell seal around the battlefield which purges %t!", count:5 }]
          },
@@ -403,16 +412,17 @@
          {
              name: "Hallowed Field", next: ["purgatory"],
              desc: "Calls upon a mysterious power to slay the casters enemies.",
-             cost: {mp: 428, sp: 60, msp: 225}, exp: "mag", threshold: 3600*1.5,
+             cost: {mp: 428, sp: 60, msp: 225}, exp: "mag", threshold: 3600*3,
              components: [{ target: "opp", base: 410, move: "magical", desc: "%s invokes a mysterious power which causes a hallowed aura to descent upon %t!", count:7 }]
          },
 
          purgatory:
          {
-             nane: "Purgatory", cost: {mp:628, sp: 30, msp: 125}, exp: "mag", threshold: 3600*2.5,
+             name: "Purgatory", cost: {mp:628, sp: 30, msp: 125}, exp: "mag", threshold: 3600*5,
              desc: "Calls upon a greater holy power to slay the casters enemies.",
              components: [{ target: "opp", base: 810, move: "magical", desc: "%s invokes purgatory! %t was crushed by the holy aura!", count:7 }]
          },
+
 
          healbubble:
          {
@@ -497,13 +507,13 @@
 
          altruist:
          {
-             name: "Altruist's Sacrafice", exp: "res", cost: { mp: 100, msp: 30 }, threshold: 3600*16,
-             components: [{target: "ally", base: 850, move: "transfer"}]
+             name: "Altruist's Sacrafice", exp: "res", cost: { mp: 100, msp: 30 }, threshold: 3600*2,
+             components: [/*{target: "ally", base: 850, move: "transfer"}*/]
          },
 
          invigoration:
          {
-             name: "Invigoration", exp: "mag", cost: {mp: 500, msp: 130}, threshold: 3600*6,
+             name: "Invigoration", exp: "mag", cost: {mp: 200, msp: 130}, threshold: 3600*2,
              components: [{target: "self", base: 500, move: "heal"}]
          },
 
@@ -629,7 +639,23 @@
          {
              name: "Hell's Vehemence", exp: "mag", desc: "An evil energy descends upon an enemy.", cost: {mp: 220, msp: 60}, threshold: 3600*1.5,
              components: [{ target: "opp", base: 650, move: "ghost", desc: "An evil energy descended upon %t!", count: 1}]
+         },
+
+         ardor:
+         {
+             name: "Ghost's Ardour", exp: "mag", desc: "An evil energy descends upon an enemy.", cost: {mp: 420, msp: 60}, threshold: 3600*3,
+             components: [{ target: "opp", base: 1050, move: "ghost", desc: "An evil energy descended upon %t!", count: 1}]
+
+         },
+
+         ardor:
+         {
+             name: "7 Ghostly Pillars", exp: "mag", desc: "An evil energy descends upon an enemy.", cost: {mp: 420, msp: 60}, threshold: 3600*5,
+             components: [{ target: "opp", base: 1050, move: "ghost", desc: "An evil energy descended upon %t!", count: 1}]
+
          }
+
+
          /*
          ardor:
          {
