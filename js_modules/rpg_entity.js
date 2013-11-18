@@ -256,7 +256,7 @@
              (entities[x].team == 0 ? player_htmls : mob_htmls).push(this.entHtml(entities[x]));
          }
 
-         var outhtml = "<p align='center'><table><tr><td><h1></h1></td><td><h1>&nbsp;&nbsp;&nbsp;&nbsp;V.S.&nbsp;&nbsp;&nbsp;&nbsp;</h1></td><td><h1></h1></td></tr>";
+         var outhtml = "<p align='center' style='size:8'><table><tr><td><h1></h1></td><td><h1>&nbsp;&nbsp;&nbsp;&nbsp;V.S.&nbsp;&nbsp;&nbsp;&nbsp;</h1></td><td><h1></h1></td></tr>";
 
          for (var i = 0; i < player_htmls.length || i < mob_htmls.length; i++)
          {
