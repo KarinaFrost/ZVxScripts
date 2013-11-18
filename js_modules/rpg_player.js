@@ -29,7 +29,7 @@
          return Math.floor(Math.log(exp/2 + Math.E) + Math.pow(exp/60,0.6)/2);
      },
 
-     getPlayer: function (rpgname, name)
+     getPlayer: function (rpgname, name, soft)
      {
          //this.database.pdbCounter = Number(this.database.pdbCounter);
 
@@ -40,6 +40,7 @@
 
          if (!pid)
          {
+             if (soft) return null;
              pid = ++this.database.games[rpgname].pdbCounter;
              this.database.games[rpgname].pdb[name.toLowerCase()] = pid;
              pobj = this.activeState[rpgname].players[pid];

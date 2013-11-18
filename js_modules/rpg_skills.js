@@ -236,9 +236,38 @@
 
          shatterbreak:
          {
-             name: "Shatterbreak", cost: {sp: 254, msp: 22}, exp: "str", next: [], threshold: 60*35,
+             name: "Shatterbreak", cost: {sp: 254, msp: 22}, exp: "str", next: ["forcepunch"], threshold: 60*35,
              desc: "A secret move which shatters bones and smashes rocks.",
              components: [{ target: "opp", base:512, move: "physical", desc: "%s used shatterbreak against %t!", count:1 }]
+         },
+
+         forcepunch:
+         {
+             name: "Force Punch", cost: {sp: 304, msp: 22}, exp: "str", next: ["blastpunch"], threshold: 3600,
+             desc: "A punch like no other.",
+             components: [{ target: "opp", base:812, move: "physical", desc: "%s used shatterbreak against %t!", count:1 }]
+         },
+
+         blastpunch:
+         {
+             name: "Blast Punch", cost: {sp: 404, mp: 30, msp: 22}, exp: "str", next: ["exppunch"], threshold: 3600*2,
+             desc: "When regular punches aren't enough.",
+             components: [{ target: "opp", base:1304, move: "physical", desc: "%s punched %t causing a small explosion!", count:1 }]
+         },
+
+         exppunch:
+         {
+             name: "Explosion Punch", cost: {sp: 704, mp: 100, msp: 30}, exp: "str", next: ["oblpunch"], threshold: 3600*3,
+             desc: "When blast punches aren't enough.",
+             components: [{ target: "opp", base:2024, move: "physical", desc: "%s punched %t causing an explosion!", count:1 }]
+         },
+
+
+         oblpunch:
+         {
+             name: "Obliteratory Punch", cost: {sp: 1204, mp: 200, msp: 30}, exp: "str", next: [], threshold: 3600*5,
+             desc: "When you have a power complex.",
+             components: [{ target: "opp", base:2789, move: "physical", desc: "%s punched %t causing a large explosion!", count:1 }]
          },
 
          ghostpunch:
@@ -336,6 +365,13 @@
          judgement:
          {
              name: "Judgement", cost: {mp: 705, sp: 170, msp: 330}, exp: "mag", threshold: 3600*2.5,
+             desc: "Summons powerful light energy from the sky which which burns an enemy.",
+             components: [{ target: "opp", base: 1430, move: "magical", desc: "%s calls a blazing judgement upon %t!", count:1 }]
+         },
+
+         reign:
+         {
+             name: "King's Reign", cost: {mp: 705, sp: 170, msp: 330}, exp: "mag", threshold: 3600*2.5,
              desc: "Summons powerful light energy from the sky which which burns an enemy.",
              components: [{ target: "opp", base: 1430, move: "magical", desc: "%s calls a blazing judgement upon %t!", count:1 }]
          },
@@ -590,7 +626,7 @@
 
          vehemence:
          {
-             name: "Vehemence", exp: "mag", desc: "An evil energy descends upon an enemy.", cost: {mp: 220, msp: 60}, threshold: 3600*1.5,
+             name: "Hell's Vehemence", exp: "mag", desc: "An evil energy descends upon an enemy.", cost: {mp: 220, msp: 60}, threshold: 3600*1.5,
              components: [{ target: "opp", base: 650, move: "ghost", desc: "An evil energy descended upon %t!", count: 1}]
          }
          /*

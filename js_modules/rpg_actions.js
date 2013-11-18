@@ -41,6 +41,16 @@
                      var areaObj = this.areas[name];
                      this.com.message(ctx.player.src, areaObj.name + " (" + name + ") Distance: " + dist , -1, false, chan);
                  }
+                 this.com.message(ctx.player.src, "Other players in this area:", this.theme.RPG, false, chan);
+                 var pll = this.activeState[ctx.rpg.name].players;
+                 for (x in pll)
+                 {
+                     if (pll[x] != ctx.player && pll[x].area == ctx.player.area && sys.exists(pll[x].src) && sys.isInChannel(pll[x].src, chan))
+                     {
+                         this.com.message(ctx.player.src, pll[x].name + " [level "+this.level(pll[x].totalexp)+"]" + (pll[x].battle ? " [battling]": ""), this.theme.RPG, false, chan);
+
+                     }
+                 }
                  return;
              }
 
@@ -149,36 +159,60 @@
 
          battle: function (src, sub, chan, ctx)
          {
-           var x;
+             var x;
              if (ctx.player.battle) return;
 
              if (! ctx.rpg.battleCounter) ctx.rpg.battleCounter = 0;
 
              var mobs = [];
 
-             var totalProb = 0;
+             var ares = this.areas[ctx.player.area];
+             var mba = [];
 
-             for (x in this.areas[ctx.player.area].mobs)
+             if (ares.mobs)
              {
-                 totalProb += this.areas[ctx.player.area].mobs[x].prob;
-             }
 
-             var rnd = Math.random()*totalProb;
+                 var totalProb = 0;
 
-             var s = 0;
-
-             for (x in this.areas[ctx.player.area].mobs)
-             {
-                 s += this.areas[ctx.player.area].mobs[x].prob;
-                 if (rnd <= s)
+                 for (x in this.areas[ctx.player.area].mobs)
                  {
-                     mobs = mobs.concat(this.areas[ctx.player.area].mobs[x].mobs);
-                     break;
+                     totalProb += this.areas[ctx.player.area].mobs[x].prob;
                  }
 
+                 var rnd = Math.random()*totalProb;
+
+                 var s = 0;
+
+                 for (x in this.areas[ctx.player.area].mobs)
+                 {
+                     s += this.areas[ctx.player.area].mobs[x].prob;
+                     if (rnd <= s)
+                     {
+                         mobs = mobs.concat(this.areas[ctx.player.area].mobs[x].mobs);
+                     break;
+                     }
+
+                 }
+             } else if (ares.battle)
+             {
+                 for (var x in ares.battle)
+                 {
+                     var count = 0;
+                     var bt = ares.battle[x];
+                     var min = bt.min || 1;
+                     var max = bt.max || 3;
+
+                     var prob = bt.prob || 0.5;
+
+                     while (count < max && Math.random() < prob) count++;
+
+                     if (count < min) count = min;
+
+                     for (var i = 0; i < count; i++) mba.push(this.mkMob(bt.mob || "testchicken"));
+                 }
              }
 
-             var mba = [];
+
 
              for (x in mobs) mba.push(this.mkMob(mobs[x]));
 
@@ -188,13 +222,31 @@
                  return;
              }
 
-             ctx.player.battle = ctx.rpg.battleCounter;
-             ctx.rpg.battles[ctx.rpg.battleCounter++] = {players: [ctx.player.name], mobs: mba};
+             var batId = this.newBattle(ctx.rpg);
+             var batObj = this.getBattle(ctx.rpg, batId);
+
+             ctx.player.battle = batId;
+             batObj.players = [ctx.player.name];
+             batObj.mobs = mba;
 
 
              this.com.message(sys.id(ctx.player.name), "You started battle with " + mobs.join(", ") + "!", this.theme.RPG, false,chan);
 
 
+         },
+
+         look:
+         function (src, sub, chan, ctx)
+         {
+            /* this.com.message(src, "Players in this area:", this.theme.RPG, false, chan);
+             var pll = this.activeState[ctx.rpg.name].players;
+             for (var x in pll)
+             {
+                 if (pll[x].area == ctx.player.area)
+                 {
+                     this.com.message(src, pll[x].name + "[level "+this.level(pll[x].totalexp)+"]" + (pll[x].battle ? " [battling]": ""), this.theme.RPG, false, chan);
+                 }
+             }*/
          },
 	 /*
          test: function (src, sub, chan, ctx)
@@ -244,6 +296,57 @@
             // msgs.push("<b>SPR:</b> " + 0/0);
 
              this.less.less(src, msgs.join("<br />"), true, chan);
+         },
+
+         watchbattle:
+         function (src, sub, chan, ctx, cmd)
+         {
+
+             var plname = ctx.action.match(/watchbattle(?:[,\/| ]([^;]+)$)?/)[1];
+             if (!plname && !ctx.player.watching)
+             {
+                 this.com.message(src,  "Type a player name.", this.theme.RPG, false, chan);
+                 return;
+             }
+
+             if (!plname && ctx.player.watching)
+             {
+                 var bat = this.getBattle(ctx.rpg, ctx.player.battle);
+                 bat.watchers.splice(bat.watchers.indexOf(ctx.player.name.toLowerCase(), 1));
+                 ctx.player.watching = null;
+
+                 this.com.message(src,  "You quit watching that battle.", this.theme.RPG, false, chan);
+                 return;
+             }
+
+             if (ctx.player.watching)
+             {
+                 this.com.message(src,  "You are already watching a battle.", this.theme.RPG, false, chan);
+                 return;
+             }
+
+             var pl = this.getPlayer(ctx.rpg.name, plname, true);
+
+
+
+             if (!pl || pl.area != ctx.player.area)
+             {
+                 this.com.message(src,  "That player seems to be in another area or doesn't exist.", this.theme.RPG, false, chan);
+                 return;
+             }
+
+             if (!pl.battle)
+             {
+                 this.com.message(src,  "That player doesn't seem to be battling.", this.theme.RPG, false, chan);
+                 return;
+             }
+
+             var bat = this.getBattle(ctx.rpg, pl.battle);
+
+             bat.watchers.push(ctx.player.name.toLowerCase());
+
+             ctx.player.watching = pl.battle;
+             this.com.message(src,  "You started watching the battle!", this.theme.RPG, false, chan);
          },
 
          items: function (src, sub, chan, ctx)
@@ -464,6 +567,14 @@
              {
                  this.com.broadcast(ctx.player.name + " has leveled up to level " + newlv + "!", this.theme.GAME, false, ctx.chan);
              }
+             var pll = this.activeState[ctx.rpg.name].players;
+             for (x in pll)
+             {
+                 if (pll[x] != ctx.player && pll[x].area == ctx.player.area && sys.exists(pll[x].src) && sys.isInChannel(pll[x].src, ctx.chan))
+                 {
+                     this.com.message(pll[x].src, ctx.player.name + " walked out of your area.", this.theme.RPG, false, chan);
+                 }
+             }
              ctx.player.area = act.to;
              if (ctx.player.activeActions.length != 1) return;
              this.com.message(ctx.player.src, "You are at: " + this.areas[ctx.player.area].name + (this.areas[ctx.player.area].desc?": " + this.areas[ctx.player.area].desc : "")+ "\nFrom here you can go to:", this.theme.GAME, false, ctx.chan);
@@ -475,6 +586,16 @@
                  var areaObj = this.areas[name];
                  this.com.message(ctx.player.src, areaObj.name + " (" + name + ") Distance: " + dist , -1, false, ctx.chan);
              }
+             this.com.message(ctx.player.src, "Other players in this area:", this.theme.RPG, false, ctx.chan);
+             for (x in pll)
+             {
+                 if (pll[x] != ctx.player && pll[x].area == ctx.player.area && sys.exists(pll[x].src) && sys.isInChannel(pll[x].src, ctx.chan))
+                 {
+                     this.com.message(ctx.player.src, pll[x].name + " [level "+this.level(pll[x].totalexp)+"]" + (pll[x].battle ? " [battling]": ""), this.theme.RPG, false, chan);
+                     this.com.message(pll[x].src, ctx.player.name + " walked into your area.", this.theme.RPG, false, chan);
+                 }
+             }
+             return;
          },
 
          dig:  function (actionObj, ctx)

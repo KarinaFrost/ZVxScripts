@@ -151,6 +151,11 @@
                  qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base || 0 + Math.E);
              }
 
+             if (ctx.target.attr && ctx.target.attr.ghost)
+             {
+                 offense = offense/2;
+             }
+
              var defense = ctx.target.defpower;
              var mult = Math.min(Math.max(0.1, offense/defense), 10);
 

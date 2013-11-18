@@ -142,6 +142,8 @@
          return newr;
      },
 
+
+
      startRPGinChan: function (rpgname, chan)
      {
          var rpg = this.getRPG(rpgname);
@@ -226,7 +228,7 @@
                  subactions[0] = subactions[0].toLowerCase();
                  if (subactions[0] in this.rpgActions)
                  {
-                     this.rpgActions[subactions[0]].apply(this, [src, subactions, chan, {player: player, rpg: rpg }] );
+                     this.rpgActions[subactions[0]].apply(this, [src, subactions, chan, {player: player, rpg: rpg, action: actions[x] }, cmd] );
                  }
              }
          }

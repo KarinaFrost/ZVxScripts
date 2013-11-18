@@ -42,6 +42,22 @@
       * @param {rpgClass} ctx.rpg The current rpg we are in.
       */
 
+     newBattle:
+     function (rpg)
+     {
+         var id = rpg.battleCounter++;
+         var bat = new Object;
+
+         bat.round = 0;
+         bat.watchers = [];
+         bat.teams = [];
+
+         rpg.battles[id] = bat;
+
+         return id;
+     },
+
+
      getBattle:
      function (rpg, bat)
      {
@@ -168,14 +184,7 @@
              }
          );
 
-         var pids = [];
-
-         for ( x in battle.players) if (sys.id(battle.players[x]))
-         {
-             var id = sys.id(battle.players[x]);
-             pids.push(id);
-             if (! sys.isInChannel(id, ctx.chan)) sys.putInChannel(id, ctx.chan);
-         }
+         var pids = this.pidsOfBattle(ctx);
 
          this.com.message(pids, "Battle: Start Round #" + battle.round + ":", this.theme.RPG, false, ctx.chan);
 
@@ -469,12 +478,45 @@
                      this.com.broadcast(pl.name + " has leveled up to level " + lv2 + "!", this.theme.GAME, false, ctx.chan);
                  }
 
+                 for (x in battle.watchers)
+                 {
+                     this.getPlayer(ctx.rpg.name, battle.watchers[x]).watching = null;
+                 }
+
 
              }
 
              //print("Deletebattle " + ctx.battleId);
              //delete rpg.battles[ctx.battleId];
          }
+     },
+
+     pidsOfBattle:
+     function (ctx)
+     {
+         var chan = ctx.chan;
+
+         var battle = ctx.battle;
+
+         var pids = [];
+
+         for (x in battle.players) if (sys.id(battle.players[x]))
+         {
+             var id = sys.id(battle.players[x]);
+             pids.push(id);
+             if (! sys.isInChannel(id, ctx.chan)) sys.putInChannel(id, ctx.chan);
+         }
+
+         if (!battle.watchers) battle.watchers = [];
+
+         for ( x in battle.watchers) if (sys.id(battle.watchers[x]))
+         {
+             var id = sys.id(battle.watchers[x]);
+             pids.push(id);
+             if (! sys.isInChannel(id, ctx.chan)) sys.putInChannel(id, ctx.chan);
+         }
+
+         return pids;
      }
 
  });
