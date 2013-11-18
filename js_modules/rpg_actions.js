@@ -239,7 +239,7 @@
              {
                  if (pll[x] != ctx.player && pll[x].area == ctx.player.area && sys.exists(pll[x].src) && sys.isInChannel(pll[x].src, chan))
                  {
-                     this.com.message(pll[x].src, ctx.player.name + " started a battle! You can watch it using /rpg watchbattle " + ctx.player.name, this.theme.RPG, false, chan);
+                     this.com.message(pll[x].src, ctx.player.name + " started a battle! You can watch it using /rpg watch " + ctx.player.name, this.theme.RPG, false, chan);
                  }
              }
 
@@ -428,7 +428,11 @@
              bat.watchers.push(ctx.player.name.toLowerCase());
 
              ctx.player.watching = pl.battle;
-             this.com.message(src,  "You started watching the battle!", this.theme.RPG, false, chan);
+
+             var pll = this.pidsOfBattle(bat, chan);
+
+
+             this.com.message(pll, ctx.player.name + " started watching the battle!", this.theme.RPG, false, chan);
          },
 
          items: function (src, sub, chan, ctx)
