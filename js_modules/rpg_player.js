@@ -62,6 +62,7 @@
          }
 
          pobj.name = name;
+         if (!pobj.battleActions) pobj.battleActions = [];
          if (!pobj.totalexp) pobj.totalexp = 0;
 
          this.entityUpdateStats(pobj);

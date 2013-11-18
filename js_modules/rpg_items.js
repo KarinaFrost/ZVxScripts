@@ -20,6 +20,17 @@
 
  /////////////////////// END LEGAL NOTICE /////////////////////////////// */
 ({
+
+     useItem:
+     function (itemclass, pids, player, chan)
+     {
+         if (!item.use)
+         {
+             this.com.message(pids, "Was distracted by the shiny " + item.name + ".", this.theme.WARN, chan);
+             return;
+         }
+     },
+
      items:
      {
 	 goo:

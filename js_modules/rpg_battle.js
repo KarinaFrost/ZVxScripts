@@ -64,18 +64,23 @@
          return rpg.battles[bat];
      },
 
+     getPlayersOfBattle:
+     function (rpg, battle)
+     {
+         var x, x2, teams = battle.teams, players = [];
+
+         for (x in teams) for (x2 in teams[x])
+         {
+             if (typeof teams[x][x2] == typeof String()) players.push(this.getPlayer(rpg.name, teams[x][x2]));
+
+         }
+
+         return players;
+     },
+
      battleStep: function (ctx)
      {
-         var x, x2, x3, i, rpg = ctx.rpg, that = this;
-
-         var battle = ctx.battle;
-
-         if (!battle.tracker) battle.tracker = new Object;
-
-         if (!battle.round) battle.round = 0;
-
-
-         battle.round++;
+         var _tmp, x, x2, x3, i, players, attacker, move, at, that = this, entities = [], rpg = ctx.rpg, battle = ctx.battle, teams = battle.teams, tracker, chan = ctx.chan, pids = this.pidsOfBattle(battle, chan);
 
          function isDead(e)
          {
@@ -84,7 +89,7 @@
 
          function testDead (e)
          {
-
+             var pname, drops, x;
 
              if ((typeof e.flee == typeof Number() && e.flee <= 0) || (e.attr && e.attr.undead ? e.hp < -e.maxhp : e.hp <= 0) || e.msp <= 0 || e.sp <= 0)
              {
@@ -98,44 +103,23 @@
                  }
                  else that.com.message(pids, e.name + " died a mysterious death!", that.theme.RPG, false, ctx.chan);
 
+                 // Remove from teams
+                 teams[e.team].splice(teams[e.team].indexOf(e), 1);
 
                  if (e.type == "player")
                  {
-                     var pname = e.name.toLowerCase();
-
-                     battle.players.splice(battle.players.indexOf(pname), 1);
-
+                     pname = e.name.toLowerCase();
 
                      that.getPlayer(rpg.name, pname).battle = null;
-                     // Remove from battle.
-
-
-
                  }
-
-
-                 else // type is "mob"
+                 if (e.drops)
                  {
-                     if (e.drops)
+                     drops = that.util.arrayify(e.drops);
+                     for (x in drops) if (drops[x].prob > Math.random() && typeof drops[x].item === typeof String()) // b
                      {
-                         battle.droppedItems = battle.droppedItems || new Array;
-                         var drops = that.util.arrayify(e.drops);
-
-                         for (x in drops)
-                         {
-                             if (drops[x].prob > Math.random())
-                             {
-                                 if (typeof drops[x].item === "string") // bulk item
-                                 {
-                                     that.com.message(pids, "The defeated " + e.name + " dropped " + drops[x].count + " " + that.items[drops[x].item].name + "(s)", that.theme.RPG, false, ctx.chan);
-
-                                     battle.droppedItems[drops[x].item] = (battle.droppedItems[drops[x].item] || 0) + drops[x].count;
-                                 }
-                             }
-                         }
+                         that.com.message(pids, "The defeated " + e.name + " dropped " + drops[x].count + " " + that.items[drops[x].item].name + "(s)", that.theme.RPG, false, chan);
+                         battle.droppedItems[drops[x].item] = (battle.droppedItems[drops[x].item] || 0) + drops[x].count;
                      }
-
-                     battle.mobs.splice(battle.mobs.indexOf(e),1);
                  }
 
                  return true;
@@ -144,47 +128,31 @@
              else return false;
          }
 
+         if (!battle.tracker) battle.tracker = new Object;
+         if (!battle.round) battle.round = 0;
+         if (!battle.droppedItems) battle.droppedItems = [];
 
-         // team_players is an array of all the players that are playing
-         // we make it from battle.players
-         var team_players = [];
-         for (x in battle.players)
+         tracker = battle.tracker;
+         battle.round++;
+
+
+
+
+         for (x in teams) for (x2 in teams[x])
          {
-             team_players.push(this.getPlayer(rpg.name, battle.players[x]));
-             // Battle players contains NAMES of players, not the player objects!
+             if (typeof teams[x][x2] == typeof String())
+             {
+                 entities.push(this.getPlayer(rpg.name, teams[x][x2]));
+                 if (!battle.tracker[_tmp = teams[x][x2].toLowerCase()]) battle.tracker[_tmp] = { str:0, sta:0, mag:0, men:0, psy:0 };
+             }
+             else entities.push(teams[x][x2]);
 
-             // also set the tracker
-             if (!battle.tracker[battle.players[x].toLowerCase()]) battle.tracker[battle.players[x].toLowerCase()] = { str:0, sta:0, mag:0, men:0, psy:0 };
+             entities[entities.length-1].team = x;
          }
 
-         var team_mobs = []; // Do not save!
-         for ( x in battle.mobs)
-         {
-             team_mobs.push(battle.mobs[x]);
-         }
-
-         var entities = []; // Do not save!
-
-         for (x in team_players)
-         {
-             entities.push(team_players[x]);
-         }
-
-         for (x in team_mobs)
-         {
-             entities.push(team_mobs[x]);
-         }
 
          this.util.shuffle(entities);
-
-         entities.sort(
-             function (a, b)
-             {
-                 return b.spd - a.spd;
-             }
-         );
-
-         var pids = this.pidsOfBattle(ctx);
+         entities.sort(function (a, b){ return b.spd - a.spd; });
 
          this.com.message(pids, "Battle: Start Round #" + battle.round + ":", this.theme.RPG, false, ctx.chan);
 
@@ -193,34 +161,28 @@
          {
              if (battle.round == 1) this.entityUpdateStats(entities[x]);
              this.entityTick(entities[x]);
-
          }
 
-//         this.printOutStatus(pids, entities, ctx.chan);
-
-
-         l0: for (x in entities)
+         roundLoop: for (x in entities)
          {
-             var attacker = ctx.attacker = entities[x];
-             var at = entities[x].type;
-             var move = ctx.move = this.pickMove(entities[x]);
+             attacker = ctx.attacker = entities[x];
+             at = entities[x].type;
+             move = ctx.move = this.pickMove(entities[x]);
 
+
+             if (isDead(attacker)) continue roundLoop;
              if (typeof attacker.flee == typeof Number())
              {
                  attacker.flee--;
-                 this.com.message(pids, ctx.attacker.name + " is trying to escape!",
-                                  this.theme.GAME, false, ctx.chan);
-
-                 continue;
+                 this.com.message(pids, ctx.attacker.name + " is trying to escape!", this.theme.GAME, false, ctx.chan);
+                 continue roundLoop;
              }
 
-             if (isDead(attacker)) continue;
-
-             if (ctx.move.cost) for (x2 in ctx.move.cost)
+             if (move.cost) for (x2 in move.cost)
              {
 
 
-                 if (ctx.attacker[x2] <  ctx.move.cost[x2])
+                 if (attacker[x2] <  move.cost[x2])
                  {
                      //ctx.attacker[x2] -= ctx.move.cost[x2]/3;
                      this.com.message(pids, ctx.attacker.name + " tried to use "  + ctx.move.name + " but didn't have enough " + x2.toUpperCase(),
@@ -231,12 +193,12 @@
                          x3 = {"mp":"mag", "sp":"sta", "msp":"men", "hp":"res", "lp": "spr"}[x2];
                          battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) +  ctx.move.cost[x2]*5;
                      }
-                     continue l0;
+                     continue roundLoop;
                  }
                  else
                  {
-
                      ctx.attacker[x2] -= ctx.move.cost[x2];
+
                      if (attacker.type == "player" && ctx.attacker[x2] <= ctx.attacker["max" + x2]/2)
                      {
                          x3 = {"mp":"mag", "sp":"sta", "msp":"men", "hp":"res", "lp": "spr"}[x2];
@@ -247,10 +209,11 @@
 
              this.com.message(pids, ctx.attacker.name + " used "  + ctx.move.name + "!", this.theme.RPG, false, ctx.chan);
 
+             //
              if (attacker.type === "player")
              {
                  // spd exp
-                 battle.tracker[attacker.name.toLowerCase()].spd = (battle.tracker[attacker.name.toLowerCase()].spd || 0) + 10 * +x;
+                 battle.tracker[attacker.name.toLowerCase()].spd = (battle.tracker[attacker.name.toLowerCase()].spd || 0) + (entities[0].spd - attacker.spd) / 100 + 2;
                  // move exp
                  if (!ctx.attacker.exp[move.shortname]) ctx.attacker.exp[move.shortname] = 0;
 
@@ -300,20 +263,15 @@
                  var targets = ctx.targets = [];
                  var count = cmp.count;
                  var t = this.util.arrayify(cmp.target);
+                 print(JSON.stringify(teams));
 
                  for (x3 in t) switch(t[x3])
                  {
                  case "ally":
-                     if (at === "player")
-                         targets = ctx.targets = ctx.targets.concat(team_players);
-                     else
-                         targets = ctx.targets = ctx.targets.concat(team_mobs);
+                     for (x4 in entities) if (entities[x4].team == attacker.team) targets.push(entities[x4]);
                      break;
                  case "opp":
-                     if (at !== "player")
-                         targets = ctx.targets = ctx.targets.concat(team_players);
-                     else
-                         targets = ctx.targets = ctx.targets.concat(team_mobs);
+                     for (x4 in entities) if (entities[x4].team != attacker.team) targets.push(entities[x4]);
                      break;
                  case "self":
                      ctx.targets.push(ctx.attacker);
@@ -397,15 +355,16 @@
 
 
 
-         if (battle.players.length == 0 || battle.mobs.length == 0)
+         for (x in teams) if (teams[x].length == 0)
          {
              this.com.message(pids, "Battle ended!", this.theme.RPG, false, ctx.chan);
-            // print("endbattle");
-             delete ctx.rpg.battles[ctx.battleId];
-            // if (battle.players.length == 0) return;
-             var dps = new Array(battle.players.length);
-             // [i] = index of player id
 
+             delete ctx.rpg.battles[ctx.battleId];
+
+             var dps = new Object;
+
+
+             players = this.getPlayersOfBattle(rpg, battle);
 
 
              for (x in battle.droppedItems)
@@ -413,9 +372,9 @@
                  while (battle.droppedItems[x]-- > 0)
                  {
 
-                     i = Math.floor(Math.random()*dps.length);
+                     i = Math.floor(Math.random()*players.length);
 
-                     dps[i] = dps[i] || new Object;
+                     if (!dps[i]) dps[i] = new Object;
 
                      dps[i][x] = (dps[i][x] || 0) + 1;
                  }
@@ -424,37 +383,35 @@
              for (i = 0; i < dps.length; i++)
              {
                  var msg = [];
-
-
-
                  for (x in dps[i])
                  {
                      msg.push(dps[i][x] + " " + that.items[x].name + "(s)");
 
                      try
                      {
-                         this.getPlayer(rpg.name, battle.players[i]).items[x] = (this.getPlayer(rpg.name, battle.players[i]).items[x] || 0) + dps[i][x];
-                     } catch (e)
+                         players[i].items[x] = (players[i].items[x] || 0) + dps[i][x];
+                     }
+                     catch (e)
                      {
                          this.script.error(e);
                      }
                  }
 
-                 if (msg.length) this.com.message(pids, battle.players[i] + " got " + msg.join(", ") + "!", this.theme.RPG, false, ctx.chan);
+                 if (msg.length) this.com.message(pids, players[i] + " got " + msg.join(", ") + "!", this.theme.RPG, false, chan);
              }
 
 
-             for (i in battle.players)
+             for (i in players)
              {
-                 var pl = this.getPlayer(rpg.name, battle.players[i]);
+                 var pl = players[i];
 
                  pl.battle = null;
 
                  pl.totalexp = (pl.totalexp || 0);
                  var lv = this.level(pl.totalexp);
-                 l2: if (battle.tracker[battle.players[i].toLowerCase()])
+                 l2: if (battle.tracker[players[i].name.toLowerCase()])
                  {
-                     var trackr = battle.tracker[battle.players[i].toLowerCase()];
+                     var trackr = battle.tracker[players[i].name.toLowerCase()];
                      var tot = 0;
                      for (x in trackr)
                      {
@@ -476,7 +433,7 @@
 
                      }
                  }
-                // pl.totalexp += battle.round*10;
+                 // pl.totalexp += battle.round*10;
                  var lv2 = this.level(pl.totalexp);
 
                  if (lv2 > lv)
@@ -498,19 +455,15 @@
      },
 
      pidsOfBattle:
-     function (ctx)
+     function (battle, chan)
      {
-         var chan = ctx.chan;
+         var pids = [], x, x2;
 
-         var battle = ctx.battle;
-
-         var pids = [];
-
-         for (x in battle.players) if (sys.id(battle.players[x]))
+         for (x in battle.teams) for (x2 in battle.teams[x]) if (sys.id(battle.teams[x][x2]))
          {
-             var id = sys.id(battle.players[x]);
+             var id = sys.id(battle.teams[x][x2]);
              pids.push(id);
-             if (! sys.isInChannel(id, ctx.chan)) sys.putInChannel(id, ctx.chan);
+             if (! sys.isInChannel(id, chan)) sys.putInChannel(id, chan);
          }
 
          if (!battle.watchers) battle.watchers = [];

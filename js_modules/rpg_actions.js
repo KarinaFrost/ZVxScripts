@@ -226,9 +226,7 @@
              var batObj = this.getBattle(ctx.rpg, batId);
 
              ctx.player.battle = batId;
-             batObj.players = [ctx.player.name];
-             batObj.mobs = mba;
-
+             batObj.teams = [[ctx.player.name], mba];
 
              this.com.message(sys.id(ctx.player.name), "You started battle with " + mobs.join(", ") + "!", this.theme.RPG, false,chan);
 
@@ -241,6 +239,78 @@
                  }
              }
 
+
+         },
+
+         challenge:
+         function(src, sub, chan , ctx)
+         {
+             var plname = ctx.action.match(/challenge(?:[,\/| ]([^;]+)$)?/)[1];
+             if (!plname)
+             {
+                 this.com.message(src,  "Enter a player name (e.g. /rpg challenge ArchZombie0x)", this.theme.RPG, false, chan);
+                 return;
+             }
+
+             var pl = this.getPlayer(ctx.rpg.name, plname, true);
+
+             if (!pl)
+             {
+                 this.com.message(src,  "No such player!", this.theme.RPG, false, chan);
+                 return;
+             }
+
+             if (ctx.player.battle)
+             {
+                 this.com.message(src,  "Leave your battle first!", this.theme.RPG, false, chan);
+                 return;
+             }
+
+             ctx.player.chall = {name: plname.toLowerCase(), time: + new Date};
+
+             if (pl.chall && pl.chall.name == ctx.player.name.toLowerCase())
+             {
+
+                 if ((+new Date) - pl.chall.time >= 60*1000)
+                 {
+                      this.com.message(src, "The other player's challenge expired by timeout.", this.theme.RPG, false, chan);
+
+                 }
+                 else
+                 {
+                     if (pl.battle || ctx.player.battle)
+                     {
+                         this.com.message([src, pl.src],  "Leave your battles first before PvP!", this.theme.RPG, false, chan);
+                         return;
+                     }
+                     this.com.message([pl.src, src], "Started battle between " + pl.name + " and " + ctx.player.name + "!", this.theme.RPG, false, chan);
+
+                     var batId = this.newBattle(ctx.rpg);
+                     var batObj = this.getBattle(ctx.rpg, batId);
+
+                     ctx.player.battle = batId;
+                     pl.battle = batId;
+                     batObj.teams = [[pl.name], [ctx.player.name]];
+
+                     this.com.message([pl.src, src], "Battle betwen " + pl.name + " and " + ctx.player.name + "!", this.theme.RPG, false,chan);
+
+                     var pll = this.activeState[ctx.rpg.name].players;
+                     for (x in pll)
+                     {
+                         if (pll[x] != ctx.player && pll[x] != pl && pll[x].area == ctx.player.area && sys.exists(pll[x].src) && sys.isInChannel(pll[x].src, chan))
+                         {
+                             this.com.message(pll[x].src, ctx.player.name +" and " + pl.name + " started a battle! You can watch it using /rpg watch " + pl.name, this.theme.RPG, false, chan);
+                         }
+                     }
+
+                     return;
+                 }
+
+
+             }
+
+             this.com.message(pl.src, ctx.player.name + " challenged " + pl.name + "! Type '/rpg challenge " + ctx.player.name + "' to accept!", this.theme.RPG, false, chan);
+             this.com.message(src, ctx.player.name + " challenged " + pl.name + "!", this.theme.RPG, false, chan);
 
          },
 
@@ -307,11 +377,11 @@
              this.less.less(src, msgs.join("<br />"), true, chan);
          },
 
-         watchbattle:
+         watch:
          function (src, sub, chan, ctx, cmd)
          {
 
-             var plname = ctx.action.match(/watchbattle(?:[,\/| ]([^;]+)$)?/)[1];
+             var plname = ctx.action.match(/watch(?:[,\/| ]([^;]+)$)?/)[1];
              if (!plname && !ctx.player.watching)
              {
                  this.com.message(src,  "Type a player name.", this.theme.RPG, false, chan);

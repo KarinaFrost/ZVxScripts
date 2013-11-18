@@ -253,7 +253,7 @@
          var mob_htmls= [];
          for (x in entities)
          {
-             (entities[x].type == "player" ? player_htmls : mob_htmls).push(this.entHtml(entities[x]));
+             (entities[x].team == 0 ? player_htmls : mob_htmls).push(this.entHtml(entities[x]));
          }
 
          var outhtml = "<p align='center'><table><tr><td><h1></h1></td><td><h1>&nbsp;&nbsp;&nbsp;&nbsp;V.S.&nbsp;&nbsp;&nbsp;&nbsp;</h1></td><td><h1></h1></td></tr>";
