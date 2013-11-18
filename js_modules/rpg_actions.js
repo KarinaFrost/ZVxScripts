@@ -392,19 +392,18 @@
                  return;
              }
 
-             if (!plname && ctx.player.watching)
-             {
-                 var bat = this.getBattle(ctx.rpg, ctx.player.battle);
-                 bat.watchers.splice(bat.watchers.indexOf(ctx.player.name.toLowerCase(), 1));
-                 ctx.player.watching = null;
-
-                 this.com.message(src,  "You quit watching that battle.", this.theme.RPG, false, chan);
-                 return;
-             }
-
              if (ctx.player.watching)
              {
-                 this.com.message(src,  "You are already watching a battle.", this.theme.RPG, false, chan);
+                 var bat = this.getBattle(ctx.rpg, ctx.player.battle);
+                 if (bat) bat.watchers.splice(bat.watchers.indexOf(ctx.player.name.toLowerCase(), 1));
+                 ctx.player.watching = null;
+
+
+             }
+
+             if (!plname)
+             {
+                 this.com.message(src,  "You quit watching that battle.", this.theme.RPG, false, chan);
                  return;
              }
 
