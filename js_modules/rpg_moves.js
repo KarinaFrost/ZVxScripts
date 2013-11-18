@@ -134,7 +134,7 @@
          function (ctx)
          {
              ctx.target.msp += ctx.component.base;
-             return {string: "(+" +ctx.component.base + " MSP)", damage:damage, exptype: "men"};
+             return {string: "(+" +ctx.component.base + " MSP)", damage: ctx.component.base, exptype: "men"};
          },
 
          /** Physical does physical damage
