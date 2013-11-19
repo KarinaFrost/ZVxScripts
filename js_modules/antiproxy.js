@@ -6,6 +6,8 @@
      {
          this.io.registerConfig(this, {enabled: true, type: "remote", pathway: "https://raw.github.com/po-devs/po-server-goodies/master/proxy_list.txt"});
 
+         this.script.registerHandler("beforeLogIn", this);
+
          if (this.config.enabled && this.config.type == "remote")
          {
              var a = sys.synchronousWebCall(this.config.pathway).split(/\r\n|\n|r/g);
