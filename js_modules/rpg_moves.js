@@ -213,7 +213,7 @@
                  defense /= 2;
              }
 
-             return;
+             return defense;
          },
 
          water:
