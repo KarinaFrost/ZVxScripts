@@ -398,56 +398,56 @@
          {
              name: "LightBurst", cost: {mp: 20, sp: 5, msp: 5}, exp: "mag", threshold: 60*10, next: ["lightblast"],
              desc: "Releases a light which burns an enemy.",
-             components: [{ target: "opp", base: 45, move: "magical", desc: "%s released a luminous light which burns %t!", count:1 }]
+             components: [{ target: "opp", base: 45, move: "light", desc: "%s released a luminous light which burns %t!", count:1 }]
          },
 
          lightblast:
          {
              name: "Light Blast", cost: {mp: 35, sp: 5, msp: 15}, exp: "mag", threshold: 60*15, next: ["sunburst", "blitzfield"],
              desc: "Releases a strong blast of light which burns an enemy.",
-             components: [{ target: "opp", base: 75, move: "magical", desc: "%s released a blast of billiant light at %t!", count:1 }]
+             components: [{ target: "opp", base: 75, move: "light", desc: "%s released a blast of billiant light at %t!", count:1 }]
          },
 
          sunburst:
          {
              name: "Sunburst", cost: {mp: 89, sp: 5, msp: 35}, exp: "mag", threshold: 60*20, next: ["lux"],
              desc: "Fires a ball of condensed light energy which burns an enemy.",
-             components: [{ target: "opp", base: 172, move: "magical", desc: "%s shot a ball of white hot light at %t!", count:1 }]
+             components: [{ target: "opp", base: 172, move: "light", desc: "%s shot a ball of white hot light at %t!", count:1 }]
          },
 
          lux:
          {
              name: "Luxecaedere", cost: {mp: 160, sp: 35, msp: 68}, exp: "mag", threshold: 3600*0.8, next: ["luxi"],
              desc: "Summons powerful light energy which burns an enemy.",
-             components: [{ target: "opp", base: 320, move: "magical", desc: "%s summoned a blazing hot light which burns %t!", count:1 }]
+             components: [{ target: "opp", base: 320, move: "light", desc: "%s summoned a blazing hot light which burns %t!", count:1 }]
          },
 
          luxi:
          {
              name: "Luxiudicium", cost: {mp: 305, sp: 45, msp: 230}, exp: "mag", threshold: 3600*2, next: ["judgement"],
              desc: "Summons powerful light energy which wraps around and burns an enemy.",
-             components: [{ target: "opp", base: 780, move: "magical", desc: "%s summoned a blazing hot light which purges %t!", count:1 }]
+             components: [{ target: "opp", base: 780, move: "light", desc: "%s summoned a blazing hot light which purges %t!", count:1 }]
          },
 
          judgement:
          {
              name: "Judgement", cost: {mp: 705, sp: 170, msp: 330}, exp: "mag", threshold: 3600*5, next: ["decree"],
              desc: "Summons powerful light energy from the sky which which burns an enemy.",
-             components: [{ target: "opp", base: 1430, move: "magical", desc: "%s calls a blazing judgement upon %t!", count:1 }]
+             components: [{ target: "opp", base: 1430, move: "light", desc: "%s calls a blazing judgement upon %t!", count:1 }]
          },
 
          decree:
          {
              name: "King's Decree", cost: {mp: 1305, sp: 170, msp: 330}, exp: "mag", threshold: 3600*9, next: ["law"],
              desc: "A decree issued with power from the heavens.",
-             components: [{ target: "opp", base: 2430, move: "magical", desc: "%s casts a powerfull decree. The spell brings down holy fire upon %t!", count:1 }]
+             components: [{ target: "opp", base: 2430, move: "light", desc: "%s casts a powerfull decree. The spell brings down holy fire upon %t!", count:1 }]
          },
 
          law:
          {
              name: "Spirit's Law", cost: {mp: 2305, sp: 470, msp: 730}, exp: "mag", threshold: 3600*24,
              desc: "A powerful magical attack that draws upon light energy to attack.",
-             components: [{ target: "opp", base: 4690, move: "magical", desc: "%s casts a spell which causes fire from all sides to burn %t!", count:1 }]
+             components: [{ target: "opp", base: 4690, move: "light", desc: "%s casts a spell which causes fire from all sides to burn %t!", count:1 }]
          },
 
 
@@ -458,21 +458,21 @@
          {
              name: "Blitzfield", cost: {mp: 89, sp: 5, msp: 35}, exp: "mag", threshold: 60*20, next: ["hseal"],
              desc: "Brings forth a power from the world which purges from the ground to all enemies.",
-             components: [{ target: "opp", base: 65, move: "magical", desc: "%s casts a spell which engulfs the field in light, burning their enemies! %t", count:5 }]
+             components: [{ target: "opp", base: 65, move: "light", desc: "%s casts a spell which engulfs the field in light, burning their enemies! %t", count:5 }]
          },
 
          hseal:
          {
              name: "Holy Seal", cost: {mp: 148, sp: 20, msp: 85}, exp: "mag", threshold: 60*35, next: ["ager"],
              desc: "Traps enemies in a magical spell which injures all enemies within it.",
-             components: [{ target: "opp", base: 113, move: "magical", desc: "%s casts a spell seal around the battlefield which damages %t within it!", count:5 }]
+             components: [{ target: "opp", base: 113, move: "light", desc: "%s casts a spell seal around the battlefield which damages %t within it!", count:5 }]
          },
 
          ager:
          {
              name: "Agerexussum", cost: {mp: 328, sp: 30, msp: 125}, exp: "mag", threshold: 3600, next: ["halfld"],
              desc: "Traps enemies in a magical spell which purges and burns all enemies within it.",
-             components: [{ target: "opp", base: 210, move: "magical", desc: "%s casts a spell seal around the battlefield which purges %t!", count:5 }]
+             components: [{ target: "opp", base: 210, move: "light", desc: "%s casts a spell seal around the battlefield which purges %t!", count:5 }]
          },
 
          halfld:
@@ -480,14 +480,14 @@
              name: "Hallowed Field", next: ["purgatory"],
              desc: "Calls upon a mysterious power to slay the casters enemies.",
              cost: {mp: 428, sp: 60, msp: 225}, exp: "mag", threshold: 3600*3,
-             components: [{ target: "opp", base: 410, move: "magical", desc: "%s invokes a mysterious power which causes a hallowed aura to descent upon %t!", count:7 }]
+             components: [{ target: "opp", base: 410, move: "light", desc: "%s invokes a mysterious power which causes a hallowed aura to descent upon %t!", count:7 }]
          },
 
          purgatory:
          {
              name: "Purgatory", cost: {mp:628, sp: 30, msp: 125}, exp: "mag", threshold: 3600*5,
              desc: "Calls upon a greater holy power to slay the casters enemies.",
-             components: [{ target: "opp", base: 810, move: "magical", desc: "%s invokes purgatory! %t was crushed by the holy aura!", count:7 }]
+             components: [{ target: "opp", base: 810, move: "light", desc: "%s invokes purgatory! %t was crushed by the holy aura!", count:7 }]
          },
 
 
