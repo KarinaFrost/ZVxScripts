@@ -22,15 +22,22 @@
 ({
      entityTick: function (e)
      {
-
+         var x;
 
          e.sp += e.maxsp/30;
          e.msp += e.maxmsp/15;
 
          if (e.attr && e.attr.ghost)
          {
+
              e.hp += e.maxhp/15;
-             if (typeof e.attr.ghost == typeof Number()) e.attr.ghost--;
+         }
+
+         if (e.attr) for (x in e.attr) if (typeof e.attr[x] == typeof Number())
+         {
+             e.attr[x]--;
+             if (!e.attr[x]) delete e.attr[x];
+
          }
 
          // Stamina

@@ -79,7 +79,6 @@
 
 
 
-         this.logs.logMessage(this.logs.INFO, sys.name(src) + " logged in. (IP "+sys.ip(src)+ ")");
 
          return;
      },
@@ -89,6 +88,9 @@
          var n = sys.name(src);
          var ip = sys.ip(src);
          var t = this;
+
+
+         this.logs.logMessage(this.logs.INFO, sys.name(src) + " logged in. (IP "+sys.ip(src)+ ")");
          sys.hostName(ip, function (r)
                       {
                           t.logs.logMessage(t.logs.INFO, "Recived hostname for (Name "+n+")" + " (IP "+ip+ ") (Hostname "+r+")");

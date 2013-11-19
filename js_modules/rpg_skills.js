@@ -83,7 +83,7 @@
          firebreath:
          {
              name: "Fire Breath", elemet: "fire", cost: { mp: 1300},
-             components: [{ target: "opp", base: 3500, move: "physical", desc: "%s blasted fire at %t!", count: 3 }]
+             components: [{ target: "opp", base: 3500,  desc: "%s blasted fire at %t!", count: 3 }]
          },
          peck:
          {
@@ -130,7 +130,7 @@
          slbreath:
          {
              name: "Slimy Breath", cost: {mp: 289},
-             components: [{target: "opp", base: 802, move: "magical", desc: "%s breathed slime on %t!", count:2}]
+             components: [{target: "opp", base: 802, offense: "magical", defense:"physical", damage: "normal", desc: "%s breathed slime on %t!", count:2}]
          },
 
          fangs:
@@ -187,18 +187,65 @@
 
          attack:
          {
-             name: "Attack", element: "physical", cost:{sp:2}, exp: "str", next: ["psyburst", "heal", "shadows", "punch", "thunershock" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
+             name: "Attack", element: "physical", cost:{sp:2}, exp: "str", next: ["psyburst", "heal", "shadows", "punch", "thundershock" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
              desc: "A basic attack",
-             components: [{ target: "opp", base:5, move: "physical", desc: "%s attacked %t!", count:1 }]
+             components: [{ target: "opp", base:5, offense: "general", defense: "general", desc: "%s attacked %t!", count:1 }]
          },
 
          thundershock:
          {
 
-             name: "Thundershock", cost: {mp:15, msp:5}, exp: "mag", next: [], threshold: 60*10,
-             desc: "User calls upon lighting.",
-             components: [{ target: "opp", base:36, move: "magical", desc: "%s zapped %t!", count:1 }]
+             name: "Thundershock", cost: {mp:15, msp:5}, exp: "mag", next: ["thunderbolt"], threshold: 60*10, attr: {air:true},
+             desc: "User zaps enemy!",
+             components: [{ target: "opp", base:36, offense: "magical", defense: "electric", desc: "%s zapped %t!", count:1 }]
          },
+
+         thunderbolt:
+         {
+
+             name: "Thunderbolt", cost: {mp:35, msp:10}, exp: "mag", next: ["voltblast"], threshold: 60*15, attr: {air:true},
+             desc: "User calls upon lighting.",
+             components: [{ target: "opp", base:86, offense: "magical", defense: "electric", desc: "%s zapped %t!", count:1 }]
+         },
+
+
+         voltblast:
+         {
+
+             name: "Volt Blast", cost: {mp:89, msp:15}, exp: "mag", next: ["thunderstorm"], threshold: 60*35,
+             desc: "User creates an electric discharge by imbalancing the polarity of the ground and air.",
+             components: [{ target: "opp", base:210, offense: "magical", defense: "electric", desc: "%s shocked %t with a strong electric discharge!", count:1 }]
+         },
+
+
+
+         thunderstorm:
+         {
+
+             name: "Thunderstorm", cost: {mp:190, msp:20}, exp: "mag", next: ["plasmabomb"], threshold: 3600, attr: {air: true},
+             desc: "Fires a large number of lightning bolts down on foes.",
+             components: [{ target: "opp", base: 320, offense: "magical", defense: "electric", desc: "%s called down a thunderstorm on %t!", count:3 }]
+         },
+
+         plasmabomb:
+         {
+             name: "Plasma Bomb", cost: {mp:350, msp:30}, exp: "mag", next: [], threshold: 3600,  attr: {air: true},
+             desc: "Fires a ball of plasma at an enemy.",
+             components: [{ target: "opp", base:36, offense: "magical", defense: "electric", desc: "%s shot hot plasma at %t!", count:1 }]
+         },
+/*
+         bomb:
+         {
+             name: "Bomb", cost: { mp: 15, sp: 5 }, exp: "mag",
+         },
+  */
+
+         bombs:
+         {
+             name: "Bombs", cost: {sp:15, mp:15},
+             components: [{ target: "opp", base: 136, offense: "magical", defense: "fire", desc: "%s dropped bombs on %t!", count:1 }]
+         },
+
 
          punch:
          {
@@ -258,7 +305,21 @@
          {
              name: "Blast Punch", cost: {sp: 404, mp: 30, msp: 22}, exp: "str", next: ["exppunch"], threshold: 3600*2,
              desc: "When regular punches aren't enough.",
-             components: [{ target: "opp", base:1304, move: "physical", desc: "%s punched %t causing a small explosion!", count:1 }]
+             components: [{ target: "opp", base:1304, offense: "physical", defense: "fire", desc: "%s punched %t causing a small explosion!", count:1 }]
+         },
+
+         icepunch:
+         {
+             name: "Ice Punch", cost: {sp: 404, mp: 30, msp: 22}, exp: "str", next: [], threshold: 3600*2,
+             desc: "When regular punches aren't enough.",
+             components: [{ target: "opp", base:1304, offense: "physical", defense: "ice", damage: "ice", desc: "%s punched %t causing a small explosion!", count:1 }]
+         },
+
+         vltpunch:
+         {
+             name: "Volt Punch", cost: {sp: 404, mp: 30, msp: 22}, exp: "str", next: [], threshold: 3600*2,
+             desc: "When regular punches aren't enough.",
+             components: [{ target: "opp", base:1304, offense: "physical", defense: "electric", damage: "normal", desc: "%s punched %t causing a small explosion!", count:1 }]
          },
 
          exppunch:
@@ -280,7 +341,7 @@
          {
              name: "Ghostly Punch", cost: {sp: 65, msp: 12}, exp: "str", next: [], threshold: 60*20,
              desc: "The user punches their enemy with shadows.",
-             components: [{ target: "opp", base:107, move: "phyghost", desc: "%s punched %t with a ghostly punch!", count:1 }]
+             components: [{ target: "opp", base:107, offense: "physical", defense: "ghost", damage:"ghost", desc: "%s punched %t with a ghostly punch!", count:1 }]
          },
 
          kick:
@@ -573,6 +634,8 @@
              components: [{ target: "opp", base: 25, move: "ghost", desc: "%t was caught by shadows controlled by %s!", count: 1}]
          },
 
+
+
          blackfog:
          {
              name: "Black Fog", exp: "mag", desc: "A black fog engulfs the enemy!", cost: {mp: 15, msp:10}, threshold: 60*10, next: ["blood", "hellrain"],
@@ -588,8 +651,14 @@
 
          sarachith:
          {
-             name: "Sarachith", exp: "res", desc: "The user users a contract of demons to injure their opponent.", cost: { hp: 85, mp: 10, msp: 10 }, threshold: 60*25,
+             name: "Sarachith", exp: "res", desc: "The user users a contract of demons to injure their opponent.", cost: { hp: 85, mp: 10, msp: 10 }, threshold: 60*25, next: ["ghostbody"],
              components: [{ target: "opp", base: 175, move: "ghost", desc: "%s exchanged a contract with demons and it curses %t!", count: 1}]
+         },
+
+         ghostbody:
+         {
+             name: "Ghost Body", exp: "mag", desc: "The user empowers ghostly energy.", cost: {msp: 400, msp: 200}, threshold: 60*45,
+             components: [{ target: "self", base: 10, move: "ghostify", desc: "%s was wrapped in shadows!", count:1}]
          },
 
          hellrain:
@@ -608,7 +677,7 @@
          darkblitz:
          {
              name: "Dark Blitz", exp: "mag", desc: "Weapons made from shadows injure your enemy.", cost: { mp: 35, msp:15}, next:  ["diswave", "darkstorm"],  threshold: 60*30,
-             components: [{ target: "opp", base: 165, move: "dark", desc: "%t was blasted by %s's evil energy!", count: 1}]
+             components: [{ target: "opp", base: 165, move: "dark", defense: "physical", desc: "Dark weapons called by %s fall from the sky and fall upon %t!", count: 1}]
          },
 
          darkstorm:

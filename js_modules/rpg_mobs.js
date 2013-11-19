@@ -294,11 +294,23 @@
              plan: [{prob:1, skill: "superpunch"}]
          },
 
+         jetsquirrel:
+         {
+             name: "Deadly Squirrel with Jetpack", attr: { flying: true },
+             desc: "Nuts with evil, this squirrel is as dangerous as squirls get!",
+             base: 1800,
+             men: 800,
+             spd: 7600,
+             plan: [{prob:2, skill: "sonichand"}, {prob:1, skill: "bombs"}]
+         },
+
+
+
          reddragon:
          {
              name: "Red Dragon",
              desc: "...",
-             base: 3600*1200, attr: {flying: true},
+             base: 3600*1200, attr: { flying: true },
              plan: [{
                      prob: 1,
                      skill: "firebreath"

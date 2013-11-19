@@ -80,6 +80,8 @@
 
      battleStep: function (ctx)
      {
+         const DAMAGECONV = {"mp":"mag", "sp":"sta", "msp":"men", "hp":"res", "lp": "spr"};
+
          var _tmp, x, x2, x3, i, players, attacker, move, at, that = this, entities = [], rpg = ctx.rpg, battle = ctx.battle, teams = battle.teams, tracker, chan = ctx.chan, pids = this.pidsOfBattle(battle, chan);
 
          function isDead(e)
@@ -160,7 +162,12 @@
          for (x in entities)
          {
              if (battle.round == 1) this.entityUpdateStats(entities[x]);
-             this.entityTick(entities[x]);
+             if (entities[x].attr)
+             {
+                 if (entities[x].attr.ghost) this.com.message(pids, entities[x].name + " is wrapped in shadows!", this.theme.RPG, false, ctx.chan);
+                 if (entities[x].attr.flying) this.com.message(pids, entities[x].name + " is airborne!", this.theme.RPG, false, ctx.chan);
+
+             }
          }
 
          roundLoop: for (x in entities)
@@ -178,11 +185,9 @@
                  continue roundLoop;
              }
 
-             if (move.cost) for (x2 in move.cost)
+             if (move.cost)
              {
-
-
-                 if (attacker[x2] <  move.cost[x2])
+                 for (x2 in move.cost) if (attacker[x2] <  move.cost[x2])
                  {
                      //ctx.attacker[x2] -= ctx.move.cost[x2]/3;
                      this.com.message(pids, ctx.attacker.name + " tried to use "  + ctx.move.name + " but didn't have enough " + x2.toUpperCase(),
@@ -190,22 +195,25 @@
 
                      if (attacker.type == "player")
                      {
-                         x3 = {"mp":"mag", "sp":"sta", "msp":"men", "hp":"res", "lp": "spr"}[x2];
+                         x3 = DAMAGECONV[x2];
                          battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) +  ctx.move.cost[x2]*5;
                      }
                      continue roundLoop;
                  }
-                 else
+
+                 for (x2 in move.cost)
                  {
                      ctx.attacker[x2] -= ctx.move.cost[x2];
 
                      if (attacker.type == "player" && ctx.attacker[x2] <= ctx.attacker["max" + x2]/2)
                      {
-                         x3 = {"mp":"mag", "sp":"sta", "msp":"men", "hp":"res", "lp": "spr"}[x2];
-                         battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) +  ctx.move.cost[x2];
+                         x3 = DAMAGECONV[x2];
+                         if (x3) battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) +  ctx.move.cost[x2];
                      }
                  }
              }
+
+
 
              this.com.message(pids, ctx.attacker.name + " used "  + ctx.move.name + "!", this.theme.RPG, false, ctx.chan);
 
@@ -294,24 +302,35 @@
                          if (count-- === 0) break;
 
 
-                         var dmgObj = this.moves[cmp.move].call(this, {attacker: entities[x], target:targets[x3], component:cmp, move: move});
-                         var dmg = dmgObj.string;
+                         var damage = this.runComponent(cmp, move, attacker, targets[x3]);
+//                         var dmgObj = this.moves[cmp.move].call(this, {attacker: entities[x], target:targets[x3], component:cmp, move: move});
+//                         var dmg = dmgObj.string;
 
+                         var dmgParts = [];
 
-                         struck.push(targets[x3].name + " "+dmg);
+                         for (x4 in damage)
+                         {
+                             dmgParts.push(String(Math.round(damage[x4])) + " " + x4.toUpperCase());
+                         }
 
-                         try {
-                             if (targets[x3].type == "player" && dmgObj.exptype != "none" && dmgObj.exptype)
+                         struck.push(targets[x3].name + " ("+dmgParts.join(", ") + ")");
+
+                         try
+                         {
+                             for (x4 in damage)
                              {
-                                 battle.tracker[targets[x3].name.toLowerCase()].res = (battle.tracker[targets[x3].name.toLowerCase()][dmgObj.exptype||"res"] || 0) + (dmgObj.damage*2 || 0);
-                             }
+                                 var etype = DAMAGECONV[x4];
 
+                                 if (targets[x3].type == "player") if (etype) battle.tracker[targets[x3].name.toLowerCase()][etype] = (battle.tracker[targets[x3].name.toLowerCase()][etype] || 0) + (damage[x4] || 0);
 
-                             if (attacker.type == "player" && ctx.move.exp)
-                             {
-                                 battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] = (battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] || 0) + (Math.pow(cmp.base,2)/dmgObj.damage ||0);
+                                 if (ctx.move.exp && attacker.type == "player")
+                                 {
+                                     battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] = (battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] || 0) + (Math.pow(cmp.base,2)/damage[x4] ||0);
+                                 }
+
                              }
-                         } catch (e) {this.script.error(e);}
+                         }
+                         catch (e) {this.script.error(e);}
                      }
 
 
@@ -347,6 +366,11 @@
 
 
 
+         }
+
+         for (x in entities)
+         {
+             this.entityTick(entities[x]);
          }
 
          this.com.message(pids, "Battle: End Round #" + battle.round + ":", this.theme.RPG, false, ctx.chan);
