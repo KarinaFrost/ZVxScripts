@@ -187,7 +187,7 @@
 
          attack:
          {
-             name: "Attack", element: "physical", cost:{sp:2}, exp: "str", next: ["psyburst", "heal", "shadows", "punch", "thundershock" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
+             name: "Attack", element: "physical", exp: "res", next: ["psyburst", "heal", "shadows", "punch", "thundershock" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
              desc: "A basic attack",
              components: [{ target: "opp", base:5, offense: "general", defense: "general", desc: "%s attacked %t!", count:1 }]
          },
@@ -616,7 +616,7 @@
 
          blackout:
          {
-             name: "Blackout", desc: "The user unleashes a large of psychic energy which hits multiple enemies.", cost: { msp: 95 }, next: ["blackmind"], threshold: 60*45,
+             name: "Blackout", desc: "The user unleashes a large of psychic energy which hits multiple enemies.", cost: { msp: 95 }, exp:"psy", next: ["blackmind"], threshold: 60*45,
              components: [{ desc: "%s unleashed a storm of psychic energy!" },
                           { target: "opp", base: 85, move: "psychic", desc: "%t was caught in the flux!", count: 3}]
          },
