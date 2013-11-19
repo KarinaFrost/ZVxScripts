@@ -404,6 +404,11 @@
          ghostify:
          {
              offense: "none", defense: "none", damage: "ghostify"
+         },
+
+         light:
+         {
+             offense: "magical", defense: "light", damage: "normal"
          }
      },
 
