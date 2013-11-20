@@ -324,7 +324,7 @@
          {
              name: "Elector", attr: {flying:true},
              base: 24600, res: 7200, sta: 5000, spd: 65200,
-             plan: [{prob:1, skill: "thunderstorm"}, {prob:2, skill: "voltblast"}, {prob:1, skill: "bombs"}]
+             plan: [{prob:5, skill: "thunderstorm"}, {prob:2, skill: "voltblast"}, {prob:1, skill: "bombs"}]
          },
 
 
