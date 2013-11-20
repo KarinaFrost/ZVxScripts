@@ -320,7 +320,7 @@
              plan: [{prob:1, skill: "superpunch"}, {prob:2, skill: "grndbrk"}]
          },
 
-         elt:
+         elector:
          {
              name: "Elector", attr: {flying:true},
              base: 24600, res: 7200, sta: 5000, spd: 65200,
