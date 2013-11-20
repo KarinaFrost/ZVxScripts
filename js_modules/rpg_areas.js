@@ -80,8 +80,22 @@
 
          town2east:
          {
-             name: "Rorthidor [east]", desc: "A town of golems. The entrance is blocked.", adjc: ["westforest3"],
+             name: "Rorthidor [east]", desc: "A town of golems. The entrance to the city is nearby.", adjc: ["westforest3", "town2"],
              battle: [{ min:1, max:3, mob: "golem", prob:0.3}]
+
+         },
+
+         town2:
+         {
+             name: "Rorthidor", desc: "A town of golems. The city heart.", adjc: ["westforest3", "town2east", "town2north"],
+             battle: [{ min:1, max:3, mob: "sgolem", prob:0.3}]
+
+         },
+
+         town2north:
+         {
+             name: "Rorthidor [north]", desc: "Unusual machines live here.", adjc: ["town2"],
+             battle: [{ min:1, max:2, mob: "elector", prob:0.3}]
 
          },
 

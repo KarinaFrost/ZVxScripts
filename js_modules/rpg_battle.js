@@ -182,6 +182,8 @@
                  if (entities[x].exp) battle.xexp += Number(entities[x].exp);
              }
 
+             entities[x].round = (entities[x].round || 0) + 1;
+
              if (entities[x].attr)
              {
                  if (entities[x].attr.ghost) this.com.message(pids, entities[x].name + " is wrapped in shadows!", this.theme.RPG, false, ctx.chan);

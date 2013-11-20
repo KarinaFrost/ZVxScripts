@@ -310,8 +310,23 @@
          {
              name: "Golem", attr: {grounded: true},
              base: 5600, res: 24000, sta: 17000, spd: 2400,
-             plan: [{prob:2, skill: "punch"}]
+             plan: [{prob:2, skill: "superpunch"}, {prob:1, skill: "grndbrk"}]
          },
+
+         sgolem:
+         {
+             name: "Super Golem", attr: {grounded: true},
+             base: 9600, res: 29000, sta: 21000, spd: 2300,
+             plan: [{prob:1, skill: "superpunch"}, {prob:2, skill: "grndbrk"}]
+         },
+
+         elt:
+         {
+             name: "Elector", attr: {flying:true},
+             base: 24600, res: 7200, sta: 5000, spd: 65200,
+             plan: [{prob:1, skill: "thunderstorm"}, {prob:2, skill: "voltblast"}, {prob:1, skill: "bombs"}]
+         },
+
 
 
 

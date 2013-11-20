@@ -231,7 +231,7 @@
          {
              name: "Plasma Bomb", cost: {mp:350, msp:30}, exp: "mag", next: [], threshold: 3600,  attr: {air: true},
              desc: "Fires a ball of plasma at an enemy.",
-             components: [{ target: "opp", base:36, offense: "magical", defense: "electric", desc: "%s shot hot plasma at %t!", count:1 }]
+             components: [{ target: "opp", base:640, offense: "magical", defense: "electric", desc: "%s shot hot plasma at %t!", count:1 }]
          },
 /*
          bomb:
