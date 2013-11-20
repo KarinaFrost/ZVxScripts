@@ -73,14 +73,14 @@
 
           westforest3:
          {
-             name: "West Forest [factory]", desc: "There is an unusual factory here...", adjc: ["westforest2", "town2"],
+             name: "West Forest [factory]", desc: "There is an unusual factory here...", adjc: ["westforest2", "town2east"],
              battle: [{ prob: 0.5, min:1, max: 2, mob: "jetsquirrel"},{ prob: 0.5, min:0, max: 1, mob: "adsquirrel"}]
 
          },
 
          town2east:
          {
-             name: "Rorthidor [east]", desc: "A town of golems. The entrance is blocked.", adjc: ["westforest3", "town2"],
+             name: "Rorthidor [east]", desc: "A town of golems. The entrance is blocked.", adjc: ["westforest3"],
              battle: [{ min:1, max:3, mob: "golem", prob:0.3}]
 
          },
