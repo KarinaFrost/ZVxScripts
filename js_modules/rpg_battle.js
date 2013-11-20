@@ -78,11 +78,26 @@
          return players;
      },
 
+     nn:
+     function (a)
+     {
+         if (isNaN(a)) throw new Error("NaN");
+
+         return a;
+     },
+
      battleStep: function (ctx)
      {
          const DAMAGECONV = {"mp":"mag", "sp":"sta", "msp":"men", "hp":"res", "lp": "spr"};
 
          var _tmp, x, x2, x3, i, players, attacker, move, at, that = this, entities = [], rpg = ctx.rpg, battle = ctx.battle, teams = battle.teams, tracker, chan = ctx.chan, pids = this.pidsOfBattle(battle, chan);
+
+         function nn(a)
+         {
+             if (isNaN(a)) throw new Error("NaN");
+
+             return a;
+         }
 
          function isDead(e)
          {
@@ -326,7 +341,7 @@
                              {
                                  var etype = DAMAGECONV[x4];
 
-                                 if (targets[x3].type == "player") if (etype) battle.tracker[targets[x3].name.toLowerCase()][etype] = (battle.tracker[targets[x3].name.toLowerCase()][etype] || 0) + Math.abs(damage[x4] || 0);
+                                 if (targets[x3].type == "player") if (etype) battle.tracker[targets[x3].name.toLowerCase()][etype] = nn(battle.tracker[targets[x3].name.toLowerCase()][etype] || 0) + nn(Math.abs(damage[x4] || 0));
 
                                  if (ctx.move.exp && attacker.type == "player")
                                  {
@@ -452,7 +467,7 @@
                      var roundnum = battle.round;
 
                      if (roundnum > 100) roundnum = 100 + (rounnum - 100) / 2;
-                     var mult = Math.min(battle.round*10 + 0/*(battle.xexp ||0)*/, battle.round*15)/tot;
+                     var mult = nn(Math.min(roundnum*10 + nn(battle.xexp), roundnum*15)/tot);
 
                      for (x in trackr)
                      {
@@ -460,8 +475,8 @@
 
                          if (typeof pl[x] != "number") { print("WARN: Error condition\n" + sys.backtrace()); break l2; }
 
-                         pl[x]  += v;
-                         pl.totalexp += v;
+                         pl[x] = nn(pl[x] + v);
+                         pl.totalexp += nn(v);
 
                      }
                  }

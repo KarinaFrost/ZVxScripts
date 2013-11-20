@@ -26,7 +26,7 @@
 
          this.initializeEntity(m);
 
-         //m.exp = Math.round(Math.log(this.totalStats(m)/3600 + 1)*100) ;
+         m.exp = nn(Math.round(Math.log(this.totalStats(m)/3600 + 1)*100));
 
 
          m.type = "mob";

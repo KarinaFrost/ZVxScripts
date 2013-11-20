@@ -137,7 +137,7 @@
 
      totalStats: function (e)
      {
-         return e.str+e.res+e.sta + e.mag+e.man+e.psy+e.spd;
+         return this.nn(e.str+e.res+e.sta + e.mag+e.men+e.psy+e.spd);
      },
 
      entityUpdateStats: function (e)
