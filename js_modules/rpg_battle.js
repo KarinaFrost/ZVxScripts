@@ -131,7 +131,7 @@
          }
 
          if (!battle.tracker) battle.tracker = new Object;
-         if (!battle.round) battle.round = 0;
+         if (!battle.round) { battle.round = 0; battle.xexp = 0; }
          if (!battle.droppedItems) battle.droppedItems = [];
 
          tracker = battle.tracker;
@@ -161,7 +161,12 @@
 
          for (x in entities)
          {
-             if (battle.round == 1) this.entityUpdateStats(entities[x]);
+             if (battle.round == 1)
+             {
+                 this.entityUpdateStats(entities[x]);
+                 if (entities[x].exp) battle.xexp += Number(entities[x].exp);
+             }
+
              if (entities[x].attr)
              {
                  if (entities[x].attr.ghost) this.com.message(pids, entities[x].name + " is wrapped in shadows!", this.theme.RPG, false, ctx.chan);
@@ -444,7 +449,10 @@
 
                      }
 
-                     var mult = battle.round*10/tot;
+                     var roundnum = battle.round;
+
+                     if (roundnum > 100) roundnum = 100 + (rounnum - 100) / 2;
+                     var mult = Math.min(battle.round*10 + battle.xexp, battle.round*15)/tot;
 
                      for (x in trackr)
                      {
