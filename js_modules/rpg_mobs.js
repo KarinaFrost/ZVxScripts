@@ -306,6 +306,13 @@
              plan: [{prob:2, skill: "sonichand"}, {prob:1, skill: "bombs"}]
          },
 
+         golem:
+         {
+             name: "Golem", attr: {grounded: true},
+             base: 5600, res: 24000, sta: 17000, spd: 2400,
+             plan: [{prob:2, skill: "punch"}]
+         },
+
 
 
          reddragon:
