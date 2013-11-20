@@ -246,6 +246,8 @@
 
          },
 
+
+
          challenge:
          function(src, sub, chan , ctx)
          {
@@ -293,6 +295,8 @@
                      delete ctx.player.chall;
                      var batId = this.newBattle(ctx.rpg);
                      var batObj = this.getBattle(ctx.rpg, batId);
+
+                     batObj.allowJoins = false;
 
                      ctx.player.battle = batId;
                      pl.battle = batId;
@@ -433,6 +437,98 @@
 
 
              this.com.message(pll, ctx.player.name + " started watching the battle!", this.theme.RPG, false, chan);
+         },
+
+         allowjoins:
+         function (src, sub, chan, ctx, cmd)
+         {
+
+
+             if (!ctx.player.battle)
+             {
+                 this.com.message(src,  "Not in a battle.", this.theme.RPG, false, chan);
+                 return;
+             }
+
+             var bat = this.getBattle(ctx.rpg, ctx.player.battle);
+
+             if (bat.allowJoins === false) // NOT undefined
+             {
+                 this.com.message(src,  "This battle is private.", this.theme.RPG, false, chan);
+                 return;
+             }
+
+             bat.allowJoins = true;
+
+             ctx.player.battle = pl.battle;
+
+             var pll = this.activeState[ctx.rpg.name].players;
+             for (x in pll)
+             {
+                 if (pll[x] != ctx.player && pll[x].area == ctx.player.area && sys.exists(pll[x].src) && sys.isInChannel(pll[x].src, chan))
+                 {
+                     this.com.message(pll[x].src, ctx.player.name + " allowed joins for a battle! You can join it using /rpg joinbattle " + ctx.player.name, this.theme.RPG, false, chan);
+                 }
+             }
+
+         },
+
+
+         joinbattle:
+         function (src, sub, chan, ctx, cmd)
+         {
+
+             var plname = ctx.action.match(/joinbattle(?:[,\/| ]([^;]+)$)?/)[1];
+             if (ctx.player.battle)
+             {
+                 this.com.message(src,  "Finish your battle first.", this.theme.RPG, false, chan);
+                 return;
+             }
+
+             if (ctx.player.watching)
+             {
+                 var bat = this.getBattle(ctx.rpg, ctx.player.battle);
+                 if (bat) bat.watchers.splice(bat.watchers.indexOf(ctx.player.name.toLowerCase(), 1));
+                 ctx.player.watching = null;
+             }
+
+             if (!plname)
+             {
+                 this.com.message(src,  "No player to join.", this.theme.RPG, false, chan);
+                 return;
+             }
+
+             var pl = this.getPlayer(ctx.rpg.name, plname, true);
+
+
+
+             if (!pl || pl.area != ctx.player.area)
+             {
+                 this.com.message(src,  "That player seems to be in another area or doesn't exist.", this.theme.RPG, false, chan);
+                 return;
+             }
+
+             if (!pl.battle)
+             {
+                 this.com.message(src,  "That player doesn't seem to be battling.", this.theme.RPG, false, chan);
+                 return;
+             }
+
+             var bat = this.getBattle(ctx.rpg, pl.battle);
+
+             if (!bat.allowJoins)
+             {
+                 this.com.message(src,  "That battle can't be joined.", this.theme.RPG, false, chan);
+                 return;
+             }
+
+             bat.teams[pl.team].push(ctx.player);
+
+             ctx.player.battle = pl.battle;
+
+             var pll = this.pidsOfBattle(bat, chan);
+
+             this.com.message(pll, ctx.player.name + " joined the battle!", this.theme.RPG, false, chan);
          },
 
          items: function (src, sub, chan, ctx)
