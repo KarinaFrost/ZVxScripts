@@ -201,7 +201,14 @@
 
      playerUpdateStats: function (e)
      {
+         const constlist = ["str", "res", "sta", "men", "psy", "spd", "spr", "mag"];
+         for (x in constlist)
+         {
+             e[constlist[x]] = Math.max(Math.abs(e[constlist[x]] || 0), 100);
+         }
          this.entityUpdateStats(e);
+
+
          //  e.maxmp =  (e.mag*0.13 + (Math.log(e.mag+Math.E)*10 | 0));
          // e.maxsp = (e.str*0.02 + e.res*0.02 + (Math.log(e.res/100+Math.E)*150 | 0));
          //  e.maxmsp = (e.res*0.01 + e.mag*0.01 + e.psy*0.12 + e.spr*0.01 + (Math.log(e.psy/1000+Math.E)*50 | 0));
