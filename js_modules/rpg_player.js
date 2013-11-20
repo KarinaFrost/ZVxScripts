@@ -181,7 +181,7 @@
 
          for (var x in player.activeActions)
          {
-             if ("timer" in player.activeActions[x] && player.activeActions[x].timer-- <= 0)
+             if ("timer" in player.activeActions[x] && --player.activeActions[x].timer <= 0)
              {
                  if (player.activeActions[x].done) this.actions[player.activeActions[x].done].call(this, player.activeActions[x], { rpg: ctx.rpg, player:player, index: x, chan:ctx.chan });
                  player.activeActions.shift();
