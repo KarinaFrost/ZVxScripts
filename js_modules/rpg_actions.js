@@ -460,7 +460,6 @@
 
              bat.allowJoins = true;
 
-             ctx.player.battle = pl.battle;
 
              var pll = this.activeState[ctx.rpg.name].players;
              for (x in pll)
