@@ -467,7 +467,7 @@
                      var roundnum = battle.round;
 
                      if (roundnum > 100) roundnum = 100 + (rounnum - 100) / 2;
-                     var mult = nn(Math.min(roundnum*10 + nn(battle.xexp), roundnum*15)/tot);
+                     var mult = nn(Math.min(roundnum*10 + 0/*nn(battle.xexp)*/, roundnum*15)/tot);
 
                      for (x in trackr)
                      {
