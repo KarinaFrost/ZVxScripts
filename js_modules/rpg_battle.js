@@ -249,7 +249,7 @@
                      i.sort( function (a, b){ return ctx.attacker.exp[b] - ctx.attacker.exp[a]; } );
 
                      var oldexp = attacker.exp[i[0]] || 0;
-                     attacker.exp[i[0]] = oldexp + Math.ceil(4 + 6/div);
+                     attacker.exp[i[0]] =  oldexp + Math.max(0, Math.ceil(4 + 6/div));
 
                      if (attacker.exp[i[0]] >= (this.skills[i[0]] || {}).threshold)
                      {
@@ -321,11 +321,11 @@
                              {
                                  var etype = DAMAGECONV[x4];
 
-                                 if (targets[x3].type == "player") if (etype) battle.tracker[targets[x3].name.toLowerCase()][etype] = (battle.tracker[targets[x3].name.toLowerCase()][etype] || 0) + (damage[x4] || 0);
+                                 if (targets[x3].type == "player") if (etype) battle.tracker[targets[x3].name.toLowerCase()][etype] = (battle.tracker[targets[x3].name.toLowerCase()][etype] || 0) + Math.abs(damage[x4] || 0);
 
                                  if (ctx.move.exp && attacker.type == "player")
                                  {
-                                     battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] = (battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] || 0) + (Math.pow(cmp.base,2)/damage[x4] ||0);
+                                     battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] = (battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] || 0) + Math.abs(Math.pow(cmp.base,2)/damage[x4] ||0);
                                  }
 
                              }
