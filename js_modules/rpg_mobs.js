@@ -301,7 +301,7 @@
              name: "Deadly Squirrel with Jetpack", attr: { flying: true },
              desc: "Nuts with evil, this squirrel is as dangerous as squirls get!",
              base: 4400,
-             men: 1600,
+             men: 3300,
              spd: 7600,
              plan: [{prob:2, skill: "sonichand"}, {prob:1, skill: "bombs"}]
          },
