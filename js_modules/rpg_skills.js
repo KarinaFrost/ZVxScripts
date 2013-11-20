@@ -384,7 +384,7 @@
              name: "Groundbreak", cost: {sp:45, msp:5}, exp: "str", next: [], threshold: 60*5,
 
              desc: "The user uses a strong kick, tearing up even the ground.",
-             components: [{ target: "opp", base:75, move: "physical", desc: "%s hit %t in a fast combo flurry of kicks!", count: 2 }]
+             components: [{ target: "opp", base:75, move: "physical", desc: "%s hit %t in a heavy sweep kick!", count: 2 }]
          },
 
          heal:
