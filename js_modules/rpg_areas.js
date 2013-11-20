@@ -99,11 +99,6 @@
 
          },
 
-         town2:
-         {
-             name: "Rorthidor", desc: "A town of golems.", adjc: ["westforest3", "town2"]
-         },
-
          town1east:
          {
              name: "Town East Side", desc:"Currently having a chicken problem...", adjc: ["town1"],
