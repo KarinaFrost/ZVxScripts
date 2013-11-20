@@ -62,10 +62,17 @@
 
          westforest2:
          {
-             name: "West Forest (deep)", desc: "Watch out for the deadly squirrels!", adjc: ["westforest"],
+             name: "West Forest [deep]", desc: "Watch out for the deadly squirrels!", adjc: ["westforest", "westforest3"],
              mobs: [{prob:1, mobs: ["lsquirrel","lsquirrel"]}, {prob:1, mobs: ["lsquirrel","dsquirrel"]}, {prob:1, mobs: ["dsquirrel"]},
                     {prob:1, mobs: ["dsquirrel","adsquirrel"]}, {prob:1, mobs: ["dsquirrel","dsquirrel"]},{prob:1, mobs: ["adsquirrel","adsquirrel"]}
                    ]
+         },
+
+          westforest3:
+         {
+             name: "West Forest [factory]", desc: "There is an unusual factory here...", adjc: ["westforest2"],
+             battle: [{ prob: 0.5, min:1, max: 2, mob: "jetsquirrel"},{ prob: 0.5, min:0, max: 1, mob: "adsquirrel"}]
+
          },
 
          town1east:
