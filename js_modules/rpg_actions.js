@@ -521,7 +521,7 @@
                  return;
              }
 
-             bat.teams[pl.team].push(ctx.player);
+             bat.teams[pl.team].push(ctx.player.name);
 
              ctx.player.battle = pl.battle;
 
