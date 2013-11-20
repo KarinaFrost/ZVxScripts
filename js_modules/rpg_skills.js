@@ -520,9 +520,18 @@
          elixarai:
          {
 
-             name: "Elixarai", cost: {mp:140, msp: 110}, exp: "mag", next: [], threshold: 60*30,
-             desc: "The field is engulfed in a blinding ligth which heals all allies within it.",
+             name: "Elixarai", cost: {mp:140, msp: 110}, exp: "mag", next: ["holyguard"], threshold: 60*30,
+             desc: "The field is engulfed in a blinding light which heals all allies within it.",
              components: [{ target: "ally", base: 240, move: "heal", desc: "%t was healing by the blinding light!", count: 10}]
+
+         },
+
+         holyguard:
+         {
+
+             name: "HolyGuard", cost: {mp:240, msp: 180}, exp: "mag", next: [], threshold: 60*45,
+             desc: "The field is engulfed in a powerfull energy which heals all allies within it.",
+             components: [{ target: "ally", base: 440, move: "heal", desc: "%t was healing by the descending energy!", count: 10}]
 
          },
 

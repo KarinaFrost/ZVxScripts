@@ -211,7 +211,7 @@
 
              if (!cmd.input || cmd.input.match(/^\s*$/))
              {
-                 this.com.message(src, "Subcommands, (/rpg <subcommand>):\nwalk <area> (ommit area to show current area)\nview (view player stats)\nbattle (start a battle)\nitems (show items)\nplan <move>:<prob> <move>:<prob> ... (e.g. /rpg plan attack:5 heal:2)\nuse <skillname> (to use that skill on the next turn)\nskills (shows your skills available to use via /rpg plan or use)\nequip Show available equips or equip one.\ndequip remove slot item\nprint (to print out copypasteable info)\nflee (to escape the current battle)\nwatch playername (To watch a player's battle, must be in same location ingame.)\nchallenge playername (To challenge a player to a PVP match)", this.theme.RPG, false, chan);
+                 this.com.message(src, "Subcommands, (/rpg <subcommand>):\nwalk <area> (ommit area to show current area)\nview (view player stats)\nbattle (start a battle)\nitems (show items)\nplan <move>:<prob> <move>:<prob> ... (e.g. /rpg plan attack:5 heal:2)\nuse <skillname> (to use that skill on the next turn)\nskills (shows your skills available to use via /rpg plan or use)\nequip Show available equips or equip one.\ndequip remove slot item\nprint (to print out copypasteable info)\nflee (to escape the current battle)\nwatch playername (To watch a player's battle, must be in same location ingame.)\nchallenge playername (To challenge a player to a PVP match)\nallowjoins (allow players to join a PvE battle)\njoinbattle playername (To join a battle)", this.theme.RPG, false, chan);
                  return;
              }
 
