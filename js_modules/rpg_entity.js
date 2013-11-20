@@ -135,6 +135,11 @@
      "1/3600*0.1": 1/3600*0.1,
      "1/3600*0.15": 1/3600*0.15,
 
+     totalStats: function (e)
+     {
+         return e.str+e.res+e.sta + e.mag+e.man+e.psy+e.spd;
+     },
+
      entityUpdateStats: function (e)
      {
          /*

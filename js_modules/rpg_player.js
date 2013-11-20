@@ -206,6 +206,9 @@
          {
              e[constlist[x]] = Math.max(Math.abs(e[constlist[x]] || 0), 100);
          }
+
+         e.totalexp = this.totalStats(e)-700;
+
          this.entityUpdateStats(e);
 
 
