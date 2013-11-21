@@ -172,7 +172,7 @@
                  break l0;
              }
 
-             for (x in _tmp.teams) for (y in _tmp.teams[x]) if (_tmp.teams[x][y] == ctx.player.name.toLowerCase())
+             for (x in _tmp.teams) for (y in _tmp.teams[x]) if (_tmp.teams[x][y] == player.name.toLowerCase())
              {
                  return; // normal batte
              }
