@@ -27,6 +27,8 @@
          {
              var x, i, steps = 0, adj, dest;
 
+             if (ctx.player.activeActions.length != 0) return;
+
              const areas = this.areas[ctx.player.area];
              adj = areas.adjc;
 
@@ -107,6 +109,18 @@
 
 
 
+         },
+
+         contemplate:
+         function (src, sub, chan, ctx)
+         {
+             var i, count = Number(+sub[2]) || 1;
+
+             if (ctx.player.activeActions.length != 0) return;
+
+             count = Math.min(Math.max(count, 1), 50);
+
+             for (i = 0; i < count; i++) ctx.player.activeActions.push({ timer: 1, done: "contemplate" });
          },
 
          allowtransfer:
@@ -454,6 +468,7 @@
              msgs.push("<b>Level:</b> " + this.level(ctx.player.totalexp || 0));
 
              this.com.message(src, this.entHtml(ctx.player, sys.os(src) == "android"), this.theme.GAME, true, chan);
+             /*
              if (ctx.player.rhand && this.equips[ctx.player.rhand.type].hands === 2)
              {
                  msgs.push("<b>Both Hands:</b> " + this.equipName(ctx.player.rhand));
@@ -467,7 +482,7 @@
              msgs.push("<b>Body:</b> " + this.equipName(ctx.player.body));
              msgs.push("<b>Feet:</b> " + this.equipName(ctx.player.feet));
              msgs.push("<b>Back:</b> " + this.equipName(ctx.player.back));
-
+             */
 
              msgs.push("<b>RES:</b> " + Math.floor(ctx.player.res));
              msgs.push("<b>STR:</b> " + Math.floor(ctx.player.str));
@@ -838,10 +853,35 @@
 
          },
 
+         contemplate:
+         function (act, ctx)
+         {
+             var oldarea, chan = ctx.chan;
+
+             this.com.message(ctx.player.src, "You are contemplating the mysteries of life.", this.theme.RPG, false, ctx.chan);
+
+             ctx.player.msp -= 10;
+             ctx.player.men += 10;
+
+             var lv = this.level(ctx.player.totalexp);
+             ctx.player.totalexp += 10;
+             var newlv = this.level(ctx.player.totalexp);
+
+             if (lv < newlv)
+             {
+                 this.com.broadcast(ctx.player.name + " has leveled up to level " + newlv + "!", this.theme.GAME, false, ctx.chan);
+             }
+
+             if (ctx.player.activeActions.length != 1) return;
+
+             this.com.message(ctx.player.src, "Done contemplating.", this.theme.RPG, false, ctx.chan);
+         },
+
          walk:
          function (act, ctx)
          {
              var oldarea, chan = ctx.chan;
+
 
              ctx.player.sp -= act.sp || 0;
              this.com.message(ctx.player.src, "Walked from " + this.areas[ctx.player.area].name + " to " +this.areas[act.to].name + ".", this.theme.RPG, false, ctx.chan);

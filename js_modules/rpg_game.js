@@ -213,7 +213,24 @@
 
              if (!cmd.input || cmd.input.match(/^\s*$/))
              {
-                 this.com.message(src, "Subcommands, (/rpg <subcommand>):\nwalk <area> (ommit area to show current area)\nview (view player stats)\nbattle (start a battle)\nitems (show items)\nplan <move>:<prob> <move>:<prob> ... (e.g. /rpg plan attack:5 heal:2)\nuse <skillname> (to use that skill on the next turn)\nskills (shows your skills available to use via /rpg plan or use)\nequip Show available equips or equip one.\ndequip remove slot item\nprint (to print out copypasteable info)\nflee (to escape the current battle)\nwatch playername (To watch a player's battle, must be in same location ingame.)\nchallenge playername (To challenge a player to a PVP match)\nallowjoins (allow players to join a PvE battle)\njoinbattle playername (To join a battle)", this.theme.RPG, false, chan);
+                 this.com.message(src, "Subcommands, (/rpg <subcommand>):\n"
+                                  + "walk <area> (ommit area to show current area)\n"
+                                  + "view (view player stats)\n"
+                                  + "battle (start a battle)\n"
+                                  + "items (show items)\n"
+                                  + "plan <move>:<prob> <move>:<prob> ... (e.g. /rpg plan attack:5 heal:2)\n"
+                                  + "use <skillname> (to use that skill on the next turn)\n"
+                                  + "skills (shows your skills available to use via /rpg plan or use)\n"
+                                  // + "equip Show available equips or equip one.\n"
+                                  // + "dequip remove slot item\n"
+                                  + "print (to print out copypasteable info)\n"
+                                  + "flee (To escape the current battle)\n"
+                                  + "watch playername (To watch a player's battle, must be in same location ingame.)\n"
+                                  + "challenge playername (To challenge a player to a PVP match)\n"
+                                  + "allowjoins (Allow players to join a PvE battle)\n"
+                                  + "joinbattle playername (To join a PvE battle)\n"
+                                  + "contemplate turns (to contemplate for a few turns, the mysteries of life)",
+                                  this.theme.RPG, false, chan);
                  return;
              }
 

@@ -180,7 +180,7 @@
              if (battle.round == 1)
              {
                  this.entityUpdateStats(entities[x]);
-                 if (entities[x].exp) battle.xexp += Number(entities[x].exp);
+                 if (entities[x].xexp) battle.xexp += Number(entities[x].xexp);
              }
 
              entities[x].round = (entities[x].round || 0) + 1;
@@ -535,7 +535,7 @@
                      roundnum = Math.round(roundnum);
 
                      //if (roundnum > 100) roundnum = 100 + (roundnum - 100) / 2;
-                     var mult = nn(Math.min(roundnum*10 + 0/*nn(battle.xexp)*/, roundnum*15)/tot);
+                     var mult = nn(Math.min(roundnum*10 + nn(battle.xexp || 0), roundnum*15)/tot);
 
                      for (x in trackr)
                      {
