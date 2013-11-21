@@ -758,7 +758,7 @@
 
              }
 
-             this.com.message(src, msgs.join(", ") + " **", this.theme.RPG, true, chan);
+             this.com.message(src, msgs.join(", ") + "", this.theme.RPG, true, chan);
 
 
          },

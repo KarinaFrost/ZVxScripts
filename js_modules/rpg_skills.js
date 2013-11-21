@@ -713,7 +713,7 @@
 
          ghostbody:
          {
-             name: "Ghost Body", exp: "mag", desc: "The user empowers ghostly energy.", cost: {mmp: 200, msp: 100}, threshold: 60*45,
+             name: "Ghost Body", exp: "mag", desc: "The user empowers ghostly energy.", cost: {mp: 300, msp: 200}, threshold: 60*45,
              components: [{ target: "self", base: 10, move: "ghostify", desc: "%s was wrapped in shadows!", count:1}]
          },
 
