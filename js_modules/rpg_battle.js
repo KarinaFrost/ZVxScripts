@@ -160,6 +160,7 @@
              if (typeof teams[x][x2] == typeof String())
              {
                  entities.push(this.getPlayer(rpg.name, teams[x][x2]));
+                 if (!entities[entities.length-1].battle) entities[entities.length-1].battle = ctx.battleId;
                  if (!battle.tracker[_tmp = teams[x][x2].toLowerCase()]) battle.tracker[_tmp] = { str:0, sta:0, mag:0, men:0, psy:0 };
              }
              else entities.push(teams[x][x2]);
@@ -258,8 +259,29 @@
                      for (x2 in ar)
                      {
                          attacker.exp[ar[x2]] = attacker.exp[ar[x2]] || 0;
-                         if (attacker.exp[ar[x2]] < (this.skills[ar[x2]] || {}).threshold) i.push(ar[x2]);
-                         else div++;
+                         l3:
+                         {
+
+                             l4:
+                             {
+                                 if (!this.skills[ar[x2]].prereq) break l4;
+
+                                 for (x3 in this.skills[ar[x2]].prereq)
+                                 {
+                                     if (attacker.exp[this.skills[ar[x2]].prereq[x3]] < (this.skills[this.skills[ar[x2]].prereq[x3]] || {}).threshold)
+                                     {
+                                         break l3;
+                                     }
+                                 }
+                             }
+
+                             if (attacker.exp[ar[x2]] < (this.skills[ar[x2]] || {}).threshold)
+                             {
+                                 i.push(ar[x2]);
+                             }
+                             else div++;
+                         }
+
                      }
 
                      if (i.length == 0)
