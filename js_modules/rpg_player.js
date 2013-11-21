@@ -155,24 +155,34 @@
      playerStep: function (player, ctx)
      {
          // Only run player steps while the player is online
-         var src = this.user.id(player.name);
+         var src = this.user.id(player.name), _tmp, x, y;
          if (!src) return;
          else { player.src = src; player.os = sys.os(src); }
 
+
          l0: if (player.battle)
          {
-             if (!this.getBattle(ctx.rpg, player.battle))
+             if (!(_tmp = this.getBattle(ctx.rpg, player.battle)))
              {
                  player.battle = null;
-
                  try
                  {
                      throw new Error("Dead battle detected.");
                  } catch (e) { this.script.error(e); }
-
                  break l0;
              }
-             return;
+
+             for (x in _tmp.teams) for (y in _tmp.teams[x]) if (_tmp.teams[x][y] == ctx.player.name.toLowerCase())
+             {
+                 return; // normal batte
+             }
+
+             player.battle = null;
+             try
+             {
+                 throw new Error("Dead battle detected.");
+             } catch (e) { this.script.error(e); }
+
          }
          // Regular player events don't occur while the player is in a battle!
 
