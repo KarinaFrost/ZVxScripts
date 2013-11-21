@@ -114,7 +114,7 @@
          contemplate:
          function (src, sub, chan, ctx)
          {
-             var i, count = Number(+sub[2]) || 1;
+             var i, count = Number(+sub[1]) || 1;
 
              if (ctx.player.activeActions.length != 0) return;
 
