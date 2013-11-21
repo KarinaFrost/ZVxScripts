@@ -101,6 +101,12 @@
              var hostnames = [];
 
 
+             if (cmd.flags.silent && !this.user.hasPerm(src, "SILENT"))
+             {
+                 this.com.message(src, "Silent option: Permission denied.", this.theme.WARN);
+                 cmd.flags.silent = false;
+             }
+
              for (var x in cmd.args)
              {
                  if (cmd.args[x].match(/^\d+\.\d+\.\d+\.\d+$/))
@@ -164,12 +170,12 @@
                  author: this.user.name(src)
              };
 
-             this.com.broadcast(
+             if (!cmd.flags.silent) this.com.broadcast(
                  this.text.escapeHTML(
                      "Posted ban #" +this.security.database.banCtr
                  ) +
-                     "<hr/>" + this.theme.issuehtml(o) +
-                     "<hr/>"
+                     "" + this.theme.issuehtml(o) +
+                     ""
                  ,
                  this.theme.CRITICAL,
                  true
