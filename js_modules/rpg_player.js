@@ -159,7 +159,21 @@
          if (!src) return;
          else { player.src = src; player.os = sys.os(src); }
 
-         if (player.battle) return;
+         l0: if (player.battle)
+         {
+             if (!this.getBattle(ctx.rpg, player.battle))
+             {
+                 player.battle = null;
+
+                 try
+                 {
+                     throw new Error("Dead battle detected.");
+                 } catch (e) { this.script.error(e); }
+
+                 break l0;
+             }
+             return;
+         }
          // Regular player events don't occur while the player is in a battle!
 
          if (!this.areas[player.area] || player.hp <= 0)
@@ -177,6 +191,8 @@
          this.playerUpdateStats(player);
 
          this.entityTick(player);
+
+
 
 
          for (var x in player.activeActions)
