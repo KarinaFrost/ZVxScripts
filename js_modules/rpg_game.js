@@ -29,7 +29,7 @@
 /** @scope script.modules.rpg_game */
 ({
 
-     require: ["io", "com", "theme", "commands", "util", "logs", "less", "color", "user"],
+     require: ["io", "com", "theme", "commands", "util", "logs", "less", "color", "user", 'chat'],
 
      include: ["rpg_areas", "rpg_player", "rpg_entity", "rpg_actions",
                "rpg_mobs", "rpg_equips", "rpg_materials", "rpg_moves",

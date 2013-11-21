@@ -142,12 +142,12 @@
          {
              var username, password;
 
-             this.registerCapture(src, getUName, this);
+             this.chat.registerCapture(src, getUName, this);
 
              this.com.message(src, "Please enter the username into the chat:");
              function getUName (src2, msg, chan2)
              {
-                 this.registerCapture(src, getPassWd, this);
+                 this.chat.registerCapture(src, getPassWd, this);
                  this.com.message(src, "Please enter the transfer password into the chat:");
                  username = msg;
              }
