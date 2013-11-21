@@ -387,6 +387,15 @@
              this.less.less(src, msgs.join("<br />"), true, chan);
          },
 
+         stop:
+         function (src, sub, chan, ctx, cmd)
+         {
+
+             ctx.player.activeActions = [];
+
+             this.com.message(src, "You stopped doing everything.", this.theme.RPG, false, chan);
+         },
+
          watch:
          function (src, sub, chan, ctx, cmd)
          {

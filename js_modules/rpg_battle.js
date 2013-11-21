@@ -521,9 +521,19 @@
 
                      }
 
-                     var roundnum = battle.round;
+                     var roundnum = 0;
+                     var eroundnum = battle.round;
 
-                     if (roundnum > 100) roundnum = 100 + (roundnum - 100) / 2;
+                     for (x2 = 0; x2 < eroundnum && x2 < 100; x2++) roundnum++;
+                     for (; x2 < eroundnum && x2 < 50; x2++) roundnum += 2/3;
+                     for (; x2 < eroundnum && x2 < 100; x2++) roundnum += 1/2;
+                     for (; x2 < eroundnum && x2 < 300; x2++) roundnum += 1/3;
+                     for (; x2 < eroundnum && x2 < 1000; x2++) roundnum += 1/5;
+                     for (; x2 < eroundnum; x2++) roundnum += 1/10;
+
+                     roundnum = Math.round(roundnum);
+
+                     //if (roundnum > 100) roundnum = 100 + (roundnum - 100) / 2;
                      var mult = nn(Math.min(roundnum*10 + 0/*nn(battle.xexp)*/, roundnum*15)/tot);
 
                      for (x in trackr)
