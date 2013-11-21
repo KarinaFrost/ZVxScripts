@@ -192,6 +192,53 @@
              components: [{ target: "opp", base:5, offense: "general", defense: "general", desc: "%s attacked %t!", count:1 }]
          },
 
+         snowb:
+         {
+             name: "Snowball", element: "ice", exp: "mag", desc: "The user fires an extra cold snowball at the enemy!", cost: { mp: 5, sp:5, msp:1 }, threshold: 60*10,
+             components: [{ target: "opp", base:15, move: "ice", desc: "%s threw a snow ball at %t!", count:1 }], next: ["snowdr"]
+
+
+         },
+
+         snowdr:
+         {
+             name: "Snow Drift", element: "ice", exp: "mag", desc: "The user brings snow upon thy enemies!", cost: { mp: 15, msp: 3 }, threshold: 60*15, next: ["icecl"],
+             components: [{ target: "opp", base:35, move: "ice", desc: "%s attacked %t with lots of snow!", count:1 }]
+
+         },
+
+         icecl:
+         {
+             name: "Icicles", element: "ice", exp: "mag", desc: "The user drops icicles upon thy foes!", threshold: 60*25, cost: {mp: 35, msp: 5 },
+             components: [{ target: "opp", base:95, move: "ice", desc: "%s dropped icicles on %t!", count:1 }], next: ["iceball"]
+
+
+         },
+
+         iceball:
+         {
+             name: "Ice Ball", element: "ice", exp: "mag", desc: "The user throws a ball of ice at thy foes!", threshold: 60*45, cost: {mp: 80, msp: 5 },
+             components: [{ target: "opp", base:140, move: "ice", desc: "%s threw an ice ball at %t!", count:1 }], next: ["chwave"]
+
+
+         },
+
+         chwave:
+         {
+             name: "Chilly Wave", element: "ice", exp: "mag", desc: "The user attacks their enemies with cold air!", threshold: 60*60, cost: {mp: 120, msp: 10 },
+             components: [{ target: "opp", base:220, move: "ice", desc: "%s sent frigid air at %t!", count:3 }], next: ["arcpulse"]
+
+
+         },
+
+         arcpulse:
+         {
+             name: "Arctic Pulse", element: "ice", exp: "mag", desc: "The user blasts the enemy with fridgid air!", threshold: 60*75, cost: {mp: 220, msp: 20 },
+             components: [{ target: "opp", base:550, move: "ice", desc: "%s threw a snow ball at %t!", count:1 }]
+
+
+         },
+
          thundershock:
          {
 
