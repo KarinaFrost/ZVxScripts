@@ -264,6 +264,13 @@
 
                              l4:
                              {
+                                 if (!this.skills[ar[x2]])
+                                 {
+                                     try
+                                     {
+                                         throw new Error("Skill '" + ar[x2] + "' does not exist!");
+                                     } catch (e) { this.script.error(e); }
+                                 }
                                  if (!this.skills[ar[x2]].prereq) break l4;
 
                                  for (x3 in this.skills[ar[x2]].prereq)
