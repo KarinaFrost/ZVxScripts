@@ -40,7 +40,7 @@
 
 
          perm: "KICK",
-         
+
          code: function (src, cmd)
          {
              var kicklist = [];
@@ -57,7 +57,7 @@
              if (cmd.flags.silent && !this.user.hasPerm(src, "SILENT"))
              {
                  this.com.message(src, "Silent option: Permission denied.", this.theme.WARN);
-                 cmd.flags.force = false;
+                 cmd.flags.silent = false;
              }
 
              for (var x in cmd.args)
