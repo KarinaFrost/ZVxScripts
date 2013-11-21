@@ -229,16 +229,17 @@
                      {
 
 
-                     //ctx.attacker[x2] -= ctx.move.cost[x2]/3;
-                     this.com.message(pids, ctx.attacker.name + " tried to use "  + ctx.move.name + " but didn't have enough " + x2.toUpperCase() + "!",
-                                      this.theme.GAME, false, ctx.chan);
+                         //ctx.attacker[x2] -= ctx.move.cost[x2]/3;
+                         this.com.message(pids, ctx.attacker.name + " tried to use "  + ctx.move.name + " but didn't have enough " + x2.toUpperCase() + "!",
+                                          this.theme.GAME, false, ctx.chan);
 
-                     if (attacker.type == "player")
-                     {
-                         x3 = DAMAGECONV[x2];
-                         battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) +  ctx.move.cost[x2]*5;
+                         if (attacker.type == "player")
+                         {
+                             x3 = DAMAGECONV[x2];
+                             battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) +  ctx.move.cost[x2]*5;
+                         }
+                         continue roundLoop;
                      }
-                     continue roundLoop;
                  }
 
                  for (x2 in move.cost)
@@ -424,7 +425,7 @@
              }
 
 
-         }
+             }
 
 
 
@@ -566,7 +567,7 @@
              //print("Deletebattle " + ctx.battleId);
              //delete rpg.battles[ctx.battleId];
          }
-     },
+         },
 
      pidsOfBattle:
      function (battle, chan)
