@@ -69,13 +69,13 @@
                          {
                              if (adj[x] == to)
                              {
-                                 steps += 10;
+                                 steps = 10;
                                  break l1;
                              }
                          }
                          else if (adj[x].area == to)
                          {
-                             steps += adj[x].distance;
+                             steps = adj[x].distance;
                              break l1;
                          }
                      } // end for loop
