@@ -48,7 +48,7 @@
 
          slime:
          {
-             name: "Slime",
+             name: "Slime", attr: {wet: true},
              desc: "A slimy slime!",
              base: 120,
              drops: [{ prob: 0.1, item: "goo", count: 1 }],
@@ -57,7 +57,7 @@
 
          slime2:
          {
-             name: "Big Slime",
+             name: "Big Slime", attr: {wet: true},
              desc: "Larger than average slime.",
              base: 480,
              drops: [{ prob: 0.14, item: "goo", count: 1 }],
@@ -67,7 +67,7 @@
 
          slime3:
          {
-             name: "Large Slime",
+             name: "Large Slime", attr: {wet: true},
              desc: "Larger than average slime.",
              base: 960,
              drops: [{ prob: 0.14, item: "goo", count: 2 }],
@@ -77,7 +77,7 @@
 
          slime4:
          {
-             name: "Huge Slime",
+             name: "Huge Slime", attr: {wet: true},
              desc: "Larger than average slime.",
              base: 1440,
              drops: [{ prob: 0.16, item: "goo", count: 3 }],
@@ -87,7 +87,7 @@
 
          slime5:
          {
-             name: "Enormous Slime",
+             name: "Enormous Slime", attr: {wet: true},
              desc: "Larger than average slime.",
              base: 2160,
              drops: [{ prob: 0.16, item: "goo", count: 4 }],
@@ -97,7 +97,7 @@
 
          slime6:
          {
-             name: "Giant Slime",
+             name: "Giant Slime", attr: {wet: true},
              desc: "Larger than average slime.",
              base: 3240,
              drops: [{ prob: 0.18, item: "goo", count: 5 }],
@@ -107,7 +107,7 @@
 
          slime7:
          {
-             name: "Mega Slime",
+             name: "Mega Slime", attr: {wet: true},
              desc: "Larger than average slime.",
              base: 3600*2,
              drops: [{ prob: 0.2, item: "goo", count: 6 }],
@@ -117,7 +117,7 @@
 
          slime8:
          {
-             name: "Giga Slime",
+             name: "Giga Slime", attr: {wet: true},
              desc: "Larger than average slime.",
              base: 3600*4.5,
              drops: [{ prob: 0.2, item: "goo", count: 6 }],
@@ -127,7 +127,7 @@
 
          slimed:
          {
-             name: "Giga Slime Dragon",
+             name: "Giga Slime Dragon", attr: {wet: true, flying: true},
              desc: "lolwut.",
              base: 3600*9,
              drops: [{ prob: 1, item: "goo", count: 8 }],
@@ -225,6 +225,14 @@
          {
              name: "X Shell Vespir",
              base: 41600, str: 3600, sta: 36600,
+             attr: {ghost: true},
+             plan: [{prob:5, skill:"disexpl"}]
+         },
+
+         xshell3:
+         {
+             name: "X Shell Exolesco",
+             base: 72600, str: 3600, sta: 55600,
              attr: {ghost: true},
              plan: [{prob:5, skill:"disexpl"}]
          },
