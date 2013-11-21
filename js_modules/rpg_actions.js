@@ -392,6 +392,8 @@
          {
 
              var plname = ctx.action.match(/watch(?:[,\/| ]([^;]+)$)?/)[1];
+
+
              if (!plname && !ctx.player.watching)
              {
                  this.com.message(src,  "Type a player name.", this.theme.RPG, false, chan);
@@ -400,7 +402,7 @@
 
              if (ctx.player.watching)
              {
-                 var bat = this.getBattle(ctx.rpg, ctx.player.battle);
+                 var bat = this.getBattle(ctx.rpg, ctx.player.watching);
                  if (bat) bat.watchers.splice(bat.watchers.indexOf(ctx.player.name.toLowerCase(), 1));
                  ctx.player.watching = null;
              }
