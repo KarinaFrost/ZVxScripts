@@ -149,6 +149,13 @@
              return defense;
          },
 
+         magical:
+         function(ctx)
+         {
+             var defense = ctx.target.defpower;
+             return defense;
+         },
+
          electric:
          function(ctx)
          {
