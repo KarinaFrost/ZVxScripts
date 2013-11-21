@@ -187,7 +187,7 @@
 
          attack:
          {
-             name: "Attack", element: "physical", exp: "res", next: ["psyburst", "heal", "shadows", "punch", "thundershock" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
+             name: "Attack", element: "physical", exp: "res", next: ["psyburst", "heal", "shadows", "punch", "thundershock", "snowb" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
              desc: "A basic attack",
              components: [{ target: "opp", base:5, offense: "general", defense: "general", desc: "%s attacked %t!", count:1 }]
          },
