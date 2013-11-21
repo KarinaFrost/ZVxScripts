@@ -112,6 +112,8 @@
          if (this.database.games[rpgname])
          {
              this.activeState[rpgname] = { players: {} };
+
+
              return this.database.games[rpgname];
          }
 
@@ -120,7 +122,7 @@
              var newr = this.database.games[rpgname] =
                  {
                      name: rpgname,
-                     areas: JSON.parse(JSON.stringify(this.areas)),
+                     //areas: JSON.parse(JSON.stringify(this.areas)),
                      materials: {},
 //                     players: {},
                      pdb: {},
@@ -252,6 +254,8 @@
              }
 
              var rpg = this.getRPG(rpgname);
+
+             delete rpg.areas;
 
              if (this.hooks[rpgname])
              {
