@@ -274,6 +274,13 @@
      {
          // min
          return 1 - (1 / Math.log(q + 4));
+     },
+
+     lMult:
+     function (q)
+     {
+         // min
+         return 0.3 + (0.7 / Math.log(q + Math.E));
      }
 
 

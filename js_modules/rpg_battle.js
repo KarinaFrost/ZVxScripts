@@ -210,10 +210,27 @@
 
              if (move.cost)
              {
-                 for (x2 in move.cost) if (attacker[x2] <= move.cost[x2])
+
+                 for (x2 in move.cost)
                  {
+
+                     var mul = 0.8;
+
+                     if (attacker.type == "player")
+                     {
+                         mul = this.lMult(attacker.exp[move.shortname]/(this.skills[move.shortname].threshold+1));
+                     }
+
+                     var cos = Math.ceil(move.cost[x2] * mul);
+
+                     nn(cos);
+
+                     if (attacker[x2] <= cos)
+                     {
+
+
                      //ctx.attacker[x2] -= ctx.move.cost[x2]/3;
-                     this.com.message(pids, ctx.attacker.name + " tried to use "  + ctx.move.name + " but didn't have enough " + x2.toUpperCase(),
+                     this.com.message(pids, ctx.attacker.name + " tried to use "  + ctx.move.name + " but didn't have enough " + x2.toUpperCase() + "!",
                                       this.theme.GAME, false, ctx.chan);
 
                      if (attacker.type == "player")
@@ -226,7 +243,16 @@
 
                  for (x2 in move.cost)
                  {
-                     ctx.attacker[x2] -= ctx.move.cost[x2];
+                     var mul = 0.8;
+
+                     if (attacker.type == "player")
+                     {
+                         mul = this.lMult(attacker.exp[move.shortname]/(this.skills[move.shortname].threshold+1));
+                     }
+
+                     var cos = Math.ceil(move.cost[x2] * mul);
+                     nn(cos);
+                     ctx.attacker[x2] -= cos;
 
                      if (attacker.type == "player" && ctx.attacker[x2] <= ctx.attacker["max" + x2]/2)
                      {
