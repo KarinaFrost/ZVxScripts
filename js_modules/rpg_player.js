@@ -164,11 +164,12 @@
          {
              if (!(_tmp = this.getBattle(ctx.rpg, player.battle)))
              {
-                 player.battle = null;
+
                  try
                  {
-                     throw new Error("Dead battle detected.");
+                     throw new Error("Dead battle detected, no such battle ID: "+player.battle+" for "+player.name+".");
                  } catch (e) { this.script.error(e); }
+                 player.battle = null;
                  break l0;
              }
 
@@ -177,11 +178,11 @@
                  return; // normal batte
              }
 
-             player.battle = null;
              try
              {
-                 throw new Error("Dead battle detected.");
+                 throw new Error("Dead battle detected, not in battle ID: "+player.battle+" for "+player.name+".");
              } catch (e) { this.script.error(e); }
+             player.battle = null;
 
          }
          // Regular player events don't occur while the player is in a battle!
