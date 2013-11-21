@@ -191,7 +191,7 @@
                  }
                  else
                  {
-                     this.com.broadcast(src, newp.name + "'s RPG character transfered to " + this.user.name(src));
+                     this.com.broadcast(newp.name + "'s RPG character transfered to " + this.user.name(src));
                  }
              }
 

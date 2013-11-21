@@ -76,6 +76,8 @@
      {
          var pid, pobj, np, x, pid2;
 
+         if (playerto.toLowerCase() == playerfrom.toLowerCase()) return 2;
+
          pid = this.database.games[rpgname].pdb[playerfrom.toLowerCase()];
          if (!pid) return 1;
 
@@ -87,6 +89,7 @@
          }
 
          this.database.games[rpgname].pdb[playerto.toLowerCase()] = pid;
+         delete this.database.games[rpgname].pdb[playerfrom.toLowerCase()];
 
          return 0;
      },
