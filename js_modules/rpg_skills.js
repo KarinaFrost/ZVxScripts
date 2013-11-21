@@ -701,19 +701,19 @@
          blood:
          {
              name: "Devil's Blood", exp: "mag", desc: "The user sacrafices their own blood to lay a curse on the enemy", cost: { hp: 55, mp: 10, msp: 10 }, threshold: 60*15, next: ["sarachith"],
-             components: [{ target: "opp", base: 85, move: "ghost", desc: "%s drew blood unto the ground and it curses %t!", count: 1}]
+             components: [{ target: "opp", base: 110, move: "ghost", desc: "%s drew blood unto the ground and it curses %t!", count: 1}]
 
          },
 
          sarachith:
          {
              name: "Sarachith", exp: "res", desc: "The user users a contract of demons to injure their opponent.", cost: { hp: 85, mp: 10, msp: 10 }, threshold: 60*25, next: ["ghostbody"],
-             components: [{ target: "opp", base: 175, move: "ghost", desc: "%s exchanged a contract with demons and it curses %t!", count: 1}]
+             components: [{ target: "opp", base: 225, move: "ghost", desc: "%s exchanged a contract with demons and it curses %t!", count: 1}]
          },
 
          ghostbody:
          {
-             name: "Ghost Body", exp: "mag", desc: "The user empowers ghostly energy.", cost: {msp: 400, msp: 200}, threshold: 60*45,
+             name: "Ghost Body", exp: "mag", desc: "The user empowers ghostly energy.", cost: {mmp: 200, msp: 100}, threshold: 60*45,
              components: [{ target: "self", base: 10, move: "ghostify", desc: "%s was wrapped in shadows!", count:1}]
          },
 
