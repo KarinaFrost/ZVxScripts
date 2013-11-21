@@ -558,7 +558,7 @@
          healrain:
          {
 
-             name: "Healing Rain", cost: {mp:67, msp: 45}, exp: "mag", next: ["elixarai",  "altruist"], threshold: 60*25,
+             name: "Healing Rain", cost: {mp:67, msp: 45}, exp: "mag", next: ["elixarai"], threshold: 60*25,
              desc: "Creates a shower of magical energy that heals all allies who touch it.",
              components: [{ target: "ally", base: 120, move: "heal", desc: "%t bathed in the healing rain", count: 9}]
 
