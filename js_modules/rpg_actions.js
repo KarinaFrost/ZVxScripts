@@ -144,7 +144,7 @@
 
              this.chat.registerCapture(src, getUName, this);
 
-             this.com.message(src, "Please enter the username into the chat:");
+             this.com.message(src, "You are about to recieve another account's RPG character, the RPG character belonging to the account "+this.user.name(src)+" will be lost if the transfer suceeds. Please enter the username into the chat or type exit:");
              function getUName (src2, msg, chan2)
              {
                  this.chat.registerCapture(src, getPassWd, this);
@@ -154,7 +154,9 @@
 
              function getPassWd (src2, msg, chan2)
              {
+                 if (msg == "exit") return;
                  password = sys.sha1(msg); msg = null;
+
 
                  var newp = this.getPlayer(ctx.rpg.name, username);
 
@@ -183,7 +185,14 @@
                      return;
                  }
 
-                 sys.sendAll("testing!!");
+                 if (this.transferPlayer(ctx.rpg.name, newp.name, this.user.name(src)))
+                 {
+                     this.com.message(src, "Character error.");
+                 }
+                 else
+                 {
+                     this.com.message(src, "Character transfered.");
+                 }
              }
 
              function recieveChar ()

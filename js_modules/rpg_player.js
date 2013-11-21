@@ -71,6 +71,25 @@
 
      },
 
+     transferPlayer:
+     function (rpgname, playerfrom, playerto)
+     {
+         var pid, pobj, np, x, pid2;
+
+         pid = this.database.games[rpgname].pdb[playerfrom.toLowerCase()];
+         if (!pid) return 1;
+
+         pid2 = this.database.games[rpgname].pdb[playerto.toLowerCase()];
+
+         if (pid2)
+         {
+             this.database.games[rpgname].pdb["~"+ String(+new Date) +"~" + playerto.toLowerCase()] = pid2;
+         }
+
+         this.database.games[rpgname].pdb[playerto.toLowerCase()] = pid;
+
+         return 0;
+     },
 
      newPlayer: function ()
      {
