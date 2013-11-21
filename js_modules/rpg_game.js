@@ -264,6 +264,8 @@
              }
 
              this.startRPGinChan(rpgname, chan);
+
+             this.com.broadcast("RPG \""+rpg.name+"\" loaded in #" + sys.channel(chan) + "!");
          }
      },
 
