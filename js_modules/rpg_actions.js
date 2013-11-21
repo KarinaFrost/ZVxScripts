@@ -109,6 +109,91 @@
 
          },
 
+         allowtransfer:
+         function (src, sub, chan, ctx)
+         {
+             const cons = ["s", "t", 'r','l','p','v','z','n','m','th','sh','f','c'];
+             const vowls = ['a','e','i','o','u','ae','ie','ou', 'oo'];
+
+             var q = Math.floor(Math.random()*3)+4;
+
+             var password = "";
+
+
+             for (var i = 0; i < q; i++)
+             {
+                 if (i%2 == 0)
+                 {
+                     password += cons[Math.floor(Math.random()*cons.length)];
+                 }
+                 else
+                 {
+                     password += vowls[Math.floor(Math.random()*vowls.length)];
+                 }
+             }
+
+             ctx.player.transfer = {password: sys.sha1(password), attempts: 3};
+
+             this.com.message(src, "Your transfer password is: " + password);
+         },
+
+         recievechar:
+         function (src, sub, chan, ctx, cmd)
+         {
+             var username, password;
+
+             this.registerCapture(src, getUName, this);
+
+             this.com.message(src, "Please enter the username into the chat:");
+             function getUName (src2, msg, chan2)
+             {
+                 this.registerCapture(src, getPassWd, this);
+                 this.com.message(src, "Please enter the transfer password into the chat:");
+                 username = msg;
+             }
+
+             function getPassWd (src2, msg, chan2)
+             {
+                 password = sys.sha1(msg); msg = null;
+
+                 var newp = this.getPlayer(ctx.rpg.name, username);
+
+                 if (!newp)
+                 {
+                     this.com.message(src, "Couldn't find that player.");
+                     return;
+                 }
+
+                 if (!newp.transfer)
+                 {
+                     this.com.message(src, "Type /rpg allowtransfer on the other account first");
+                     return;
+                 }
+
+                 if (newp.transfer.password != password)
+                 {
+                     this.com.message(src, "Password mismatch. Logged in the server security logs. " + --newp.transfer.attempts + " of 3 password attempts remaining before /rpg allowtransfer must be reisssued.", this.theme.CRITICAL);
+                     this.logs.logMessage(this.logs.WARN, "Password mismatch. " + this.user.name(src) + " (IP: "+sys.ip(src)+") tried to recieve the RPG character belonging to " + newp.name + " but entered the wrong password!");
+
+                     if (newp.transfer.attempts <= 0 || !newp.transfer.attempts)
+                     {
+                         delete newp.transfer.attempts;
+                     }
+
+                     return;
+                 }
+
+                 sys.sendAll("testing!!");
+             }
+
+             function recieveChar ()
+             {
+
+             }
+
+
+         },
+
          dig: function (src, sub, chan, ctx)
          {
              ctx.player.activeActions.push({ timer: 40, done: "dig", tick: "digTick" });
