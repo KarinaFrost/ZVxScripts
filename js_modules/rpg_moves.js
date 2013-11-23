@@ -391,6 +391,11 @@
              offense: "magical", defense: "ghost", damage: "ghost"
          },
 
+         ice:
+         {
+             offense: "magical", defense: "ice", damage: "ice"
+         },
+
          dark:
          {
              offense: "magical", defense: "ghost", damage: "dark"

@@ -344,7 +344,39 @@
          return ipAddr == subAddr;
 
 
+     },
+
+     p: function (a, b)
+     {
+         var out = 1;
+         for (var i = 0; i < b; i++) out *= a--;
+
+         return out;
+         // return this.factorial(a)/this.factorial(a-b);
+     },
+
+     factorial:
+     function (a)
+     {
+         a = Number(a);
+         var o = 1;
+
+         while (a > 1)
+         {
+             o *= a; a--;
+         }
+
+         return o;
+     },
+
+     c:
+     function(a, b)
+     {
+         a = Number(a); b = Number(b);
+
+         return this.p(a, b) / this.factorial(b);
      }
+
 
 
 

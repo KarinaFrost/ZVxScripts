@@ -25,7 +25,7 @@
          var x;
 
          e.sp += e.maxsp/30;
-         e.msp += e.maxmsp/15;
+         e.msp += e.maxmsp/20;
 
          if (e.attr && e.attr.ghost)
          {
@@ -54,16 +54,17 @@
          if (e.sp > e.maxsp / 3)
              // Has a fairly large amount of stamina
          {
-             e.hp += e.maxhp/60;
+             e.hp += e.maxhp/90;
              // Recover some HP
          }
-         if (e.sp > e.maxsp)
-             // Too much stamina!
+
+         if (e.sp >= e.maxsp)
+             // high sp
          {
              e.sp = e.maxsp;
              // Remove overflow
 
-             e.hp += e.maxhp/90;
+             e.hp += e.maxhp/120;
              // recover extra hp!
          }
 
@@ -81,7 +82,7 @@
          if (e.msp > e.maxmsp / 3)
              // Recover mana
          {
-             e.mp += e.maxmp/20;
+             e.mp += e.maxmp/60;
              // increase
          }
 
