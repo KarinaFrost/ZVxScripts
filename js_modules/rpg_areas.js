@@ -216,8 +216,29 @@
          darkforest12:
          {
              name: "Dark Forest [strange place]", desc: "Something tells you this place is dangerous.",
-             adjc: [{area:"darkforest11", distance: 90}],
+             adjc: [{area:"darkforest11", distance: 90},{area:"darkforest13", distance: 90}],
              battle: [{min:1, max:2, mob: "xshell", prob: 0.7}, {min:0, max:2, mob: "xshell2", prob: 0.5}]
+         },
+
+         darkforest13:
+         {
+             name: "Dark Forest [odd place]", desc: "Something tells you this place is dangerous.",
+             adjc: [{area:"darkforest14", distance: 90}],
+             battle: [{min:1, max:2, mob: "xshell2", prob: 0.7}]
+         },
+
+         darkforest14:
+         {
+             name: "Dark Forest [evil place]", desc: "Something tells you this place is dangerous.",
+             adjc: [{area:"darkforest15", distance: 90}],
+             battle: [{min:1, max:2, mob: "xshell2", prob: 0.7}, {min:0, max:2, mob: "xshell3", prob: 0.5}]
+         },
+
+         darkforest15:
+         {
+             name: "Dark Forest [queer place]", desc: "Something tells you this place is dangerous.",
+             adjc: [{area:"darkforest12", distance: 90}],
+             battle: [{min:1, max:2, mob: "xshell3", prob: 0.7}, {min:0, max:2, mob: "xshell2", prob: 0.5}]
          },
 
 
