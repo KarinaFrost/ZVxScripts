@@ -4,7 +4,7 @@
 
      loadModule: function()
      {
-         this.io.registerConfig(this, {enabled: true, type: "remote", pathway: "https://raw.github.com/po-devs/po-server-goodies/master/proxy_list.txt"});
+         this.io.registerConfig(this, {enabled: true, type: "remote", pathway: "https://raw.github.com/ArchZombie/proxylist/master/proxylist.txt"});
 
          this.script.registerHandler("beforeLogIn", this);
 
