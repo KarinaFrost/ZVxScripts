@@ -141,45 +141,45 @@
 
          diswave:
          {
-             name: "Distortion Wave", cost: {msp: 2}, threshold: 60*15, next: ["disbrk"],
+             name: "Distortion Wave", cost: {msp: 2}, threshold: 3600/2, next: ["disbrk"],
              components: [{target: "opp", base: 14, move: "magical", desc: "%s blasted %t with a distortion wave!", count:1}]
          },
 
          disbrk:
          {
-             name: "Distortion Break", cost: {msp: 4}, threshold: 60*35, next: ["dispulse"],
+             name: "Distortion Break", cost: {msp: 4}, threshold: 3600, next: ["dispulse"],
              components: [{target: "opp", base: 34, move: "magical", desc: "%s caught %t in a distortion fissure!", count:1}]
          },
 
          dispulse:
          {
-             name: "Distortion Pulse", cost: {msp: 6}, threshold: 60*45, next: ["disblast"],
+             name: "Distortion Pulse", cost: {msp: 6}, threshold: 3600*2, next: ["disblast"],
              components: [{target: "opp", base: 74, move: "magical", desc: "%s blasted %t with a distortion pulse!", count:1}]
          },
 
          disblast:
          {
-             name: "Distortion Blast", cost: {msp: 8}, next: ["disfield"], threshold: 60*60,
-             components: [{target: "opp", base: 104, move: "magical", desc: "%s blasted %t with a surge of distortion energy!", count:1}]
+             name: "Distortion Blast", cost: {msp: 8}, next: ["disfield"], threshold: 3600*3,
+             components: [{target: "opp", base: 154, move: "magical", desc: "%s blasted %t with a surge of distortion energy!", count:1}]
          },
 
          disfield:
          {
-             name: "Distortion Field", cost: {msp: 10}, next: ["diswarp"], threshold: 60*85,
-             components: [{target: "opp", base: 104, move: "magical", desc: "%s captured %t within a distortion field!", count:4}]
+             name: "Distortion Field", cost: {msp: 10}, next: ["diswarp"], threshold: 3600*6,
+             components: [{target: "opp", base: 234, move: "magical", desc: "%s captured %t within a distortion field!", count:4}]
          },
 
          diswarp:
          {
-             name: "Distortion Warp", cost: {msp: 14}, next: ["disexpl"], threshold: 3600*2.2,
-             components: [{target: "opp", base: 204, move: "magical", desc: "%s captured %t within a distortion warp!", count:4}]
+             name: "Distortion Warp", cost: {msp: 14}, next: ["disexpl"], threshold: 3600*8,
+             components: [{target: "opp", base: 554, move: "magical", desc: "%s captured %t within a distortion warp!", count:4}]
          },
 
          disexpl:
          {
-             name: "Distortion Explosion", threshold: 3600* 3.5,
+             name: "Distortion Explosion", threshold: 3600*14,
              cost: {msp: 16}, next: [],
-             components: [{target: "opp", base: 304, move: "magical", desc: "%s released an explosion of distortion energy! It struk %t!", count:4}]
+             components: [{target: "opp", base: 904, move: "magical", desc: "%s released an explosion of distortion energy! It struk %t!", count:4}]
          },
 
 
