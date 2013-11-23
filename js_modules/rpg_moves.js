@@ -418,7 +418,17 @@
 
          boostmsp:
          {
-             offense: "none", defense: "none", damage: "boostmsp"
+             offense: "none", defense: "none", damage: "healmsp"
+         },
+
+         boostmp:
+         {
+             offense: "none", defense: "none", damage: "healmp"
+         },
+
+         boostsp:
+         {
+             offense: "none", defense: "none", damage: "healsp"
          },
 
          ghostify:
