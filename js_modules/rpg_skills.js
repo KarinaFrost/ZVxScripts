@@ -192,6 +192,14 @@
              components: [{ target: "opp", base:5, offense: "general", defense: "general", desc: "%s attacked %t!", count:1 }]
          },
 
+         fireb:
+         {
+             name: "Fireball", element: "fire", exp: "mag", desc: "The user fires an extra cold snowball at the enemy!", cost: { mp: 5, sp:5, msp:1 }, threshold: 60*10,
+             components: [{ target: "opp", base:15, move: "ice", desc: "%s threw a snow ball at %t!", count:1 }], next: ["snowdr"]
+
+
+         },
+
          snowb:
          {
              name: "Snowball", element: "ice", exp: "mag", desc: "The user fires an extra cold snowball at the enemy!", cost: { mp: 5, sp:5, msp:1 }, threshold: 60*10,
@@ -233,20 +241,26 @@
 
          arcpulse:
          {
-             name: "Arctic Pulse", element: "ice", exp: "mag", desc: "The user blasts the enemy with fridgid air!", threshold: 60*75, cost: {mp: 220, msp: 20 },
+             name: "Arctic Pulse", element: "ice", exp: "mag", desc: "The user blasts the enemy with fridgid air!", threshold: 60*75, cost: {mp: 220, msp: 20 }, next: ["arcshock"],
              components: [{ target: "opp", base:550, move: "ice", desc: "%s blasted %t with a blast of fridgid air!", count:3 }]
          },
 
          arcshock:
          {
-             name: "Arctic Shock", element: "ice", exp: "mag", desc: "The user blasts the enemy with fridgid air!", threshold: 3600*3, cost: {mp: 220, msp: 20 },
+             name: "Arctic Shock", element: "ice", exp: "mag", desc: "The user blasts the enemy with a shockwave of fridgid air!", threshold: 3600*3, cost: {mp: 220, msp: 20 }, next: ["arcfreeze"],
              components: [{ target: "opp", base:1100, move: "ice", desc: "%s blasted %t with a shockwave of fridgid air!", count:3 }]
          },
 
          arcfreeze:
          {
-             name: "Arctic Freeze", element: "ice", exp: "mag", desc: "The user blasts the enemy with fridgid air!", threshold: 3600*9, cost: {mp: 220, msp: 20 },
-             components: [{ target: "opp", base:1580, move: "ice", desc: "%s blasted %t with a shockwave of fridgid air!", count:3 }]
+             name: "Arctic Freeze", element: "ice", exp: "mag", desc: "The user blasts the enemy with frozen air!", threshold: 3600*9, cost: {mp: 400, msp: 40 },
+             components: [{ target: "opp", base:1880, move: "ice", desc: "%s blasted %t with a shockwave of frozen air!", count:3 }]
+         },
+
+         blz:
+         {
+             name: "Blizzard", element: "ice", exp: "mag", desc: "The user blasts the enemy with hail, snow, and rain!", threshold: 3600*24, cost: {mp: 820, msp: 30 },
+             components: [{ target: "opp", base:2880, move: "ice", desc: "%s summoned a terrible blizzard that chilled %t!", count:5 }]
          },
 
          thundershock:
@@ -286,9 +300,23 @@
 
          plasmabomb:
          {
-             name: "Plasma Bomb", cost: {mp:350, msp:30}, exp: "mag", next: [], threshold: 3600,  attr: {air: true},
+             name: "Plasma Bomb", cost: {mp:350, msp:30}, exp: "mag", next: ['plasmavtr'], threshold: 3600,  attr: {air: true},
              desc: "Fires a ball of plasma at an enemy.",
              components: [{ target: "opp", base:640, offense: "magical", defense: "electric", desc: "%s shot hot plasma at %t!", count:1 }]
+         },
+
+         plasmavtr:
+         {
+             name: "Plasma Vortex", cost: {mp:550, msp:50}, exp: "mag", threshold: 3600*3,  attr: {air: true}, next: ["plasmastorm"],
+             desc: "A vortex of plasma.",
+             components: [{ target: "opp", base:1120, offense: "magical", defense: "electric", desc: "%s trapped %t in a vortex of plasma!", count:1 }]
+         },
+
+         plasmastorm:
+         {
+             name: "Plasma Storm", cost: {mp:950, msp:90}, exp: "mag",  threshold: 3600*9,  attr: {air: true},
+             desc: "A storm of plasma.",
+             components: [{ target: "opp", base:2120, offense: "magical", defense: "electric", desc: "%s summoned a plasma storm that zapped and burned %t!", count:1 }]
          },
 /*
          bomb:

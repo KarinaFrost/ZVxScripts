@@ -147,7 +147,7 @@
 
          if (!battle.tracker) battle.tracker = new Object;
          if (!battle.round) { battle.round = 0; battle.xexp = 0; }
-         if (!battle.droppedItems) battle.droppedItems = [];
+         if (!battle.droppedItems) battle.droppedItems = {};
 
          tracker = battle.tracker;
          battle.round++;
@@ -488,7 +488,7 @@
                  }
              }
 
-             for (i = 0; i < dps.length; i++)
+             for (var i in dps)
              {
                  var msg = [];
                  for (x in dps[i])
