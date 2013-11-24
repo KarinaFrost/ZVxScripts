@@ -297,7 +297,7 @@
      function (q)
      {
          // min
-         return 1 - (1 / (q + 1.5));
+         return 1 - (1 / (Math.pow(q, 0.5) + 1.5));
      },
 
      lMult:

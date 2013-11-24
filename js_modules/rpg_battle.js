@@ -505,7 +505,7 @@
                      }
                  }
 
-                 if (msg.length) this.com.message(pids, players[i] + " got " + msg.join(", ") + "!", this.theme.RPG, false, chan);
+                 if (msg.length) this.com.message(pids, players[i].name + " got " + msg.join(", ") + "!", this.theme.RPG, false, chan);
              }
 
 
