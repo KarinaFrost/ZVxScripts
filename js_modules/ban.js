@@ -174,7 +174,7 @@
                  this.text.escapeHTML(
                      "Posted ban #" +this.security.database.banCtr
                  ) +
-                     "" + this.theme.issuehtml(o) +
+                     "<br/>" + this.theme.issuehtml(o) +
                      ""
                  ,
                  this.theme.CRITICAL,
