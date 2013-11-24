@@ -181,6 +181,7 @@
              {
 //                 this.entityUpdateStats(entities[x]);
                  if (entities[x].xexp) battle.xexp += Number(entities[x].xexp);
+                 entities[x].round = 1;
              }
 
              entities[x].round = (entities[x].round || 0) + 1;
