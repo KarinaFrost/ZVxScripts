@@ -179,7 +179,7 @@
          {
              if (battle.round == 1)
              {
-                 this.entityUpdateStats(entities[x]);
+//                 this.entityUpdateStats(entities[x]);
                  if (entities[x].xexp) battle.xexp += Number(entities[x].xexp);
              }
 
@@ -236,7 +236,7 @@
                          if (attacker.type == "player")
                          {
                              x3 = DAMAGECONV[x2];
-                             battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) +  ctx.move.cost[x2]*5;
+                             battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) + 50;
                          }
                          continue roundLoop;
                      }
@@ -258,7 +258,7 @@
                      if (attacker.type == "player" && ctx.attacker[x2] <= ctx.attacker["max" + x2]/2)
                      {
                          x3 = DAMAGECONV[x2];
-                         if (x3) battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) +  ctx.move.cost[x2];
+                         if (x3) battle.tracker[attacker.name.toLowerCase()][x3] = (battle.tracker[attacker.name.toLowerCase()][x3] || 0) +  10;
                      }
                  }
              }
@@ -268,10 +268,10 @@
              this.com.message(pids, ctx.attacker.name + " used "  + ctx.move.name + "!", this.theme.RPG, false, ctx.chan);
 
              //
-             if (attacker.type === "player")
+             if (attacker.type === "player" && attacker.round <= 100)
              {
                  // spd exp
-                 battle.tracker[attacker.name.toLowerCase()].spd = (battle.tracker[attacker.name.toLowerCase()].spd || 0) + (entities[0].spd - attacker.spd) / 100 + 2;
+                 battle.tracker[attacker.name.toLowerCase()].spd = (battle.tracker[attacker.name.toLowerCase()].spd || 0) + x*10;
                  // move exp
                  if (!ctx.attacker.exp[move.shortname]) ctx.attacker.exp[move.shortname] = 0;
 
@@ -529,8 +529,9 @@
                      for (; x2 < eroundnum && x2 < 50; x2++) roundnum += 2/3;
                      for (; x2 < eroundnum && x2 < 100; x2++) roundnum += 1/2;
                      for (; x2 < eroundnum && x2 < 300; x2++) roundnum += 1/3;
-                     for (; x2 < eroundnum && x2 < 1000; x2++) roundnum += 1/5;
-                     for (; x2 < eroundnum; x2++) roundnum += 1/10;
+                     for (; x2 < eroundnum && x2 < 500; x2++) roundnum += 1/5;
+                     for (; x2 < eroundnum && x2 < 700; x2++) roundnum += 1/10;
+                     for (; x2 < eroundnum && x2 < 1000; x2++) roundnum += 1/100;
 
                      roundnum = Math.round(roundnum);
 
