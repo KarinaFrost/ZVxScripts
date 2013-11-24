@@ -293,6 +293,13 @@
          return 1 - (1 / Math.log(q + 4));
      },
 
+     qMult2:
+     function (q)
+     {
+         // min
+         return 1 - (1 / (q + 1.5));
+     },
+
      lMult:
      function (q)
      {

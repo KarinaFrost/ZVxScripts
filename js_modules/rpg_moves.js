@@ -30,11 +30,11 @@
 
              if (ctx.attacker.type == "player")
              {
-                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base*1.2 || 0 + Math.E);
+                 qmlt = this.qMult2((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base*1.2 || 0 + Math.E);
              }
              else if (ctx.attacker.base)
              {
-                 qmlt = this.qMult((ctx.attacker.base)/base || 0 + Math.E);
+                 qmlt = this.qMult2((ctx.attacker.base)/base || 0 + Math.E);
              }
              return { offense: 1, qmult: qmlt};
          },
@@ -46,11 +46,11 @@
 
              if (ctx.attacker.type == "player")
              {
-                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base*1.2 || 0 + Math.E);
+                 qmlt = this.qMult2((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base*1.2 || 0 + Math.E);
              }
              else if (ctx.attacker.base)
              {
-                 qmlt = this.qMult((ctx.attacker.base)/base/3 || 0 + Math.E);
+                 qmlt = this.qMult2((ctx.attacker.base)/base/3 || 0 + Math.E);
              }
 
              return {offense: offense, qmult: qmlt };
@@ -64,11 +64,11 @@
 
              if (ctx.attacker.type == "player")
              {
-                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base*1.2 || 0 + Math.E);
+                 qmlt = this.qMult2((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base*1.2 || 0 + Math.E);
              }
              else if (ctx.attacker.base)
              {
-                 qmlt = this.qMult((ctx.attacker.base)/base/3 || 0 + Math.E);
+                 qmlt = this.qMult2((ctx.attacker.base)/base/3 || 0 + Math.E);
              }
 
              return {offense: offense, qmult: qmlt };
@@ -82,11 +82,11 @@
 
              if (ctx.attacker.type == "player")
              {
-                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base || 0 + Math.E);
+                 qmlt = this.qMult2((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base || 0 + Math.E);
              }
              else if (ctx.attacker.base)
              {
-                 qmlt = this.qMult((ctx.attacker.base)/base/3 || 0 + Math.E);
+                 qmlt = this.qMult2((ctx.attacker.base)/base/3 || 0 + Math.E);
              }
 
              return {offense: offense, qmult: qmlt };
@@ -100,11 +100,11 @@
 
              if (ctx.attacker.type == "player")
              {
-                 qmlt = this.qMult((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base/3 || 0 + Math.E);
+                 qmlt = this.qMult2((ctx.attacker.exp[ctx.move.shortname]-this.skills[ctx.move.shortname].threshold)/base/3 || 0 + Math.E);
              }
              else if (ctx.attacker.base)
              {
-                 qmlt = this.qMult((ctx.attacker.base)/base/3 || 0 + Math.E);
+                 qmlt = this.qMult2((ctx.attacker.base)/base/3 || 0 + Math.E);
              }
 
              return {offense: offense, qmult: qmlt };
