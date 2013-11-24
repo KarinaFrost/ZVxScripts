@@ -268,7 +268,7 @@
              this.com.message(pids, ctx.attacker.name + " used "  + ctx.move.name + "!", this.theme.RPG, false, ctx.chan);
 
              //
-             if (attacker.type === "player" && attacker.round <= 100)
+             if (attacker.type === "player" && attacker.round <= 250)
              {
                  // spd exp
                  battle.tracker[attacker.name.toLowerCase()].spd = (battle.tracker[attacker.name.toLowerCase()].spd || 0) + x*10;
