@@ -528,7 +528,7 @@
                      }
 
                      var roundnum = 0;
-                     var eroundnum = battle.round;
+                     var eroundnum = pl.round;
 
                      for (x2 = 0; x2 < eroundnum && x2 < 100; x2++) roundnum++;
                      for (; x2 < eroundnum && x2 < 50; x2++) roundnum += 2/3;
