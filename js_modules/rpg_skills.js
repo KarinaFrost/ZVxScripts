@@ -234,9 +234,19 @@
          arcpulse:
          {
              name: "Arctic Pulse", element: "ice", exp: "mag", desc: "The user blasts the enemy with fridgid air!", threshold: 60*75, cost: {mp: 220, msp: 20 },
-             components: [{ target: "opp", base:550, move: "ice", desc: "%s threw a snow ball at %t!", count:1 }]
+             components: [{ target: "opp", base:550, move: "ice", desc: "%s blasted %t with a blast of fridgid air!", count:3 }]
+         },
 
+         arcshock:
+         {
+             name: "Arctic Shock", element: "ice", exp: "mag", desc: "The user blasts the enemy with fridgid air!", threshold: 3600*3, cost: {mp: 220, msp: 20 },
+             components: [{ target: "opp", base:1100, move: "ice", desc: "%s blasted %t with a shockwave of fridgid air!", count:3 }]
+         },
 
+         arcfreeze:
+         {
+             name: "Arctic Freeze", element: "ice", exp: "mag", desc: "The user blasts the enemy with fridgid air!", threshold: 3600*9, cost: {mp: 220, msp: 20 },
+             components: [{ target: "opp", base:1580, move: "ice", desc: "%s blasted %t with a shockwave of fridgid air!", count:3 }]
          },
 
          thundershock:
@@ -532,9 +542,23 @@
 
          purgatory:
          {
-             name: "Purgatory", cost: {mp:628, sp: 30, msp: 125}, exp: "mag", threshold: 3600*5,
+             name: "Purgatory", cost: {mp:628, sp: 30, msp: 235}, exp: "mag", threshold: 3600*5,
              desc: "Calls upon a greater holy power to slay the casters enemies.",
              components: [{ target: "opp", base: 810, move: "light", desc: "%s invokes purgatory! %t was crushed by the holy aura!", count:7 }]
+         },
+
+         revel:
+         {
+             name: "Holy Revelation", cost: {mp:1400, sp: 70, msp: 325}, exp: "mag", threshold: 3600*9,
+             desc: "The casters enemies are harmed by holy revelations.",
+             components: [{ target: "opp", base: 810, move: "light", desc: "%s invokes purgatory! %t was crushed by the holy aura!", count:7 }]
+         },
+
+         holylight:
+         {
+             name: "Holy Light", cost: {mp:2400, sp: 110, msp: 425}, exp: "mag", threshold: 3600*32,
+             desc: "The caster brings down a divine and holy light upon their enemies.",
+             components: [{ target: "opp", base: 3310, move: "light", desc: "%s calls forth a powerful spell that brings rays of light down from the sky! %t was pierced by the light rays!", count:10 }]
          },
 
 
@@ -643,45 +667,58 @@
          psyburst:
          {
              name: "Psycho Burst", exp: "psy", desc: "The user concentrates psychic energy and uses it to attack.", cost: { msp: 8 }, threshold: 60*5,next: ["psyshock"],
-             components: [{ target: "opp", base: 10, move: "psychic", desc: "%s unleashed a burst of psychic energy against %t!", count: 1}]
+             components: [{ target: "opp", base: 25, move: "psychic", desc: "%s unleashed a burst of psychic energy against %t!", count: 1}]
          },
 
          psyshock:
          {
              name: "Psycho Shock", exp: "psy", desc: "The user concentrates psychic energy and unleashes it in a shockwave.", cost: { msp: 20 }, threshold: 60*15, next: ["psyslice", 'hyperfocus'],
-             components: [{ target: "opp", base: 25, move: "psychic", desc: "%s unleashed a shockwave of psychic energy towards %t!", count: 1}]
+             components: [{ target: "opp", base: 55, move: "psychic", desc: "%s unleashed a shockwave of psychic energy towards %t!", count: 1}]
          },
 
          hyperfocus:
          {
              name: 'Hyperfocus', exp: 'men', desc: 'The user improves their focus to regain mental stamina', cost: {sp: 30}, threshold: 60*20,
-             components: [{ target: "self", base: 25, move: "boostmsp", desc: "%s gained a state of higher focus!", count: 1}]
+             components: [{ target: "self", base: 54, move: "boostmsp", desc: "%s gained a state of higher focus!", count: 1}]
          },
 
          psyslice:
          {
              name: "Psycho Slice", exp: "psy", desc: "The user concentrates psychic energy into a wedge and unleashes it.", cost: { msp: 40 }, threshold: 60*35, next: ["psyblast", "blackout"],
-             components: [{ target: "opp", base: 45, move: "psychic", desc: "%s unleashed a blade of psychic energy towards %t!", count: 1}]
+             components: [{ target: "opp", base: 145, move: "psychic", desc: "%s unleashed a blade of psychic energy towards %t!", count: 1}]
          },
 
          psyblast:
          {
              name: "Psycho Blast", exp: "psy", desc: "The user unleashes a blast of psychic energy", cost: { msp: 80 }, threshold: 60*45,
-             components: [{ target: "opp", base: 155, move: "psychic", desc: "%s blasted %t with psychic energy!", count: 1}]
+             components: [{ target: "opp", base: 320, move: "psychic", desc: "%s blasted %t with psychic energy!", count: 1}]
+         },
+
+         neur:
+         {
+             name: "Neuroticism", exp: "psy", desc: "The user unleashes a blast of psychic energy", cost: { msp: 80 }, threshold: 60*45,
+             components: [{ target: "opp", base: 320, move: "psychic", desc: "%s blasted %t with psychic energy!", count: 1}]
+
          },
 
          blackout:
          {
              name: "Blackout", desc: "The user unleashes a large of psychic energy which hits multiple enemies.", cost: { msp: 95 }, exp:"psy", next: ["blackmind"], threshold: 60*45,
              components: [{ desc: "%s unleashed a storm of psychic energy!" },
-                          { target: "opp", base: 85, move: "psychic", desc: "%t was caught in the flux!", count: 3}]
+                          { target: "opp", base: 285, move: "psychic", desc: "%t was caught in the flux!", count: 3}]
          },
 
          blackmind:
          {
              name: "Black Mind", desc: "The user unleashes a terrible flux of psychic energy.", cost: { msp: 198 }, threshold: 60*78,
              components: [{ desc: "%s unleashed a terrible flux of psychic energy!" },
-                          { target: "opp", base: 175, move: "psychic", desc: "%t was caught in the flux!", count: 5}]
+                          { target: "opp", base: 380, move: "psychic", desc: "%t was caught in the flux!", count: 5}]
+         },
+
+         hyster:
+         {
+             name: "Hysteria", desc: "The user unleashes a hysteric flux of psychic energy.", cost: { msp: 198 }, threshold: 60*78,
+             components: [{ target: "opp", base: 670, move: "psychic", desc: "%s unleashed a terrible flux of psychic energy! %t was caught in the flux!", count: 5}]
          },
 
          shadows:

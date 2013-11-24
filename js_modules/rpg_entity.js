@@ -198,7 +198,13 @@
          //e.offense = Math.floor(e.power / 10000 * (100 + this.equipAtk(e.lhand) + this.equipAtk(e.rhand)));
          //e.defense = Math.floor(e.power / 10000 * (100 + this.equipDef(e.lhand)/2 + this.equipDef(e.rhand)/2 + this.equipDef(e.body) + this.equipDef(e.feet) + this.equipDef(e.head) + this.equipDef(e.back)));
      },
-
+/*
+     entityReadyStats:
+     function (e)
+     {
+       e.
+     },
+     */
      initializeEntity: function (e)
      {
          var base = 100;

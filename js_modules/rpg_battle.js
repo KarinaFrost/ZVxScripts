@@ -370,6 +370,9 @@
 
                  else this.util.shuffle(targets);
 
+
+                 var maxcount = count;
+
                  var struck = [];
 
                  if (count > 0)
@@ -390,20 +393,22 @@
                          {
                              dmgParts.push(String(Math.round(damage[x4])) + " " + x4.toUpperCase());
                          }
-
-                         struck.push(targets[x3].name + " ("+dmgParts.join(", ") + ")");
+                         if (dmgParts.length) struck.push(targets[x3].name + " ("+dmgParts.join(", ") + ")");
+                         else struck.push(targets[x3].name);
 
                          try
                          {
+                             var q = Object.keys(damage);
                              for (x4 in damage)
                              {
                                  var etype = DAMAGECONV[x4];
 
-                                 if (targets[x3].type == "player") if (etype) battle.tracker[targets[x3].name.toLowerCase()][etype] = nn(battle.tracker[targets[x3].name.toLowerCase()][etype] || 0) + nn(Math.abs(damage[x4] || 0));
+                                 if (targets[x3].type == "player") if (etype) battle.tracker[targets[x3].name.toLowerCase()][etype] = nn(battle.tracker[targets[x3].name.toLowerCase()][etype] || 0) + nn(10/q.length);
 
                                  if (ctx.move.exp && attacker.type == "player")
                                  {
-                                     battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] = (battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] || 0) + Math.abs(Math.pow(cmp.base,2)/damage[x4] ||0);
+                                     battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] = (battle.tracker[attacker.name.toLowerCase()][ctx.move.exp] || 0) +
+                                         Math.abs(10*0.8*cmp.base/damage[x4] ||0);
                                  }
 
                              }

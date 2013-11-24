@@ -447,7 +447,7 @@
      function (comp, move, attacker, target)
      {
          var x, offenseObj = this.offenseClasses[comp.offense || this.componentClasses[comp.move].offense].call(this, {attacker: attacker, move: move, base: comp.base, component: comp}),
-         offense = offenseObj.offense, qmult = offenseObj.qmult, defense = this.defenseClasses[comp.defense || (comp.move && this.componentClasses[comp.move].defense) || "general"].call(this, {target: target, component: comp}), damage = this.calcDamage.call(this, {offense:offense, defense: defense, qmult: qmult, component: comp}), damageObj = this.damageClasses[comp.damage || (this.componentClasses[comp.move] || {}).damage || "normal"]({damage: damage, target: target});
+         offense = offenseObj.offense, qmult = offenseObj.qmult, defense = this.defenseClasses[comp.defense || (comp.move && this.componentClasses[comp.move].defense) || "general"].call(this, {target: target, component: comp}), damage = this.calcDamage.call(this, {offense:offense, defense: defense, qmult: qmult, component: comp}), damageObj = this.damageClasses[comp.damage || (this.componentClasses[comp.move] || {}).damage || "normal"]({damage: damage, target: target, component: comp, qmult: qmult});
          // defense classes
 
          //print(JSON.stringify([damage, damageObj, offense, defense, qmult]));
