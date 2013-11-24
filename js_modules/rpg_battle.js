@@ -531,6 +531,8 @@
                      var roundnum = 0;
                      var eroundnum = pl.round;
 
+                     pl.round = 0;
+
                      for (x2 = 0; x2 < eroundnum && x2 < 100; x2++) roundnum++;
                      for (; x2 < eroundnum && x2 < 50; x2++) roundnum += 2/3;
                      for (; x2 < eroundnum && x2 < 100; x2++) roundnum += 1/2;
