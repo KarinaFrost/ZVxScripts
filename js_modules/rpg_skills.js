@@ -139,6 +139,18 @@
              components: [{target: "opp", base: 14, move: "physical", desc: "%s bit %t!", count:1}]
          },
 
+
+
+
+         // Player skills
+
+         attack:
+         {
+             name: "Attack", element: "physical", exp: "res", next: ["psyburst", "heal", "shadows", "punch", "thundershock", "snowb", "diswave", "darkstrike" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
+             desc: "A basic attack",
+             components: [{ target: "opp", base:5, offense: "general", defense: "general", desc: "%s attacked %t!", count:1 }]
+         },
+
          diswave:
          {
              name: "Distortion Wave", cost: {msp: 2}, threshold: 3600/2, next: ["disbrk"],
@@ -180,16 +192,6 @@
              name: "Distortion Explosion", threshold: 3600*14,
              cost: {msp: 16}, next: [],
              components: [{target: "opp", base: 904, move: "magical", desc: "%s released an explosion of distortion energy! It struk %t!", count:4}]
-         },
-
-
-         // Player skills
-
-         attack:
-         {
-             name: "Attack", element: "physical", exp: "res", next: ["psyburst", "heal", "shadows", "punch", "thundershock", "snowb" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
-             desc: "A basic attack",
-             components: [{ target: "opp", base:5, offense: "general", defense: "general", desc: "%s attacked %t!", count:1 }]
          },
 
          fireb:
@@ -784,27 +786,39 @@
 
          hellrain:
          {
-             name: "Hell's Rain", exp: "mag", desc: "A terrible downpour of pure darkness enroaches the battlefield!", cost: {mp:20, msp:5}, threshold: 60*20, next: ["hellstorm", "darkpulse"],
+             name: "Hell's Rain", exp: "mag", desc: "A terrible downpour of pure darkness enroaches the battlefield!", cost: {mp:20, msp:5}, threshold: 60*20, next: ["hellstorm"],
              components: [{ target: "opp", base: 65, move: "ghost", desc: "%t was caught in the dark rain!", count: 5},{ target: "ally", base: 25, move: "ghost", desc: "%t was caught in the dark rain!", count: 2}]
 
          },
 
+         darkstrike:
+         {
+             name: "Dark Strike", exp: "mag", desc: "An evil strike", cost: { mp: 10, sp:5, msp:2}, next:  ["darkbash"],  threshold: 60*10,
+             components: [{ target: "opp", base: 25, move: "dark", defense: "physical", desc: "%s uses dark energy to strike %t!", count: 1}]
+         },
+
+         darkbash:
+         {
+             name: "Dark Bash", exp: "mag", desc: "Bases the opponent with dark energy.", cost: { mp: 30, sp: 10, msp:2}, next:  ["darkpulse"],  threshold: 60*10,
+             components: [{ target: "opp", base: 70, move: "dark", defense: "physical", desc: "%s bashed %t with dark energy!", count: 1}]
+         },
+
          darkpulse:
          {
-             name: "Dark Pulse", exp: "mag", desc: "A pulse of evil energy injures a foe.", cost: { mp: 35, msp:15}, next:  ["darkblitz"],
-             components: [{ target: "opp", base: 165, move: "dark", desc: "%t was blasted by %s's evil energy!", count: 1}]
+             name: "Dark Pulse", exp: "mag", desc: "A pulse of evil energy injures a foe.", cost: { mp: 35, msp:15}, next:  ["darkblitz"], threshold: 60*35,
+             components: [{ target: "opp", base: 120, move: "dark", desc: "%t was blasted by %s's evil energy!", count: 1}]
          },
 
          darkblitz:
          {
-             name: "Dark Blitz", exp: "mag", desc: "Weapons made from shadows injure your enemy.", cost: { mp: 35, msp:15}, next:  ["diswave", "darkstorm"],  threshold: 60*30,
-             components: [{ target: "opp", base: 165, move: "dark", defense: "physical", desc: "Dark weapons called by %s fall from the sky and fall upon %t!", count: 1}]
+             name: "Dark Blitz", exp: "mag", desc: "Weapons made from shadows injure your enemy.", cost: { mp: 135, msp:15}, next:  ["darkstorm"],  threshold: 60*45,
+             components: [{ target: "opp", base: 270, move: "dark", defense: "physical", desc: "Dark weapons called by %s fall from the sky and fall upon %t!", count: 1}]
          },
 
          darkstorm:
          {
-             name: "Dark Storm", exp: "mag", desc: "Darkness falls from the sky.", cost: { mp: 35, msp:15}, next:  [],  threshold: 60*30,
-             components: [{ target: "opp", base: 165, move: "dark", desc: "Dark energy falls from the sky and injures %t!", count: 1}]
+             name: "Dark Storm", exp: "mag", desc: "Darkness falls from the sky.", cost: { mp: 335, msp:30}, next:  [],  threshold: 3600,
+             components: [{ target: "opp", base: 680, move: "dark", desc: "Dark energy falls from the sky and injures %t!", count: 1}]
          },
 
 
