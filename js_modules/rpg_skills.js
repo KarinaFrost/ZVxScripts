@@ -146,15 +146,23 @@
 
          attack:
          {
-             name: "Attack", element: "physical", exp: "res", next: ["psyburst", "heal", "shadows", "punch", "thundershock", "snowb", "diswave", "darkstrike" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
+             name: "Attack", element: "physical", exp: "res", next: ["psyburst", "heal", "shadows", "punch", "thundershock", "snowb", "disspr", "darkstrike" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
              desc: "A basic attack",
              components: [{ target: "opp", base:5, offense: "general", defense: "general", desc: "%s attacked %t!", count:1 }]
+         },
+
+         disspr:
+         {
+             name: "Distortion Spirit", cost: {msp: 1}, threshold: 60*10, next: ["diswave"],
+             components: [{target: "opp", base: 10, move: "magical", desc: "%s hit %t with a distortion energy!", count:1}]
+
          },
 
          diswave:
          {
              name: "Distortion Wave", cost: {msp: 2}, threshold: 3600/2, next: ["disbrk"],
              components: [{target: "opp", base: 14, move: "magical", desc: "%s blasted %t with a distortion wave!", count:1}]
+
          },
 
          disbrk:
