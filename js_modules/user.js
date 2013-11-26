@@ -105,7 +105,7 @@
 
 
          declMajor("User", ["CHAT"]);
-         declMajor("Registered", ["LIST[BANS]", "LIST[MUTES]", "INFO[GROUPS]", "INFO[AUTH]", "CHANNEL[MODERATE]", "CHANNEL[REGISTER]"], "User");
+         declMajor("Registered", ["LIST[BANS]", "LIST[MUTES]", "INFO[GROUPS]", "INFO[AUTH]", "CHANNEL[MODERATE]", "CHANNEL[REGISTER]", "RPG[PLAY]"], "User");
          declMajor("Moderator", ["CHANNEL[*]", "KICK", "LOGS[CHAT]", "LOGS[INFO]", "MUTE", "INFO[IP]", "PROTECTED"], "Registered");
          declMajor("Administrator", ["BAN", "AUTH[0]", "AUTH[1]"], "Moderator");
          declMajor("Owner", ["LOGS[*]", "AUTH[*]", "SILENT", "INVISIBLE", "OVERRIDE", "INFO[*]", "CONFIGURE[MOTD.MESSAGE]", "CONFIGURE[ANNOUNCEMENT.TEXT]"],  "Administrator");
