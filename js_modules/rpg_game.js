@@ -190,10 +190,7 @@
      {
          category: "fun/rpg",
          desc: "Enter an RPG command!",
-         perm: function ()
-         {
-             return true;
-         },
+         perm: "RPG[PLAY]",
          code: function (src, cmd, chan)
          {
              if (!this.channels[chan])
