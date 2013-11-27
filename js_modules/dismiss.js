@@ -15,7 +15,7 @@
          {
 
              this.com.message(src, "Dismissed the announcement.");
-             sys.setAnnouncement("\0", src);
+             sys.setAnnouncement(" ", src);
          }
 
 
