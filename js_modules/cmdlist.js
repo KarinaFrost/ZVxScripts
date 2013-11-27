@@ -83,9 +83,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 return cmpstr(cmds[a].category, cmds[b].category);
             }
 
-            print(cmdtab);
+            //print(cmdtab);
             cmdtab.sort(catsort);
-            print(cmdtab);
+            //print(cmdtab);
 
             var lastcat = null;
 

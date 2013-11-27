@@ -23,10 +23,13 @@
  *
  */
 ({
-     /** The ZSrX Function is an faster resource undemanding version of JSON.stringify. It has some limitations, in general, it ignores edge cases.
+     /** The ZSrX Function is an faster resource undemanding version of JSON.stringify. It has some limitations, in general, it ignores certian edge cases JSON handles.
+      * @param inst Instance to be stringified
+      * @param {Boolean} ordered If object keys should be rearranged to be ordered in the output.
+      * @param {Array} rules Context rules functions.
       *
       */
-     zsrx: function (inst)
+     zsrx: function (inst, ordered, rules, noindent)
      {
          var olist = [];
          var strlt = [];
@@ -40,6 +43,17 @@
 
          function srsz (variant)
          {
+
+             var x, result;
+             if (rules) for (x in rules)
+             {
+                 result = rules[x](variant);
+                 if (result.status == this.NORMAL) continue;
+                 if (result.status == this.SKIP) { return void strlt.push('null'); }
+                 if (result.status == this.REPLACE) { return void srsz(result.reply); }
+             }
+
+
              if (typeof variant == "number") strlt.push(JSON.stringify(variant));
 
              else if (typeof variant == "string") strlt.push(JSON.stringify(variant));
@@ -99,28 +113,50 @@
                  dstr += " "; // indent
 
                  olist.push(variant);
-                 for (var x in variant)
+                 if (!ordered)
                  {
-                     if (variant[x] === undefined || typeof variant[x] == "function") continue;
+                     for (var x in variant)
+                     {
+                         if (variant[x] === undefined || typeof variant[x] == "function") continue;
 
-                     strlt.push(dstr + JSON.stringify(x) + ": ");
+                         strlt.push(dstr + JSON.stringify(x) + ": ");
 
-                     srsz(variant[x]);
+                         srsz(variant[x]);
 
-                     strlt.push(",\n");
+                         strlt.push(",\n");
+                     }
+
                  }
+                 else
+                 {
+                     var k = Object.keys(variant);
+                     k.sort();
+
+                     for (var i in k)
+                     {
+                         var x = k[i];
+                         strlt.push(dstr + JSON.stringify(x) + ": ");
+
+                         srsz(variant[x]);
+
+                         strlt.push(",\n");
+                     }
+                 }
+
+
                  olist.pop();
+
 
                  if (strlt[strlt.length-1] === ",\n") strlt.pop(); // remove trailing comma
 
                  dstr = dstr.substring(1); // unindent
 
-                 strlt.push("\n"+dstr+"}");
+                 return void strlt.push("\n"+dstr+"}");
              }
 
-             else if (typeof variant === "boolean") strlt.push(""+variant);
+             else if (typeof variant === "boolean") return void strlt.push(""+variant);
 
-             else strlt.push("null");
+             else return void strlt.push("null");
 
 
 
@@ -128,8 +164,7 @@
          }
 
 
-
-         srsz(inst);
+         void srsz(inst);
 
          if (strlt[strlt.length-1] == "]\n")
          {
@@ -145,6 +180,9 @@
 
 
          return flashstr.join("") + strlt.join("");
-     }
+     },
 
-})
+     SKIP: new Object,
+     REPLACE: new Object,
+     NORMAL: new Object
+ });

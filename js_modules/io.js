@@ -226,7 +226,8 @@
          var end;
          if (dbname in this.openDBs)
          {
-             return this.openDBs[dbname].db;
+             throw new Error("DB already open!");
+             //return this.openDBs[dbname].db;
          }
          var db, patches, dbo, dataText;
 
@@ -300,9 +301,13 @@
          } catch (_) {}
          // this.logs.logMessage(this.logs.IO, "Opened database " + dbname + ", took " + (end - start) + "ms.");
 
+         db.__proto__ = DATABASE.prototype;
+         
          return db;
      }
      ,
+     DATABASE: new Function,
+
      /** Writes all changes to file */
      flushDB: function (dbname)
      {

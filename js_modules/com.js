@@ -75,19 +75,27 @@
 
      },
 
-     send: function (users, msg, chans, msgclass)
+     PermClass:
+     function (params)
      {
-         var classes = msgclass.split(/\//g);
 
-         var sendtext =
-             ({
-                  "html": function (m) {return m;},
+     },
 
-                  "notify": function (m)
-                  {
-                      return "&#x200e;<font color=blue><timestamp /><b>~Script~:</b> " + this.text.escapeHTML(msg)+ "&#x200e;";
-                  }
-              })[classes[0]];
+     /* Send datums.
+      *
+      */
+     send:
+     function (users, block)
+     {
+         var x;
+
+         users = this.util.arrayify(users);
+         users = this.util.concatSets(users);
+         users.sort();
+
+         for (x in users)
+
+
      },
 
      notify: function (users, msg, chans)

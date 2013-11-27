@@ -728,16 +728,34 @@
 
          psyblast:
          {
-             name: "Psycho Blast", exp: "psy", desc: "The user unleashes a blast of psychic energy", cost: { msp: 80 }, threshold: 60*45,
+             name: "Psycho Blast", exp: "psy", desc: "The user unleashes a blast of psychic energy", cost: { msp: 80 }, threshold: 60*45, next: ["neur"],
              components: [{ target: "opp", base: 320, move: "psychic", desc: "%s blasted %t with psychic energy!", count: 1}]
          },
 
          neur:
          {
-             name: "Neuroticism", exp: "psy", desc: "The user unleashes a blast of psychic energy", cost: { msp: 80 }, threshold: 60*45,
-             components: [{ target: "opp", base: 320, move: "psychic", desc: "%s blasted %t with psychic energy!", count: 1}]
-
+             name: "Neurotic Energy", exp: "psy", desc: "The user unleashes a neurotic wave of psychic energy.", cost: { msp: 270 }, threshold: 60,
+             components: [{ target: "opp", base: 790, move: "psychic", desc: "%s attacked %t with neurotic psychic energy!", count: 1}], next: ["psyc"]
          },
+
+         psyc:
+         {
+             name: "Psychotic Energy", exp: "psy", desc: "The user unleashes a psychotic wave of psychic energy.", cost: { msp: 680 }, threshold: 60*3,
+             components: [{ target: "opp", base: 1500, move: "psychic", desc: "%s attacked %t with psychotic psychic energy!", count: 1}], next: ["polar"]
+         },
+
+         polar:
+         {
+             name: "Polar Strike", exp: "psy", desc: "The user distorts the targets mind by influencing them towards manic-depressive thoughts.", cost: { msp: 1680 }, threshold: 60*24,
+             components: [{ target: "opp", base: 3200, move: "psychic", desc: "%s attacked %t with polar psychic energy!", count: 1}], next: ["schis"]
+         },
+
+         schis:
+         {
+             name: "Psychic Schism", exp: "psy", desc: "The user distorts the targets mind by influencing them towards a split personality.", cost: { msp: 3580 }, threshold: 60*230,
+             components: [{ target: "opp", base: 5100, move: "psychic", desc: "%s brought down psychic energy on %t which causes a terrible headache!", count: 1}]
+         },
+
 
          blackout:
          {
@@ -748,9 +766,14 @@
 
          blackmind:
          {
-             name: "Black Mind", desc: "The user unleashes a terrible flux of psychic energy.", cost: { msp: 198 }, threshold: 60*78,
+             name: "Black Mind", desc: "The user unleashes a terrible flux of psychic energy.", cost: { msp: 198 }, threshold: 60*78, next: ["hyster"],
              components: [{ desc: "%s unleashed a terrible flux of psychic energy!" },
                           { target: "opp", base: 380, move: "psychic", desc: "%t was caught in the flux!", count: 5}]
+         },
+
+         panic:
+         {
+
          },
 
          hyster:
