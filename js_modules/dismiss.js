@@ -1,5 +1,5 @@
 ({
-     require: ["commands"],
+     require: ["commands", "com"],
 
      meta:
      {
