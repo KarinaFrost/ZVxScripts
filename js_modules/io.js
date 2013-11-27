@@ -301,8 +301,8 @@
          } catch (_) {}
          // this.logs.logMessage(this.logs.IO, "Opened database " + dbname + ", took " + (end - start) + "ms.");
 
-         db.__proto__ = DATABASE.prototype;
-         
+         db.__proto__ = this.DATABASE.prototype;
+
          return db;
      }
      ,
@@ -333,7 +333,7 @@
 
          var start = +new Date;
 
-         var newData = this.zsrx.zsrx(this.openDBs[dbname].db);
+         var newData = this.zsrx.zsrx(this.openDBs[dbname].db, true, [this.skipDBs]);
 
          if (newData === this.openDBs[dbname].dataText) return;
 
