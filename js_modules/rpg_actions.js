@@ -397,6 +397,14 @@
                          this.com.message([src, pl.src],  "Leave your battles first before PvP!", this.theme.RPG, false, chan);
                          return;
                      }
+
+                     if (pl.area != ctx.player.area)
+                     {
+                         this.com.message([src, pl.src],  "You must be in the same area to PvP!", this.theme.RPG, false, chan);
+                         return;
+                     }
+
+
                      this.com.message([pl.src, src], "Started battle between " + pl.name + " and " + ctx.player.name + "!", this.theme.RPG, false, chan);
 
                      delete pl.chall;
