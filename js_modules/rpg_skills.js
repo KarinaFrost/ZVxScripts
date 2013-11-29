@@ -734,39 +734,39 @@
 
          neur:
          {
-             name: "Neurotic Energy", exp: "psy", desc: "The user unleashes a neurotic wave of psychic energy.", cost: { msp: 270 }, threshold: 60,
+             name: "Neurotic Energy", exp: "psy", desc: "The user unleashes a neurotic wave of psychic energy.", cost: { msp: 270 }, threshold: 3600,
              components: [{ target: "opp", base: 790, move: "psychic", desc: "%s attacked %t with neurotic psychic energy!", count: 1}], next: ["psyc"]
          },
 
          psyc:
          {
-             name: "Psychotic Energy", exp: "psy", desc: "The user unleashes a psychotic wave of psychic energy.", cost: { msp: 680 }, threshold: 60*3,
+             name: "Psychotic Energy", exp: "psy", desc: "The user unleashes a psychotic wave of psychic energy.", cost: { msp: 680 }, threshold: 3600*3,
              components: [{ target: "opp", base: 1500, move: "psychic", desc: "%s attacked %t with psychotic psychic energy!", count: 1}], next: ["polar"]
          },
 
          polar:
          {
-             name: "Polar Strike", exp: "psy", desc: "The user distorts the targets mind by influencing them towards manic-depressive thoughts.", cost: { msp: 1680 }, threshold: 60*24,
+             name: "Polar Strike", exp: "psy", desc: "The user distorts the targets mind by influencing them towards manic-depressive thoughts.", cost: { msp: 1680 }, threshold: 3600*24,
              components: [{ target: "opp", base: 3200, move: "psychic", desc: "%s attacked %t with polar psychic energy!", count: 1}], next: ["schis"]
          },
 
          schis:
          {
-             name: "Psychic Schism", exp: "psy", desc: "The user distorts the targets mind by influencing them towards a split personality.", cost: { msp: 3580 }, threshold: 60*230,
+             name: "Psychic Schism", exp: "psy", desc: "The user distorts the targets mind by influencing them towards a split personality.", cost: { msp: 3580 }, threshold: 3600*230,
              components: [{ target: "opp", base: 5100, move: "psychic", desc: "%s brought down psychic energy on %t which causes a terrible headache!", count: 1}]
          },
 
 
          blackout:
          {
-             name: "Blackout", desc: "The user unleashes a large of psychic energy which hits multiple enemies.", cost: { msp: 95 }, exp:"psy", next: ["blackmind"], threshold: 60*45,
+             name: "Blackout", desc: "The user unleashes a large of psychic energy which hits multiple enemies.", cost: { msp: 95 }, exp:"psy", next: ["blackmind"], threshold: 3600*45,
              components: [{ desc: "%s unleashed a storm of psychic energy!" },
                           { target: "opp", base: 285, move: "psychic", desc: "%t was caught in the flux!", count: 3}]
          },
 
          blackmind:
          {
-             name: "Black Mind", desc: "The user unleashes a terrible flux of psychic energy.", cost: { msp: 198 }, threshold: 60*78, next: ["hyster"],
+             name: "Black Mind", desc: "The user unleashes a terrible flux of psychic energy.", cost: { msp: 198 }, threshold: 3600*78, next: ["hyster"],
              components: [{ desc: "%s unleashed a terrible flux of psychic energy!" },
                           { target: "opp", base: 380, move: "psychic", desc: "%t was caught in the flux!", count: 5}]
          },
@@ -778,13 +778,13 @@
 
          hyster:
          {
-             name: "Hysteria", desc: "The user unleashes a hysteric flux of psychic energy.", cost: { msp: 198 }, threshold: 60*78,
+             name: "Hysteria", desc: "The user unleashes a hysteric flux of psychic energy.", cost: { msp: 198 }, threshold: 3600*3,
              components: [{ target: "opp", base: 670, move: "psychic", desc: "%s unleashed a terrible flux of psychic energy! %t was caught in the flux!", count: 5}]
          },
 
          shadows:
          {
-             name: "Shadows", exp: "mag",  desc: "A terrible shadow attacks the enemy!", cost: {mp: 10, msp:5}, threshold: 60*5, next:["blackfog"],
+             name: "Shadows", exp: "mag",  desc: "A terrible shadow attacks the enemy!", cost: {mp: 10, msp:5}, threshold: 60*7, next:["blackfog"],
              components: [{ target: "opp", base: 25, move: "ghost", desc: "%t was caught by shadows controlled by %s!", count: 1}]
          },
 
