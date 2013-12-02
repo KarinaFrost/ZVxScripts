@@ -107,7 +107,7 @@
 
              if (m[0] == "%")
              {
-                 m = this.commands.augment(m, src, chan);
+                 m = this.commands.augment(m.substring(1), src, chan);
              }
 
              for (var x in this.filters)
