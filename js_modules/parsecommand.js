@@ -131,7 +131,7 @@
                  for (var x in cmd.flags)
                  {
                      if (cmd.flags[x] === true) output.push("--" + x+";");
-                     else if (cmd.flags[x].match(/[:;"]|--/)) output.push("--" + "="+ cmd.flags[x].replace(/\\/g, "\\\\"));
+                     else if (!cmd.flags[x].match(/[:;"]|--/)) output.push("--" + "="+ cmd.flags[x].replace(/\\/g, "\\\\"));
                      else output.push("--" + x + ":\"" +  cmd.flags[x].replace(/\\/g, "\\\\").replace(/"/g, "\\\"") + "\";");
 
                  }
