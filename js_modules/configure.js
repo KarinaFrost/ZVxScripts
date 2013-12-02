@@ -30,7 +30,7 @@
 
      configure:
      {
-         mode: "strict",
+         mode: "lazy",
          server: true,
          category: "administrative",
 
