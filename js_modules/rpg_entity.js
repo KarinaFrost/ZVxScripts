@@ -182,6 +182,7 @@
          e.maxhp = Math.floor(    100*(0.172/3600*e.res + 5.5*Math.log(e.res/3600 + 1))   );
          e.maxsp = Math.floor(    100*(0.172/3600*e.sta + 5.5*Math.log(e.sta/3600 + 1))   );
          e.maxmp = Math.floor(    100*(0.172/3600*e.mag + 5.5*Math.log(e.mag/3600 + 1))   );
+         e.maxmsp = Math.floor(    100*(0.172/3600*e.men + 5.5*Math.log(e.men/3600 + 1))   );
          e.maxlp = Math.floor(    100*(0.08/3600*e.spr + 5.5*Math.log(e.spr/3600 + 1))   );
 
 
