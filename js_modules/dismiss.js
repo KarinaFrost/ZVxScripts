@@ -9,6 +9,7 @@
      dismiss:
      {
          category: "basic",
+	 desc: "Dissmiss the announcement.",
          perm: function () {return true;},
          code:
          function (src, cmd, chan)
