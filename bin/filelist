@@ -18,6 +18,7 @@ js_modules/constdata.js
 js_modules/crypto.js
 js_modules/default.js
 js_modules/die.js
+js_modules/dismiss.js
 js_modules/dmp.js
 js_modules/donate.js
 js_modules/download.js
