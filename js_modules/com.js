@@ -61,7 +61,7 @@
 
                  for ( x2 in chans) cnames.push(sys.channel(chans[x2]));
                  if (usrs[x1] == 0) print("[#" + cnames.join(", #")+"] "+this.text.stripHTML(fmt_msg));
-                 else for (var x2 in chans)
+                 else for (x2 in chans)
                  {
                      sys.sendHtmlMessage(usrs[x1], fmt_msg, chans[x2]);
                  }
@@ -81,19 +81,44 @@
 
      },
 
+     ALL: new Object,
+
      /* Send datums.
       *
       */
      send:
-     function (users, block)
+     function (users, dgram)
      {
-         var x;
+         var x, uclass, rqclass, dgclass, user;
+
+
+
+         dgclass = this.datagramRegistry[dgram.type];
+
+         if (users === this.ALL) users = this.user.users();
+
+         else users = this.util.arrayify(users);
 
          users = this.util.arrayify(users);
          users = this.util.concatSets(users);
          users.sort();
 
          for (x in users)
+         {
+             user = users[x];
+             if (typeof user == typeof String() || typeof user == typeof Number())
+             {
+                 if (user == 0) // server
+                 {
+                     uclass = "server";
+                 }
+                 else
+                 {
+                     rqclass = this.user.userConfig(user).dataGramClass;
+                     if (rqclass != "default") uclass = rqclass;
+                 }
+             }
+         }
 
 
      },
@@ -156,7 +181,7 @@
          {
              var t = this.user.users();
 
-             for (var x in t)
+             for (x in t)
              {
                  usrs[t[x]] = null;
              }
@@ -166,7 +191,7 @@
 
          if (!chans)
          {
-             for (var x in usrs)
+             for (x in usrs)
              {
                  sys.sendHtmlMessage(usrs[x], fmt_msg );
              }

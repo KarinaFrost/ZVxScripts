@@ -30,6 +30,7 @@
 
      configure:
      {
+         mode: "strict",
          server: true,
          category: "administrative",
 

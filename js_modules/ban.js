@@ -33,6 +33,7 @@
       * */
      unbanall:
      {
+         mode: "strict",
          server: true,
          category: "security/ban",
          desc: "Clears the ban list",
@@ -53,6 +54,7 @@
 
      unban:
      {
+         mode: "strict",
          server: true,
          category: "security/ban",
          desc: "Removes bans from users",
@@ -79,6 +81,7 @@
 
      ban:
      {
+         mode: "strict",
          server: true,
          category: "security/ban",
          desc:  "Ban prevents users from joining the server. Can ban usernames, IPs, regular expressions, or subnets. Users with PROTECTED permission are not affecte by bans.",
@@ -194,6 +197,7 @@
 
      banlist:
      {
+         mode: "strict",
          server: true,
          category: "security/ban",
          desc: "Lists banned users",

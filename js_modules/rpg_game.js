@@ -188,6 +188,7 @@
      /** @type commandDescriptor */
      rpg: // not to be confused with "RPG"
      {
+         mode: "lazy",
          category: "fun/rpg",
          desc: "Enter an RPG command!",
          perm: "RPG[PLAY]",
@@ -253,6 +254,7 @@
      /** @type commandDescriptor */
      loadrpg:
      {
+         mode: "lazy",
          desc: "Loads an RPG into a channel.",
          category: "administrative/rpg",
          perm: "RPG[ADMIN]",

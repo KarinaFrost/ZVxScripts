@@ -40,12 +40,111 @@
  */
 /** @scope script.modules.parsecommand */
 ({
-     require: [],
+     require: ["text"],
 
      hotswap: true,
 
      parsers:
      {
+         standard:
+         {
+
+             parse:
+             function (text, src, cobj)
+             {
+
+
+
+                 var cmd = new Object, match = text.match(/^(?:!|\/)([^\s]*)(?:\s+(.*))?/i);
+
+                 cmd.args = [];
+                 cmd.flags = {};
+
+                 if (!match) return cmd;
+
+                 cmd.name = match[1];
+                 cmd.input = match[2];
+
+
+                 var input = cmd.input;
+
+                 if (!input) return cmd;
+
+
+                 var that = this;
+//
+                 while (input != (input =
+			         input.replace(/^(?:(?:-{2}(\w+)(?:(?:=((?:\\(?:\\|;|%)|[^;\- \\]| (?!-{2})|-(?!-))+))|:"((?:[^"\\]|\\")*)")?)|((?:[^;\- =\?%\\":]|\\[;\\])(?:[^;\- \\]|-(?!-)| (?!-{2})|\\[;-\\])*)|"((?:[^"\\]|\\")*)"|::(.*$)|;| |(.+$))/, cl_next))
+		        //                                     ^flagname                  ^flagvalstr        ^flagvalueraw                  ^argvalstr          ^argvalraw             ^postinput
+                       ) {};
+
+
+
+                 function cl_next (text, flagname, flagvalueraw, flagvaluestr, argvalueraw, argvaluestr, postinput, fatal)
+                 {
+                     if (postinput)
+                     {
+                         cmd.postinput = postinput;
+                     }
+                     else if (flagname)
+                     {
+                         var f = ((flagvaluestr ? flagvaluestr: void 0) || flagvalueraw);
+
+                         if (f) cmd.flags[flagname] = f;//.replace(/\\(.)/g, "$1");
+                         else cmd.flags[flagname] = true;
+                     }
+                     else if (argvaluestr || argvalueraw)
+                     {
+                         cmd.args.push(((argvaluestr !== undefined ? argvaluestr: void 0) || argvalueraw));
+                     }
+
+                     else if (fatal)
+                     {
+                         cmd.error = "Unexpected input at position " + (cmd.input.length - input.length) + ": " + cmd.input;
+                         cmd.errorhtml = "Unexpected input at position " + (cmd.input.length - input.length) + ": <b>" + that.text.escapeHTML(cmd.input.substring(0, cmd.input.length - input.length)) + "<font color=red>" + that.text.escapeHTML(cmd.input.substring(cmd.input.length - input.length)) + "</font></b>";
+
+                         cmd.args = [];
+                         cmd.flags = {};
+                     }
+
+                     return "";
+                 }
+
+                 if (input)
+                 {
+
+                 }
+
+                 return cmd;
+             },
+
+             unparse:
+             function (cmd)
+             {
+                 var output = [];
+                 for (var x in cmd.args)
+                 {
+                     if (cmd.args[x].match(/[:;"]|--/)) output.push("\"" + cmd.args[x].replace(/\\/g, "\\\\").replace(/"/g, "\\\"")+"\";");
+                     else output.push(cmd.args[x]+";");
+                 }
+
+                 for (var x in cmd.flags)
+                 {
+                     if (cmd.flags[x] === true) output.push("--" + x+";");
+                     else if (cmd.flags[x].match(/[:;"]|--/)) output.push("--" + "="+ cmd.flags[x].replace(/\\/g, "\\\\"));
+                     else output.push("--" + x + ":\"" +  cmd.args[x].replace(/\\/g, "\\\\").replace(/"/g, "\\\"") + "\";");
+
+                 }
+
+                 if(cmd.postinput)
+                 {
+                     output.push("::" + cmd.postinput);
+                 }
+
+                 return output.join(" ");
+             }
+         },
+
          optargs:
          {
              parse:

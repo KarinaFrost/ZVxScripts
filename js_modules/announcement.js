@@ -44,6 +44,7 @@
 
      announcement:
      {
+         mode: "lazy",
          category: "alias",
          server: true,
          desc: "Shortcut for /configure announcement.text .",

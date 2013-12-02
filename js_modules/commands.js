@@ -99,7 +99,7 @@
 
      userConfiguration: function (conf)
      {
-         if (!conf.commandParser || !(conf.commandParser in this.parsecommand.parsers)) conf.commandParser = "optargs";
+         if (!conf.commandParser || !(conf.commandParser in this.parsecommand.parsers)) conf.commandParser = "standard";
      },
 
 
@@ -241,6 +241,12 @@
              return;
          }
 
+         if (cmd.errorhtml && cmd_obj.mode != "lazy")
+         {
+             this.com.message(src, "Parser Error: " + cmd.errorhtml, this.theme.warn, true, chan);
+             if (cmd_obj.mode == "strict") return;
+         }
+
          try
          {
              var retval = cmd_obj.code.call(cmd_obj.bind, src, cmd, chan, (perm === true ? void 0 : perm));
@@ -270,7 +276,17 @@
       */
      issueCommand: function(src, text, chan)
      {
-         var cmd = this.parsecommand.parsers[this.user.userConfig(src).commandParser].parse(text);
+         var cmd = this.parsecommand.parsers[this.user.userConfig(src).commandParser].parse.call(this.parsecommand, text), x;
+
+         for (x in cmd.args)
+         {
+             cmd.args[x] = this.augment(cmd.args[x], src, chan, true);
+         }
+
+         for (x in cmd.flags) if (typeof cmd.flags[x] == typeof String())
+         {
+             cmd.flags[x] = this.augment(cmd.flags[x], src, chan, true);
+         }
 
          this.logs.logMessage(this.logs.COMMAND, (chan == -1 ? "[N/A] " : "[#"+sys.channel(chan)+"] ") + this.user.name(src) + ": " + text);
 
@@ -286,5 +302,70 @@
                  this.registerCommand(md.meta.commands[x], md);
              }
          }
+     },
+
+     augment:
+     function (text, src, chan, iscmd)
+     {
+         if (typeof text != typeof String()) return text;
+         var nt = text.split(/\\%/g), x, t;
+
+         function pid(r1, r2)
+         {
+             var n = this.user.name(r2);
+
+             if (n) return n;
+
+             return "?";
+         }
+         /*
+          function query(r1, r2)
+          {
+          if (!this.user.hasPerm(src, "EVAL"))
+          {
+          return "[%q{...}: Permission Denied: EVAL permission is required to use %q(...)]";
+          }
+
+          try
+          {
+          var f = new Function(r2);
+          } catch (e)
+          {
+
+          }
+          }*/
+
+         function evalp(r1, r2)
+         {
+             if (typeof src == typeof undefined || !this.user.hasPerm(src, "EVAL"))
+             {
+                 return "[%eval{{...}}: Permission Denied: EVAL permission is required to use %eval{{...}}]";
+             }
+
+             var t = "";
+
+             try
+             {
+                 t = JSON.stringify(eval(r2.replace(/\\(.)/g, "$1")));
+             }
+             catch (e)
+             {
+                 t = e;
+             }
+
+             return t;
+         }
+
+
+         for (x in nt)
+         {
+             nt[x] = nt[x].replace(/%p\[(\d+)\]/g, pid);
+             nt[x] = nt[x].replace(/%eval\{{2}((?:\\\}{2}|[^\]\\])+)\}{2}/g, evalp);
+             if (iscmd) nt[x] = nt[x].replace(/\\./g, "$1");
+         }
+
+         return nt.join("%");
      }
+
+
  });

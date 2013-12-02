@@ -25,7 +25,7 @@
 
      eval:
      {
-
+	 mode: "lazy",
          category: "system/eval",
          desc: "Executes code. Shows the resut.",
          perm: "EVAL",
@@ -52,7 +52,7 @@
 
      keys:
      {
-
+         mode: "lazy",
          category: "system/eval",
          desc: "Executes code. Shows the keys of the result.",
          perm: "EVAL",
@@ -79,7 +79,7 @@
 
      inspect:
      {
-
+         mode: "strict",
          category: "system/eval",
          desc: "Executes code as postinput. Shows the result, with any options.",
          options:
@@ -112,7 +112,7 @@
 
      json:
      {
-
+         mode: "lazy",
          category: "system/eval",
          desc: "Executes code. Shows the result as JSON if possible.",
          perm: "EVAL",

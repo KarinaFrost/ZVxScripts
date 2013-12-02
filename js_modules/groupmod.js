@@ -31,6 +31,7 @@
 
      usermod:
      {
+         mode: "strict",
          server: true,
 	 category: "administrative",
          desc: "Adds or removes users from MajorGroups.",
@@ -120,6 +121,7 @@
 
      permmod:
      {
+         mode: "strict",
          server: true,
          category: "administrative",
          desc: "Modifies MinorGroups directly. Normally you will want to use MajorGroups instead of this command. As each change is manual, this command can make your server difficult to manage.",

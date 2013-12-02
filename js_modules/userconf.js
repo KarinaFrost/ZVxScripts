@@ -31,6 +31,7 @@
 
      userconf:
      {
+         mode: "strict",
          server: true,
          perm: true,
          category: "basic",

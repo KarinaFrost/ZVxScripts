@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     unmuteall:
     {
+        mode: "strict",
         server:true,
         category: "security/mute",
         desc: "Clear the mute list"
@@ -46,6 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     ,
     unmute:
     {
+        mode: "strict",
         server: true,
         category: "security/mute",
         desc: "Remove mute(s) from user(s)",
@@ -67,6 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     ,
     mute:
     {
+        mode: "strict",
         server:true,
         desc: "Mute prevents users from talking in the main chat. Can mute usernames, IPs, regular expressions, or subnets. Users with PROTECTED permission are not affecte by mutes.",
         options:
@@ -173,6 +176,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     ,
     mutelist:
     {
+        mode: "strict",
         server:true,
         category: "security/mute",
         perm: "LIST[MUTES]",

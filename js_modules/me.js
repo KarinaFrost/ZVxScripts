@@ -30,9 +30,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     ,
     "me":
     {
+        mode: "lazy",
         server: true,
         category: "fun",
-        
+
         desc: "Says something"
         ,
         perm: function(src)

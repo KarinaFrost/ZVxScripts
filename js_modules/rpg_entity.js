@@ -138,7 +138,7 @@
 
      totalStats: function (e)
      {
-         return this.nn(e.str+e.res+e.sta + e.mag+e.men+e.psy+e.spd);
+         return this.nn(e.str+e.res+e.sta + e.mag+e.men+e.psy+e.spd+e.spr);
      },
 
      entityUpdateStats: function (e)
@@ -182,7 +182,7 @@
          e.maxhp = Math.floor(    100*(0.172/3600*e.res + 5.5*Math.log(e.res/3600 + 1))   );
          e.maxsp = Math.floor(    100*(0.172/3600*e.sta + 5.5*Math.log(e.sta/3600 + 1))   );
          e.maxmp = Math.floor(    100*(0.172/3600*e.mag + 5.5*Math.log(e.mag/3600 + 1))   );
-         e.maxmsp = Math.floor(    100*(0.172/3600*e.men + 5.5*Math.log(e.men/3600 + 1))   );
+         e.maxlp = Math.floor(    100*(0.08/3600*e.spr + 5.5*Math.log(e.spr/3600 + 1))   );
 
 
          /*e.physpower =  Math.floor((Math.log(e.str/3600 + 1) * this["1/ln(1.2)"] + e.str * this["1/3600*0.1"])*100);
@@ -223,6 +223,7 @@
          e.mp = e.maxmp;
          e.msp = e.maxmsp;
          e.sp = e.maxsp;
+         e.lp = e.maxlp;
 
      },
 
