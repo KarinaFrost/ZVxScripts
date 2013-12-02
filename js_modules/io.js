@@ -333,7 +333,7 @@
 
          var start = +new Date;
 
-         var newData = this.zsrx.zsrx(this.openDBs[dbname].db, true, [this.skipDBs]);
+         var newData = this.zsrx.zsrx(this.openDBs[dbname].db, true/* [this.skipDBs]*/);
 
          if (newData === this.openDBs[dbname].dataText) return;
 
