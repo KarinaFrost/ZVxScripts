@@ -310,9 +310,10 @@
          if (typeof text != typeof String()) return text;
          var nt = text.split(/\\%/g), x, t;
 
+         var that = this;
          function pid(r1, r2)
          {
-             var n = this.user.name(r2);
+             var n = that.user.name(r2);
 
              if (n) return n;
 
@@ -337,7 +338,7 @@
 
          function evalp(r1, r2)
          {
-             if (typeof src == typeof undefined || !this.user.hasPerm(src, "EVAL"))
+             if (typeof src == typeof undefined || !that.user.hasPerm(src, "EVAL"))
              {
                  return "[%eval{{...}}: Permission Denied: EVAL permission is required to use %eval{{...}}]";
              }
