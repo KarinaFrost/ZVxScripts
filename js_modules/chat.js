@@ -105,6 +105,11 @@
 
              var m = msg;
 
+             if (m[0] == "%")
+             {
+                 m = this.commands.augment(m, src, chan);
+             }
+
              for (var x in this.filters)
              {
                  m = this.filters[x](src, msg, chan);
@@ -138,68 +143,8 @@
          loadModule: function loadModule ()
          {
              this.script.registerHandler("beforeChatMessage", this);
-         },
-
-
-         augment:
-         function (text, src, chan, iscmd)
-         {
-             var nt = text.split(/\\%/g), x, t;
-
-             function pid(r1, r2)
-             {
-                 var n = this.user.name(r2);
-
-                 if (n) return n;
-
-                 return "?";
-             }
-             /*
-              function query(r1, r2)
-              {
-              if (!this.user.hasPerm(src, "EVAL"))
-              {
-              return "[%q{...}: Permission Denied: EVAL permission is required to use %q(...)]";
-              }
-
-              try
-              {
-              var f = new Function(r2);
-              } catch (e)
-              {
-
-              }
-              }*/
-
-             function evalp(r1, r2)
-             {
-                 if (typeof src == typeof undefined || !this.user.hasPerm(src, "EVAL"))
-                 {
-                     return "[%eval{{...}}: Permission Denied: EVAL permission is required to use %eval{{...}}]";
-                 }
-
-                 var t = "";
-
-                 try
-                 {
-                     t = JSON.stringify(eval(r2.replace(/\\(.)/g, "$1")));
-                 }
-                 catch (e)
-                 {
-                     t = e;
-                 }
-
-                 return t;
-             }
-
-
-             for (x in nt)
-             {
-                 nt[x] = nt[x].replace(/%p\[(\d+)\]/g, pid);
-                 nt[x] = nt[x].replace(/%eval\{{2}((?:\\\}{2}|[^\]\\])\}{2}/g, evalp);
-                 if (iscmd) nt[x] = nt[x].replace(/\\./g, "$1");
-             }
-
-             return nt.join("%");
          }
+
+
+
      };})();
