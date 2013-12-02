@@ -362,7 +362,7 @@
          {
              nt[x] = nt[x].replace(/%p\[(\d+)\]/g, pid);
              nt[x] = nt[x].replace(/%eval\{{2}((?:\\\}{2}|[^\]\\])+)\}{2}/g, evalp);
-             if (iscmd) nt[x] = nt[x].replace(/\\./g, "$1");
+             nt[x] = nt[x].replace(/\\./g, "$1");
          }
 
          return nt.join("%");
