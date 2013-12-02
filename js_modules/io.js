@@ -248,7 +248,7 @@
 
              this.logs.logMessage(this.logs.IO, "Applying patches to database " + dbname);
 
-             dataText = this.zsrx.zsrx(db, null, 1);
+             dataText = this.zsrx.zsrx(db, null);
 
              patches = sys.read("js_databases/" + dbname + ".jsqz.transactions").split(/\n/g);
 
