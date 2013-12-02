@@ -112,7 +112,7 @@
 
              for (var x in this.filters)
              {
-                 m = this.filters[x](src, msg, chan);
+                 m = this.filters[x](src, m, chan);
 
                  if (!m) break;
              }
