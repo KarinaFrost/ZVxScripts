@@ -195,7 +195,7 @@
          darkforest9:
          {
              name: "Dark Forest [black dirt]", desc: "Something tells you this place is dangerous.",
-             adjc: [{area:"darkforest10", distance: 40}, {area:"darkforest8", distance: 90}],
+             adjc: [{area:"darkforest10", distance: 40}, {area:"darkforest8", distance: 90}, {area:"gate1", distance: 70}],
              battle: [{min:1, max:2, mob: "lshell", prob: 0.7}, {min:0, max:2, mob: "oshell", prob: 0.5}]
          },
 
@@ -376,6 +376,37 @@
                  ironore: 0.5
              },
              mobs: [{prob: 1, mobs:["slimed"]}]
+         },
+
+         gate1:
+         {
+             name: "Cornerian Gate", desc: "The gate to the country of Corneria.", adjc: [{"city1north", distance:60}, {"darkforest9", distance:70}],
+             digs:
+             {
+                 ironore: 0.5
+             },
+             mobs: [{prob: 1, mobs:["warrior"]}]
+         },
+
+         city1north:
+         {
+             name: "Andrath - North", desc: "The northern road in Andrath, lined with ancient looking buildings.", adjc: [{"gate1", distance:60}, {"city1", distance:10}],
+             digs:
+             {
+                 ironore: 0.5
+             },
+             mobs: [{prob: 1, mobs:["rouge", "rouge"]}]
+         },
+
+
+         city1:
+         {
+             name: "Andrath - Center", desc: "The heart of Cornerica, the captial city of Andrath.", adjc: [{"city1north", distance:10}],
+             digs:
+             {
+                 ironore: 0.5
+             },
+             mobs: [{prob: 7, mobs:["rouge"]}, {prob: 1, mobs:["priest", "warrior", "mage"]}]
          },
 
 
