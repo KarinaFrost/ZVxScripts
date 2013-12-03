@@ -192,6 +192,23 @@
              return defense;
          },
 
+         wind:
+         function(ctx)
+         {
+             var defense = ctx.target.defpower;
+
+             if (ctx.target.attr && ctx.target.attr.flying)
+             {
+                 defense /= 2;
+             }
+             if (ctx.target.attr && ctx.target.attr.grounded)
+             {
+                 defense *= 2;
+             }
+
+             return defense;
+         },
+
          fire:
          function(ctx)
          {
@@ -310,6 +327,12 @@
              var damage = Math.round(ctx.damage/2);
 
              return { hp: -damage, mp: -damage };
+         },
+
+         wind:
+         function (ctx)
+         {
+             return { sp: -ctx.damage };
          },
 
          nullify:
