@@ -146,7 +146,7 @@
 
          attack:
          {
-             name: "Attack", element: "physical", exp: "res", next: ["psyburst", "heal", "shadows", "punch", "thundershock", "snowb", "disspr", "darkstrike" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
+             name: "Attack", element: "physical", exp: "res", next: ["psyburst", "heal", "shadows", "punch", "thundershock", "snowb", "disspr", "darkstrike", "springbrz" /*, "thundershock", "shadows", "toxin", "blades"*/], threshold: 0,
              desc: "A basic attack",
              components: [{ target: "opp", base:5, offense: "general", defense: "general", desc: "%s attacked %t!", count:1 }]
          },
@@ -328,6 +328,80 @@
              desc: "A storm of plasma.",
              components: [{ target: "opp", base:2120, offense: "magical", defense: "electric", desc: "%s summoned a plasma storm that zapped and burned %t!", count:1 }]
          },
+
+         springbrz:
+         {
+             name: "Spring Breeze", cost: {mp: 5}, exp: "mag", next: ["galewind"], threshold: 60/2, attr: {air: true},
+             desc: "The user summons a magic wind to tire the enemy.",
+             components: [{ target: "opp", base:20, move: "wind", desc: "%s conjured a pecuiliar wind! %t!", count:5 }]
+
+         },
+
+         galewind:
+         {
+             name: "Gale Wind", cost: {mp: 25}, exp: "mag", next: ["airblast"], threshold: 60*5, attr: {air: true},
+             desc: "The use calls up a stronger wind to tire the enemy..",
+             components: [{ target: "opp", base:60, move: "wind", desc: "%s calls a stronger wind! %t!", count:5 }]
+
+         },
+
+         airblast:
+         {
+             name: "Air Blast", cost: {mp: 20}, exp: "mag", next: ["windblade"], threshold: 60*10, attr: {air: true},
+             desc: "The user hurls a magic ball of wind at a single enemy.",
+             components: [{ target: "opp", base:140, move: "wind", desc: "%s throws a ball of magic air at %t!", count:1 }]
+
+         },
+
+         windblade:
+         {
+             name: "Wind Blade", cost: {mp: 40}, exp: "mag", next: ["vacuum"], threshold: 60*20, attr: {air: true},
+             desc: "Attack the enemy with the draining winds condensed into a sword.",
+             components: [{ target: "opp", base:220, move: "wind", desc: "%s slashed at %t with the wind blade!", count:1 }]
+
+         },
+
+         vacuum:
+         {
+             name: "Wind Vacuum", cost: {mp: 100}, exp: "mag", next: ["tornado"], threshold: 60*50, attr: {air: true},
+             desc: "Pull in and tire the enemy out with a powerful vacuum.",
+             components: [{ target: "opp", base:820, move: "wind", desc: "%s pulled %t in with a powerful vacuum!", count:5 }]
+
+         },
+
+         tornado:
+         {
+             name: "Tornado", cost: {mp: 295}, exp: "mag", next: ["hurricane"], threshold: 3600, attr: {air: true},
+             desc: "Summon nature's wrath in the form of the draining winds.",
+             components: [{ target: "opp", base:1220, move: "wind", desc: "%t got caught in a mighty tornado", count:5 }]
+
+         },
+
+         hurricane:
+         {
+             name: "Hurricane", cost: {mp: 540}, exp: "mag", next: ["windtunnel"], threshold: 3600*2, attr: {air: true},
+             desc: "When a tornado doesn't cut it, use a hurricane!.",
+             components: [{ target: "opp", base:2650, move: "wind", desc: "%t was trapped inside a magic hurricane!", count:5 }]
+
+         },
+
+         windtunnel:
+         {
+             name: "Wind Tunnel", cost: {mp: 480}, exp: "mag", next: ["jetstream"], threshold: 3600*3, attr: {air: true},
+             desc: "Employ winds beyond hurricane speed in a tunnel at an enemy.",
+             components: [{ target: "opp", base:2950, move: "wind", desc: "%t was blown apart by a wind tunnel!", count:1 }]
+
+         },
+
+         jetstream:
+         {
+             name: "Jet Stream", cost: {mp: 640}, exp: "mag", next: ["jetstream"], threshold: 3600*10, attr: {air: true},
+             desc: "Winds at the speed of sound storm two enemies.",
+             components: [{ target: "opp", base:3550, move: "wind", desc: "%t was blown apart by a wind tunnel!", count:2 }]
+
+         },
+        
+         
 /*
          bomb:
          {
@@ -442,7 +516,6 @@
          kick:
          {
              name: "Kick", cost: {sp:8, msp:2}, exp: "str", next: ["superkick"], threshold: 60*5,
-
              desc: "The user kicks their enemy.",
              components: [{ target: "opp", base:20, move: "physical", desc: "%s kicked %t!", count:1 }]
 
