@@ -33,6 +33,7 @@
 
      items:
      {
+	 /*Others*/
 	 goo:
          {
              name: "Goo Lump"
@@ -49,8 +50,12 @@
              name:"Destiny Gem"
          },
 
+         dragonsoul:
+         {
+             name:"Dragon Soul"
+         },
 
-         /* METALS */
+	 /* METALS */
          ironore:
          {
              name: "Iron Ore",
@@ -75,26 +80,83 @@
          silverore:
          {
              name: "Silver Ore",
-             material: "tin",
+             material: "silver",
              base: 2
          },
 
-         tiore:
+         titanore:
          {
              name: "Titanium Ore",
              material: "ti",
              base: 2
          },
-
+         
          tinore:
          {
              name: "Tin Ore",
              material: "tin",
              base: 2
          },
+         
+	/*Gems*/
+         udiamond:
+         {
+             name: "Uncut Diamond",
+             material: "diamond",
+             base: 2
+         },
+         
+         cdiamond:
+         {
+             name: "Cut Diamond",
+             material: "diamond",
+             base: 4
+         },
+
+         uruby:
+         {
+             name: "Uncut Ruby",
+             material: "ruby",
+             base: 2
+         },
+
+         cruby:
+         {
+             name: "Cut Ruby",
+             material: "ruby",
+             base: 4
+         },
+
+         usapp:
+         {
+             name: "Uncut Sapphire",
+             material: "sapp",
+             base: 2
+         },
+
+         csapp:
+         {
+             name: "Cut Sapphire",
+             material: "sapp",
+             base: 4
+         },
+
+         uemerald:
+         {
+             name: "Uncut Emerald",
+             material: "emerald",
+             base: 2
+         },
+
+         cemerald:
+         {
+             name: "Cut Emerald",
+             material: "emerald",
+             base: 4
+         },
 
 
-
+	 /*Others*/
 
          shroomcap:
          {
@@ -104,6 +166,11 @@
          testfeather:
          {
              name: "Chicken Feather"
+         }
+
+         squirreltail:
+         {
+             name: "Squirrel Tail"
          }
      }
  });
