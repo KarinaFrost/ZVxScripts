@@ -135,9 +135,17 @@
 
          fangs:
          {
-             name: "Fangs", cost: {sp: 8}, threshold: 100,
+             name: "Fangs", cost: {sp: 8}, threshold: 100, desc: "Use your teeth to bite something." 
              components: [{target: "opp", base: 14, move: "physical", desc: "%s bit %t!", count:1}]
          },
+         
+         dragonfangnpc:
+         {/* Mob Version, Why the Cost is lower is because well, it's a dragon biting, not a human channelimng that strength.*/
+             name: "Dragon Fang", cost: {sp: 308}, threshold: 100,
+             components: [{target: "opp", base: 3120, move: "physical", desc: "%s bit %t!", count:1}]
+         },
+         
+        
 
 
 
@@ -150,7 +158,8 @@
              desc: "A basic attack",
              components: [{ target: "opp", base:5, offense: "general", defense: "general", desc: "%s attacked %t!", count:1 }]
          },
-
+         
+         /*Distortion*/
          disspr:
          {
              name: "Distortion Spirit", cost: {msp: 1}, threshold: 60*10, next: ["diswave"],
@@ -201,7 +210,8 @@
              cost: {msp: 16}, next: [],
              components: [{target: "opp", base: 904, move: "magical", desc: "%s released an explosion of distortion energy! It struk %t!", count:4}]
          },
-
+         
+         /*Fire*/
          fireb:
          {
              name: "Fireball", element: "fire", exp: "mag", desc: "The user fires an extra cold snowball at the enemy!", cost: { mp: 5, sp:5, msp:1 }, threshold: 60*10,
@@ -209,7 +219,8 @@
 
 
          },
-
+         
+         /*Ice*/
          snowb:
          {
              name: "Snowball", element: "ice", exp: "mag", desc: "The user fires an extra cold snowball at the enemy!", cost: { mp: 5, sp:5, msp:1 }, threshold: 60*10,
@@ -217,7 +228,7 @@
 
 
          },
-
+       
          snowdr:
          {
              name: "Snow Drift", element: "ice", exp: "mag", desc: "The user brings snow upon thy enemies!", cost: { mp: 15, msp: 3 }, threshold: 60*15, next: ["icecl"],
@@ -238,14 +249,12 @@
              name: "Ice Ball", element: "ice", exp: "mag", desc: "The user throws a ball of ice at thy foes!", threshold: 60*45, cost: {mp: 80, msp: 5 },
              components: [{ target: "opp", base:140, move: "ice", desc: "%s threw an ice ball at %t!", count:1 }], next: ["chwave"]
 
-
          },
 
          chwave:
          {
              name: "Chilly Wave", element: "ice", exp: "mag", desc: "The user attacks their enemies with cold air!", threshold: 60*60, cost: {mp: 120, msp: 10 },
              components: [{ target: "opp", base:220, move: "ice", desc: "%s sent frigid air at %t!", count:3 }], next: ["arcpulse"]
-
 
          },
 
@@ -272,7 +281,7 @@
              name: "Blizzard", element: "ice", exp: "mag", desc: "The user blasts the enemy with hail, snow, and rain!", threshold: 3600*24, cost: {mp: 820, msp: 30 },
              components: [{ target: "opp", base:2880, move: "ice", desc: "%s summoned a terrible blizzard that chilled %t!", count:5 }]
          },
-
+         /*Electric*/
          thundershock:
          {
 
@@ -327,21 +336,106 @@
              name: "Plasma Storm", cost: {mp:950, msp:90}, exp: "mag",  threshold: 3600*9,  attr: {air: true},
              desc: "A storm of plasma.",
              components: [{ target: "opp", base:2120, offense: "magical", defense: "electric", desc: "%s summoned a plasma storm that zapped and burned %t!", count:1 }]
+         },         
+         
+         /*Wind*/
+         springbrz:
+         {
+             name: "Spring Breeze", cost: {mp: 5}, exp: "mag", next: ["galewind"], threshold: 60/2, attr: {air: true},
+             desc: "The user summons a magic wind to tire the enemy.",
+             components: [{ target: "opp", base:20, move: "wind", desc: "%s conjured a pecuiliar wind! %t!", count:5 }]
+
          },
+
+         galewind:
+         {
+             name: "Gale Wind", cost: {mp: 25}, exp: "mag", next: ["airblast"], threshold: 60*5, attr: {air: true},
+             desc: "The use calls up a stronger wind to tire the enemy..",
+             components: [{ target: "opp", base:60, move: "wind", desc: "%s calls a stronger wind! %t!", count:5 }]
+
+         },
+
+         airblast:
+         {
+             name: "Air Blast", cost: {mp: 20}, exp: "mag", next: ["windblade"], threshold: 60*10, attr: {air: true},
+             desc: "The user hurls a magic ball of wind at a single enemy.",
+             components: [{ target: "opp", base:140, move: "wind", desc: "%s throws a ball of magic air at %t!", count:1 }]
+
+         },
+
+         windblade:
+         {
+             name: "Wind Blade", cost: {mp: 40}, exp: "mag", next: ["vacuum"], threshold: 60*20, attr: {air: true},
+             desc: "Attack the enemy with the draining winds condensed into a sword.",
+             components: [{ target: "opp", base:220, move: "wind", desc: "%s slashed at %t with the wind blade!", count:1 }]
+
+         },
+
+         vacuum:
+         {
+             name: "Wind Vacuum", cost: {mp: 100}, exp: "mag", next: ["tornado"], threshold: 60*50, attr: {air: true},
+             desc: "Pull in and tire the enemy out with a powerful vacuum.",
+             components: [{ target: "opp", base:820, move: "wind", desc: "%s pulled %t in with a powerful vacuum!", count:5 }]
+
+         },
+
+         tornado:
+         {
+             name: "Tornado", cost: {mp: 295}, exp: "mag", next: ["hurricane"], threshold: 3600, attr: {air: true},
+             desc: "Summon nature's wrath in the form of the draining winds.",
+             components: [{ target: "opp", base:1220, move: "wind", desc: "%t got caught in a mighty tornado", count:5 }]
+
+         },
+
+         hurricane:
+         {
+             name: "Hurricane", cost: {mp: 540}, exp: "mag", next: ["windtunnel"], threshold: 3600*2, attr: {air: true},
+             desc: "When a tornado doesn't cut it, use a hurricane!.",
+             components: [{ target: "opp", base:2650, move: "wind", desc: "%t was trapped inside a magic hurricane!", count:5 }]
+
+         },
+
+         windtunnel:
+         {
+             name: "Wind Tunnel", cost: {mp: 480}, exp: "mag", next: ["jetstream"], threshold: 3600*3, attr: {air: true},
+             desc: "Employ winds beyond hurricane speed in a tunnel at an enemy.",
+             components: [{ target: "opp", base:2950, move: "wind", desc: "%t was blown apart by a wind tunnel!", count:1 }]
+
+         },
+
+         jetstream:
+         {
+             name: "Jet Stream", cost: {mp: 640}, exp: "mag", next: [" "], threshold: 3600*10, attr: {air: true},
+             desc: "Winds at the speed of sound storm two enemies.",
+             components: [{ target: "opp", base:3550, move: "wind", desc: "%t was blown apart by a wind tunnel!", count:2 }]
+
+         },
+         
+          /*Water*/
+
+         watergun:
+         {
+             name: "Water Gun", cost: {mp: 6}, exp: "mag", next: [" "], threshold: 60*5,
+             desc: "Blast an enemy with water.",
+             components: [{ target: "opp", base:10, move: "water", desc: "%t got water shot at them!", count:1 }]
+
+         },
+         
+        
 /*
          bomb:
          {
              name: "Bomb", cost: { mp: 15, sp: 5 }, exp: "mag",
          },
   */
-
+ /*Bombs*/
          bombs:
          {
              name: "Bombs", cost: {sp:15, mp:15},
              components: [{ target: "opp", base: 136, offense: "magical", defense: "fire", desc: "%s dropped bombs on %t!", count:1 }]
          },
 
-
+/*Physical*/
          punch:
          {
              name: "Punch", cost: {sp:5, msp:1}, exp: "str", next: ["kick", "superpunch"], threshold: 60*5,
@@ -438,11 +532,11 @@
              desc: "The user punches their enemy with shadows.",
              components: [{ target: "opp", base:107, offense: "physical", defense: "ghost", damage:"ghost", desc: "%s punched %t with a ghostly punch!", count:1 }]
          },
-
+         
+         /*Kicks*/
          kick:
          {
              name: "Kick", cost: {sp:8, msp:2}, exp: "str", next: ["superkick"], threshold: 60*5,
-
              desc: "The user kicks their enemy.",
              components: [{ target: "opp", base:20, move: "physical", desc: "%s kicked %t!", count:1 }]
 
@@ -451,7 +545,6 @@
          superkick:
          {
              name: "Super Kick", cost: {sp:16, msp:2}, exp: "str", next: ["sweep"], threshold: 60*5,
-
              desc: "The user kicks their enemy.",
              components: [{ target: "opp", base:35, move: "physical", desc: "%s kicked %t!", count:1 }]
 
@@ -459,13 +552,54 @@
 
          sweep:
          {
-             name: "Sweeping Kick", cost: {sp:16, msp:2}, exp: "str", next: ["grndsweep"], threshold: 60*5,
-
+             name: "Sweeping Kick", cost: {sp:16, msp:2}, exp: "str", next: ["grndsweep", "risingkick"], threshold: 60*5,
              desc: "The user kicks their enemies with a spinning flourish.",
              components: [{ target: "opp", base:35, move: "physical", desc: "%s kicked %t!", count:2 }]
 
          },
+         
+         /*Skyward Kicks*/
+         risingkick:
+         {
+             name: "Rising Kick", cost: {sp:17, msp:5}, exp: "str", next: ["grndsweep"], threshold: 60*5,
+             desc: "The user kicks their enemies with a spinning flourish.",
+             components: [{ target: "opp", base:55, move: "physical", desc: "%s kicked %t!", count:1 }]
 
+         },
+
+         helikick:
+         {
+             name: "Heli-Kick", cost: {sp:35, msp:12}, exp: "str", next: ["rapidkick"], threshold: 60*5,
+             desc: "The user kicks in a fashing that causes the user to propell upward while spinning.",
+             components: [{ target: "opp", base:65, move: "physical", desc: "%s kicked %t skyward!", count:2 }]
+
+         },
+
+         rapidkick:
+         {
+             name: "Rapid Kick", cost: {sp:55, msp:14}, exp: "spd", next: ["cranekick"], threshold: 60*5,
+             desc: "The user kicks in a fashing that causes the user to propell upward while spinning.",
+             components: [{ target: "opp", base:115, move: "physical", desc: "%s kicked %t skyward!", count:1 }]
+
+         },
+
+         cranekick:
+         {
+             name: "Crane Kick", cost: {sp:75, msp:19}, exp: "str", next: ["flyspkick"], threshold: 60*5,
+             desc: "A classic kick launched from the famous Crane Stance",
+             components: [{ target: "opp", base:135, move: "physical", desc: "%s kicked %t with the crane style!", count:1 }]
+
+         },
+
+         flyspkick:
+         {
+             name: "Flying Spear Kick", cost: {sp:105, msp:19}, exp: "str", next: [" "], threshold: 60*5,
+             desc: "A kick that resembles something Chun-Li uses in Street Fighter.",
+             components: [{ target: "opp", base:175, move: "physical", desc: "%s kicked %t with a impressive force.", count:1 }]
+
+         },
+         
+         /*Ground Kicks*/
          grndsweep:
          {
              name: "Groundsweeper", cost: {sp:25, msp:4}, exp: "str", next: ["grndbrk"], threshold: 60*5,
@@ -476,11 +610,28 @@
 
          grndbrk:
          {
-             name: "Groundbreak", cost: {sp:45, msp:5}, exp: "str", next: [], threshold: 60*5,
+             name: "Groundbreak", cost: {sp:45, msp:5}, exp: "str", next: ["fissurekick"], threshold: 60*5,
 
              desc: "The user uses a strong kick, tearing up even the ground.",
              components: [{ target: "opp", base:75, move: "physical", desc: "%s hit %t in a heavy sweep kick!", count: 2 }]
          },
+
+         fissurekick:
+         {
+             name: "Fissure Kick", cost: {sp:50, msp:5}, exp: "str", next: ["desertkick"], threshold: 60*5,
+
+             desc: "A kick that rips the earth up like paper.",
+             components: [{ target: "opp", base:95, move: "physical", desc: "%s tore up the earth with a single kick!! %t", count: 2 }]
+         },
+
+         desertkick:
+         {
+             name: "Desert Kick", cost: {sp:65, msp:7}, exp: "str", next: [], threshold: 60*5,
+
+             desc: "A kick that crushes earth so well, survivors say it's like a sandstorm.",
+             components: [{ target: "opp", base:115, move: "physical", desc: "%s hit %t with a spinning sweep kick that kicked up a sandstorm!", count: 2 }]
+         },
+         /*Light*/
 
          heal:
          {
@@ -495,7 +646,8 @@
              desc: "Releases a light which burns an enemy.",
              components: [{ target: "opp", base: 45, move: "light", desc: "%s released a luminous light which burns %t!", count:1 }]
          },
-
+         
+         /*Light Single Hit*/
          lightblast:
          {
              name: "Light Blast", cost: {mp: 35, sp: 5, msp: 15}, exp: "mag", threshold: 60*15, next: ["sunburst", "blitzfield"],
@@ -544,11 +696,8 @@
              desc: "A powerful magical attack that draws upon light energy to attack.",
              components: [{ target: "opp", base: 4690, move: "light", desc: "%s casts a spell which causes fire from all sides to burn %t!", count:1 }]
          },
-
-
-
-
-
+         
+         /*Light Multi-Hit*/
          blitzfield:
          {
              name: "Blitzfield", cost: {mp: 89, sp: 5, msp: 35}, exp: "mag", threshold: 60*20, next: ["hseal"],
@@ -598,8 +747,8 @@
              desc: "The caster brings down a divine and holy light upon their enemies.",
              components: [{ target: "opp", base: 3310, move: "light", desc: "%s calls forth a powerful spell that brings rays of light down from the sky! %t was pierced by the light rays!", count:10 }]
          },
-
-
+         
+         /*Group Healing*/
          healbubble:
          {
 
@@ -643,8 +792,8 @@
              components: [{ target: "ally", base: 440, move: "heal", desc: "%t was healing by the descending energy!", count: 10}]
 
          },
-
-
+         
+         /*Single Ally Healing*/
          healpulse:
          {
 
@@ -689,19 +838,22 @@
              components: [{ target: "ally", base: 670, move: "heal", desc: "A holy energy healed %t!", count: 1}]
 
          },
-
+         
+         /*Life Giving*/
          altruist:
          {
              name: "Altruist's Sacrafice", exp: "res", cost: { mp: 100, msp: 30 }, threshold: 3600*2,
              components: [/*{target: "ally", base: 850, move: "transfer"}*/]
          },
-
+         
+         /*Self Healing*/
          invigoration:
          {
              name: "Invigoration", exp: "mag", cost: {mp: 200, msp: 130}, threshold: 3600*2,
              components: [{target: "self", base: 500, move: "heal"}]
          },
-
+         
+         /*Psychic*/
          psyburst:
          {
              name: "Psycho Burst", exp: "psy", desc: "The user concentrates psychic energy and uses it to attack.", cost: { msp: 8 }, threshold: 60*5,next: ["psyshock"],
@@ -755,8 +907,8 @@
              name: "Psychic Schism", exp: "psy", desc: "The user distorts the targets mind by influencing them towards a split personality.", cost: { msp: 3580 }, threshold: 3600*230,
              components: [{ target: "opp", base: 5100, move: "psychic", desc: "%s brought down psychic energy on %t which causes a terrible headache!", count: 1}]
          },
-
-
+         
+         /*Psychic Multi-Hit*/
          blackout:
          {
              name: "Blackout", desc: "The user unleashes a large of psychic energy which hits multiple enemies.", cost: { msp: 95 }, exp:"psy", next: ["blackmind"], threshold: 3600*45,
@@ -781,15 +933,15 @@
              name: "Hysteria", desc: "The user unleashes a hysteric flux of psychic energy.", cost: { msp: 198 }, threshold: 3600*3,
              components: [{ target: "opp", base: 670, move: "psychic", desc: "%s unleashed a terrible flux of psychic energy! %t was caught in the flux!", count: 5}]
          },
-
+         
+         /*Ghost*/
          shadows:
          {
              name: "Shadows", exp: "mag",  desc: "A terrible shadow attacks the enemy!", cost: {mp: 10, msp:5}, threshold: 60*7, next:["blackfog"],
              components: [{ target: "opp", base: 25, move: "ghost", desc: "%t was caught by shadows controlled by %s!", count: 1}]
          },
-
-
-
+         
+         
          blackfog:
          {
              name: "Black Fog", exp: "mag", desc: "A black fog engulfs the enemy!", cost: {mp: 15, msp:10}, threshold: 60*10, next: ["blood", "hellrain"],
@@ -821,38 +973,7 @@
              components: [{ target: "opp", base: 65, move: "ghost", desc: "%t was caught in the dark rain!", count: 5},{ target: "ally", base: 25, move: "ghost", desc: "%t was caught in the dark rain!", count: 2}]
 
          },
-
-         darkstrike:
-         {
-             name: "Dark Strike", exp: "mag", desc: "An evil strike", cost: { mp: 10, sp:5, msp:2}, next:  ["darkbash"],  threshold: 60*10,
-             components: [{ target: "opp", base: 25, move: "dark", defense: "physical", desc: "%s uses dark energy to strike %t!", count: 1}]
-         },
-
-         darkbash:
-         {
-             name: "Dark Bash", exp: "mag", desc: "Bases the opponent with dark energy.", cost: { mp: 30, sp: 10, msp:2}, next:  ["darkpulse"],  threshold: 60*10,
-             components: [{ target: "opp", base: 70, move: "dark", defense: "physical", desc: "%s bashed %t with dark energy!", count: 1}]
-         },
-
-         darkpulse:
-         {
-             name: "Dark Pulse", exp: "mag", desc: "A pulse of evil energy injures a foe.", cost: { mp: 35, msp:15}, next:  ["darkblitz"], threshold: 60*35,
-             components: [{ target: "opp", base: 120, move: "dark", desc: "%t was blasted by %s's evil energy!", count: 1}]
-         },
-
-         darkblitz:
-         {
-             name: "Dark Blitz", exp: "mag", desc: "Weapons made from shadows injure your enemy.", cost: { mp: 135, msp:15}, next:  ["darkstorm"],  threshold: 60*45,
-             components: [{ target: "opp", base: 270, move: "dark", defense: "physical", desc: "Dark weapons called by %s fall from the sky and fall upon %t!", count: 1}]
-         },
-
-         darkstorm:
-         {
-             name: "Dark Storm", exp: "mag", desc: "Darkness falls from the sky.", cost: { mp: 335, msp:30}, next:  [],  threshold: 3600,
-             components: [{ target: "opp", base: 680, move: "dark", desc: "Dark energy falls from the sky and injures %t!", count: 1}]
-         },
-
-
+         
          hellstorm:
          {
              name: "Hellstorm", exp: "mag", desc: "A wretched downpour of pure darkness enroaches the battlefield!", cost: {mp:40, msp:15}, threshold: 60*20, next: ["helltwister"],
@@ -894,7 +1015,46 @@
              name: "7 Ghostly Pillars", exp: "mag", desc: "Pillars of the underworld are brought forth to attack.", cost: {mp: 870, msp: 60}, threshold: 3600*6,
              components: [{ target: "opp", base: 2150, move: "ghost", desc: "%s summoned 7 ghostly pillars which surrounded the enemy! The space inside became cursed and injures %t!", count: 1}]
 
-         }
+         },
+         
+         /*Dark*/
+         darkstrike:
+         {
+             name: "Dark Strike", exp: "mag", desc: "An evil strike", cost: { mp: 10, sp:5, msp:2}, next:  ["darkbash"],  threshold: 60*10,
+             components: [{ target: "opp", base: 25, move: "dark", defense: "physical", desc: "%s uses dark energy to strike %t!", count: 1}]
+         },
+
+         darkbash:
+         {
+             name: "Dark Bash", exp: "mag", desc: "Bases the opponent with dark energy.", cost: { mp: 30, sp: 10, msp:2}, next:  ["darkpulse"],  threshold: 60*10,
+             components: [{ target: "opp", base: 70, move: "dark", defense: "physical", desc: "%s bashed %t with dark energy!", count: 1}]
+         },
+
+         darkpulse:
+         {
+             name: "Dark Pulse", exp: "mag", desc: "A pulse of evil energy injures a foe.", cost: { mp: 35, msp:15}, next:  ["darkblitz"], threshold: 60*35,
+             components: [{ target: "opp", base: 120, move: "dark", desc: "%t was blasted by %s's evil energy!", count: 1}]
+         },
+
+         darkblitz:
+         {
+             name: "Dark Blitz", exp: "mag", desc: "Weapons made from shadows injure your enemy.", cost: { mp: 135, msp:15}, next:  ["darkstorm"],  threshold: 60*45,
+             components: [{ target: "opp", base: 270, move: "dark", defense: "physical", desc: "Dark weapons called by %s fall from the sky and fall upon %t!", count: 1}]
+         },
+
+         darkstorm:
+         {
+             name: "Dark Storm", exp: "mag", desc: "Darkness falls from the sky.", cost: { mp: 335, msp:30}, next:  [],  threshold: 3600,
+             components: [{ target: "opp", base: 680, move: "dark", desc: "Dark energy falls from the sky and injures %t!", count: 1}]
+         },
+         
+         /*Channeling*/
+         
+         dragonfang:
+         {
+             name: "Dragon Fangs", cost: {sp: 508, msp: 230}, threshold: 3600*15, desc: "Bite the enemy with the strengh of a dragon."
+             components: [{target: "opp", base: 2620, move: "physical", desc: "%s bit %t like a dragon!", count:1}]
+         },
 
 
          /*
