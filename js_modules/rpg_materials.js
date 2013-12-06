@@ -37,6 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     materials:
     {
+     /*woods*/
         birch:
         {
             name: "Birch Wood",
@@ -66,7 +67,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             density: 8,
             magic: 10
         },
-
+/*bone*/
         ivory:
         {
             name: "Ivory",
@@ -76,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             density: 15,
             magic: 35
         },
-
+/*dragon*/
         wdscale:
         {
             name: "White Dragon Scale",
@@ -84,6 +85,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             strength: 70,
             sharpness: 20,
             density: 15
+            magic: 30
         },
 
         wdfang:
@@ -93,6 +95,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             strength: 10,
             sharpness: 60,
             density: 20
+            magic: 40
         },
 
         firedscale:
@@ -125,12 +128,48 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         sdfang:
         {
             name: "Sky Dragon Fang",
-            type: "fang",
+            type: "bone",
             strength: 15,
             sharpness: 40,
             density: 12
         },
 
+        drdfang:
+        {
+            name: "Dark Dragon Fang",
+            type: "bone",
+            strength: 10,
+            sharpness: 60,
+            density: 3
+        },
+
+        drdscale:
+        {
+            name: "Dark Dragon Scale",
+            type: "scale",
+            strength: 40,
+            sharpness: 10,
+            density: 4
+        },
+
+        blkdfang:
+        {
+            name: "Black Dragon Fang",
+            type: "bone",
+            strength: 25,
+            sharpness: 75,
+            density: 8
+        },
+
+        blkdscale:
+        {
+            name: "Black Dragon Scale",
+            type: "scale",
+            strength:80,
+            sharpness: 15,
+            density: 8
+        },
+ /*metals*/
         iron:
         {
             name: "Iron",
@@ -216,6 +255,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         ti:
         {
             name: "Titanium",
+            type: "metal"
             strength: 90,
             sharpness: 50,
             density: 40,
@@ -232,16 +272,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             magic: 85
         }
         ,
-        diamond:
-        {
-            name: "Diamond",
-            type: "gem",
-            strength: 200,
-            sharpness: 250,
-            density: 40,
-            magic: 50
-        }
-        ,
         brass:
         {
             name: "Brass",
@@ -252,6 +282,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             magic: 5
         }
         ,
+        /*gems*/
         ruby:
         {
             name: "Ruby",
@@ -259,8 +290,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             strength: 100,
             sharpness: 250,
             density: 40
+        }//Looked up on Wikipedia, then estimated and compared to other materials. - Karina
+        ,
+        sapp:
+        {
+            name: "Sapphire",
+            type: "gem",
+            strength: 180,
+            sharpness: 170,
+            density: 40
+            magic: 90
+        }//Looked up on Wikipedia, then estimated and compared to other materials. - Karina
+        ,
+        emerald:
+        {
+            name: "Emerald",
+            type: "gem",
+            strength: 165,
+            sharpness: 150,
+            density: 30
+            magic: 40
+        }//Looked up on Wikipedia, then estimated and compared to other materials. - Karina
+        ,
+        diamond:
+        {
+            name: "Diamond",
+            type: "gem",
+            strength: 200,
+            sharpness: 200,
+            density: 40,
+            magic: 50
         }
         ,
+        /*hides*/
         leather:
         {
             name: "Leather",
@@ -279,6 +341,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             density: 22
         }
         ,
+        /*cloth*/
         cotton:
         {
             name: "Cotton",
@@ -287,6 +350,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             sharpness: 0,
             density: 3
         }
+        ,
+        /*alloys, these are mixtures containing the fictional metals. I had also sorted them.
+        The method of getting the stats is by averaging the material values with amount needed, rounded out. - Karina*/
+        wdsteel:
+        {
+            name: "W. Dragon Steel",
+            type: "metal",
+            strength: 90,
+            sharpness: 36,
+            density: 47,
+            magic: 19,
+        }
+        ,
+        blkdsteel:
+        {
+            name: "Blk. Dragon Steel",
+            type: "metal",
+            strength: 96,
+            sharpness: 36,
+            density: 43,
+            magic: 1,
+        }
+        ,
     }
 
 });
